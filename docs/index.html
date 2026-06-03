@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Дорожная карта будущего — личное пространство-время</title>
+  <title>Дорожная карта будущего — Life Design</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,1151 +13,557 @@
   <script>
     tailwind.config = {
       darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-            display: ['Manrope', 'Inter', 'sans-serif'],
-          },
-          colors: {
-            night: { 900: '#060912', 800: '#0A0F1E', 700: '#111829', 600: '#19223A' },
-          },
-          boxShadow: {
-            'glow-teal': '0 0 24px rgba(45, 212, 191, 0.40)',
-            'glow-violet': '0 0 24px rgba(167, 139, 250, 0.45)',
-            'glow-amber': '0 0 26px rgba(251, 191, 36, 0.45)',
-          },
+      theme: { extend: {
+        fontFamily: { sans: ['Inter','system-ui','sans-serif'], display: ['Manrope','Inter','sans-serif'] },
+        colors: { night: { 900:'#070B14', 800:'#0C1220', 700:'#131B2C', 600:'#1B2438' } },
+        boxShadow: {
+          'glow-teal':'0 0 22px rgba(45,212,191,0.40)',
+          'glow-violet':'0 0 22px rgba(167,139,250,0.45)',
+          'glow-amber':'0 0 24px rgba(251,191,36,0.45)',
         },
-      },
+      }},
     };
   </script>
-
   <style>
-    html, body { font-family: 'Inter', sans-serif; background: #060912; color: #E5E7EB; }
-    .font-display { font-family: 'Manrope', sans-serif; }
+    html, body { font-family:'Inter',sans-serif; background:#070B14; color:#E5E7EB; margin:0; }
+    .font-display { font-family:'Manrope',sans-serif; }
+    .grain { background-image: radial-gradient(rgba(255,255,255,0.012) 1px, transparent 1px); background-size:3px 3px; }
+    .glass { background: rgba(12,18,32,0.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border:1px solid rgba(255,255,255,0.07); }
+    .glass-strong { background: rgba(12,18,32,0.82); backdrop-filter: blur(16px); border:1px solid rgba(255,255,255,0.10); }
+    ::-webkit-scrollbar { width:7px; height:7px; }
+    ::-webkit-scrollbar-thumb { background:rgba(100,116,139,0.28); border-radius:4px; }
+    .thin-scroll::-webkit-scrollbar { width:6px; }
+    .thin-scroll::-webkit-scrollbar-thumb { background:rgba(100,116,139,0.22); border-radius:3px; }
 
-    .grain { background-image: radial-gradient(rgba(255,255,255,0.012) 1px, transparent 1px); background-size: 3px 3px; }
-
-    /* Deep-space backdrop — nebulae, no flat dashboard feel */
-    .space-bg {
-      background:
-        radial-gradient(ellipse at 50% 120%, rgba(124, 58, 237, 0.16), transparent 55%),
-        radial-gradient(ellipse at 12% 8%, rgba(45, 212, 191, 0.07), transparent 45%),
-        radial-gradient(ellipse at 88% 14%, rgba(251, 191, 36, 0.06), transparent 45%),
-        #060912;
-    }
-
-    .glass {
-      background: rgba(17, 24, 41, 0.55);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .node-btn { transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
-    .node-wrapper { transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
-    .node-wrapper:hover { transform: translate(-50%, -50%) scale(1.17) !important; z-index: 40; }
-    .node-wrapper:hover .node-btn { filter: brightness(1.18); }
-
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(100, 116, 139, 0.3); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(100, 116, 139, 0.5); }
-
-    @keyframes ringPulse { 0% { transform: scale(1); opacity: 0.65; } 100% { transform: scale(2.3); opacity: 0; } }
-    .ring-pulse { animation: ringPulse 3s ease-out infinite; }
-
-    @keyframes auraPulse { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 0.85; transform: scale(1.06); } }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    @keyframes slideUp { from{opacity:0;transform:translateY(18px) scale(.97)} to{opacity:1;transform:none} }
+    .modal-overlay { animation: fadeIn .2s ease-out; }
+    .modal-content { animation: slideUp .3s cubic-bezier(.16,1,.3,1); }
+    @keyframes dashFlow { to { stroke-dashoffset: -28; } }
+    .path-flow { animation: dashFlow 2.8s linear infinite; }
+    @keyframes ringPulse { 0%{transform:scale(1);opacity:.7} 100%{transform:scale(2.2);opacity:0} }
+    .ring-pulse { animation: ringPulse 2.6s ease-out infinite; }
+    @keyframes auraPulse { 0%,100%{opacity:.5;transform:scale(1)} 50%{opacity:.85;transform:scale(1.06)} }
     .aura-pulse { animation: auraPulse 5s ease-in-out infinite; }
-
-    @keyframes driftSlow { 0%,100% { transform: translate(0,0); } 50% { transform: translate(0,-6px); } }
-    .drift { animation: driftSlow 9s ease-in-out infinite; }
-
-    /* Живой поток времени вдоль выбранной орбиты */
-    @keyframes dashFlow { to { stroke-dashoffset: -24; } }
-    .orbit-flow { animation: dashFlow 2.6s linear infinite; }
-
-    /* Медленный дрейф космического фона — ощущение текучести */
-    @keyframes bgDrift { 0%,100% { transform: scale(1.06) translate(0,0); } 50% { transform: scale(1.06) translate(0,-1.2%); } }
-    .bg-drift { animation: bgDrift 22s ease-in-out infinite; }
-
-    /* Круговые гравитационные ряби вокруг точки А */
-    @keyframes waveRing { 0% { transform: scale(0.28); opacity: 0.6; } 78% { opacity: 0.12; } 100% { transform: scale(1.7); opacity: 0; } }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* Мерцание звёзд */
-    @keyframes twinkle { 0%,100% { opacity: 0.12; } 50% { opacity: 0.9; } }
-
-    /* Аккреция: частицы по спирали затягиваются в ядро */
-    @keyframes accrete {
-      0%   { transform: rotate(var(--a)) translateX(var(--r)) scale(1); opacity: 0; }
-      14%  { opacity: 0.85; }
-      100% { transform: rotate(calc(var(--a) + 65deg)) translateX(5px) scale(0.2); opacity: 0; }
-    }
-
-    /* Кинематографический вход карты */
-    @keyframes introRise { from { opacity: 0; transform: translateY(16px) scale(0.985); } to { opacity: 1; transform: none; } }
-    .intro-rise { animation: introRise 1s cubic-bezier(0.16, 1, 0.3, 1) both; }
-
-    /* Орбиты прочерчиваются от точки А наружу */
-    @keyframes drawIn { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
-    @keyframes fadeInLate { from { opacity: 0; } to { opacity: 1; } }
-
-    /* Сюжетный «облёт»: подсвеченный узел и появление подписи */
-    @keyframes captionIn { from { opacity: 0; transform: translate(-50%, 6px); } to { opacity: 1; transform: translate(-50%, 0); } }
-
-    /* Адаптивный масштаб фигуры-хаба под размер карты (translate оставляем для параллакса) */
+    @keyframes waveShift { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .wave-anim { animation: waveShift 7s linear infinite; }
+    @keyframes introUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:none} }
+    .intro-up { animation: introUp .8s cubic-bezier(.16,1,.3,1) both; }
     .hub-scale { transform: translate(-50%, -50%) scale(1); }
-    @media (max-width: 1280px) { .hub-scale { transform: translate(-50%, -50%) scale(0.82); } }
-    @media (max-width: 640px)  { .hub-scale { transform: translate(-50%, -50%) scale(0.58); } }
-
-    /* Тонкий скроллбар для сайдбаров на ПК */
-    .thin-scroll::-webkit-scrollbar { width: 6px; }
-    .thin-scroll::-webkit-scrollbar-thumb { background: rgba(100,116,139,0.25); border-radius: 3px; }
-
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes slideUp { from { opacity: 0; transform: translateY(18px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
-    .modal-overlay { animation: fadeIn 0.2s ease-out; }
-    .modal-content { animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-
-    .node-tooltip {
-      position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
-      white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity 0.15s ease; z-index: 30;
-    }
-    .node-wrapper:hover .node-tooltip { opacity: 1; }
+    @media (max-width:1280px){ .hub-scale{ transform:translate(-50%,-50%) scale(.85);} }
+    @media (max-width:640px){ .hub-scale{ transform:translate(-50%,-50%) scale(.62);} }
   </style>
 
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
-<body>
+<body class="grain">
   <div id="root"></div>
 
   <script type="text/babel" data-presets="react">
-    const { useState, useEffect, useMemo, useRef } = React;
+    const { useState, useEffect } = React;
 
     /* ========== ICONS ========== */
     const Icon = ({ name, className = "w-5 h-5", stroke = 1.8 }) => {
-      const paths = {
+      const p = {
         compass: <><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></>,
         check: <polyline points="20 6 9 17 4 12"/>,
+        lock: <><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></>,
         star: <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>,
         users: <><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>,
-        package: <><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></>,
         trending: <><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></>,
-        idea: <><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></>,
         target: <><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></>,
         compassRole: <><circle cx="12" cy="12" r="10"/><polyline points="8 12 11 15 16 9"/></>,
         anchor: <><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></>,
-        pin: <><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></>,
         heart: <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>,
-        wallet: <><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></>,
         book: <><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></>,
         sparkle: <path d="M12 3l1.9 5.6L20 10l-5.5 1.6L12 17l-1.9-5.6L4 10l5.6-1.6L12 3z"/>,
         globe: <><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></>,
         zap: <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>,
-        bell: <><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></>,
         focus: <><circle cx="12" cy="12" r="3"/><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></>,
         brain: <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2z"/>,
         money: <><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>,
-        calendar: <><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></>,
-        arrowRight: <><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></>,
-        chevron: <polyline points="9 18 15 12 9 6"/>,
-        close: <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>,
         flask: <><path d="M9 3h6"/><path d="M10 3v6.5L4.5 18a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 9.5V3"/><line x1="7" y1="15" x2="17" y2="15"/></>,
         horizon: <><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/></>,
-        scale: <><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 6a3 3 0 0 0 6 0z"/><path d="M19 7l-3 6a3 3 0 0 0 6 0z"/></>,
-        layers: <><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></>,
-        question: <><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></>,
+        close: <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>,
+        chevron: <polyline points="9 18 15 12 9 6"/>,
+        chevronL: <polyline points="15 18 9 12 15 6"/>,
+        bell: <><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></>,
+        clipboard: <><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></>,
+        grid: <><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></>,
+        message: <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>,
+        user: <><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></>,
+        map: <><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></>,
+        arrowRight: <><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></>,
       };
-      return (
-        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round">
-          {paths[name] || paths.question}
-        </svg>
-      );
+      return (<svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round">{p[name] || p.compass}</svg>);
     };
 
-    /* ========== ГЕОМЕТРИЯ ПРОСТРАНСТВА-ВРЕМЕНИ ==========
-       Хаб = "точка А" (настоящее). Орбиты расходятся ВВЕРХ (будущее).
-       Гравитационные поля прошлого — НИЖЕ хаба. Радиус орбиты = интенсивность перехода. */
-    const HUB = { x: 50, y: 76 };            // якорь орбит (геометрия путей)
-    const CORE = { x: 49, y: 80 };           // центр ядра чёрной дыры (фигура + кольца стоят здесь)
-
-    // Контрольные точки основы — общий горизонт 2–3 года (итоговый продукт.txt)
+    /* ========== ДАННЫЕ ========== */
     const HORIZONS = ['7 дней', '30 дней', '3 месяца', '6 месяцев', '1 год', '2–3 года'];
+    const PNR = '#FB923C';
+    const FIG = { x: 50, y: 72 };
+    const PNR_NODE = 'pnr', PROTO = 'prototype';
 
-    // угол узла i вдоль дуги орбиты (над хабом). Плотность времени: ближе к точке А (начало пути)
-    // время «гуще» — ранние контрольные точки сжаты; к горизонту 2–3 года растянуты (время ускоряется).
-    const orbitAngle = (i) => 205 + 130 * Math.pow(i / (HORIZONS.length - 1), 1.42); // 205°..335°
-    const nodePos = (orbit, i) => {
-      const a = (orbitAngle(i) * Math.PI) / 180;
-      return { x: HUB.x + orbit.rx * Math.cos(a), y: HUB.y + orbit.ry * Math.sin(a) };
-    };
-
-    /* Три сценария будущего ОСНОВЫ = три орбиты по интенсивности перехода.
-       Внутри каждой — роль-ветвь и узлы на контрольных точках. (Chto_poluchit п.3.7) */
     const SCENARIOS = [
-      {
-        id: 'careful',
-        title: 'Бережный',
-        orbitName: 'Безопасная орбита',
-        subtitle: 'Развитие без резких разрушений',
-        roleOutcome: 'Усиление текущей роли эксперта',
-        accent: '#2DD4BF', glow: 'glow-teal',
-        rx: 20, ry: 15,
-        fit: 'Подходит, если высоки риски и нужна устойчивость',
-        nodes: [
-          { kind: 'step', label: 'Аудит опоры', desc: 'Что уже работает и что важно сохранить при любых изменениях.', tasks: ['Карта текущих ресурсов', 'Что нельзя терять', 'Зоны усталости'] },
-          { kind: 'step', label: 'Уточнение роли', desc: 'Усилить текущую экспертную роль, а не ломать её.', tasks: ['Сформулировать «кому я полезен»', 'Доказательства экспертизы', 'Язык о себе'] },
-          { kind: 'prototype', label: 'Упаковка опыта', desc: 'Оформить экспертизу в видимую форму — мини-проверка спроса.', tasks: ['Экспертный пост', 'Описать мини-услугу', 'Разговор с 3 людьми из сферы'] },
-          { kind: 'step', label: 'Первая монетизация', desc: 'Аккуратно повысить чек или добавить услугу.', tasks: ['Гипотеза цены', 'Пробное предложение', 'Сверка устойчивости'] },
-          { kind: 'step', label: 'Устойчивая практика', desc: 'Стабильный поток без перегрузки.', tasks: ['Ритм нагрузки', 'Регулярные клиенты', 'Контроль энергии'] },
-          { kind: 'role', label: 'Признанный эксперт', desc: 'Новая роль закреплена без потери прежней опоры.', tasks: ['Публичное позиционирование', 'Сообщество', 'План следующего цикла'] },
-        ],
-      },
-      {
-        id: 'growth',
-        title: 'Рост',
-        orbitName: 'Орбита роста',
-        subtitle: 'Активное усиление роли, дохода и влияния',
-        roleOutcome: 'Эксперт → предприниматель / руководитель',
-        accent: '#A78BFA', glow: 'glow-violet',
-        rx: 33, ry: 25,
-        fit: 'Подходит, если есть ресурс, амбиция и готовность инвестировать',
-        nodes: [
-          { kind: 'step', label: 'Карта ресурсов', desc: 'Активы и амбиция: на что опереться в рывке.', tasks: ['Опыт, связи, репутация', 'Готовность к риску', 'Точка отсчёта'] },
-          { kind: 'step', label: 'Гипотеза дохода', desc: 'Новая модель монетизации опыта.', tasks: ['Кому и какая ценность', 'Формат продукта', 'Первые ориентиры'] },
-          { kind: 'prototype', label: 'Запуск направления', desc: 'Малая безопасная проверка новой модели.', tasks: ['MVP за 2 недели', 'Прямые продажи', 'Сбор обратной связи'] },
-          { kind: 'step', label: 'Первые клиенты', desc: 'Подтверждение спроса на новую модель.', tasks: ['10 платящих', 'Кейсы и отзывы', 'Уточнение оффера'] },
-          { kind: 'pnr', label: 'Система и команда', desc: 'Перевод операций из ручного режима в систему — решение, после которого назад уже не вернуться к «соло».', tasks: ['Описать процессы', 'Первый найм', 'Делегирование'] },
-          { kind: 'role', label: 'Масштаб и влияние', desc: 'Устойчивый рост роли, дохода и позиционирования.', tasks: ['Каналы привлечения', 'Линейка продуктов', 'Публичная экспертность'] },
-        ],
-      },
-      {
-        id: 'breakthrough',
-        title: 'Пересборка',
-        orbitName: 'Орбита прорыва',
-        subtitle: 'Новая ниша, новая профессиональная идентичность',
-        roleOutcome: 'Смелая ценностная траектория',
-        accent: '#FBBF24', glow: 'glow-amber',
-        rx: 45, ry: 34,
-        fit: 'Подходит, если старая модель исчерпана и требует замены',
-        nodes: [
-          { kind: 'step', label: 'Честный разговор', desc: 'Что исчерпано и больше не продолжается по-старому.', tasks: ['Что завершилось', 'Цена старого сценария', 'Что зовёт дальше'] },
-          { kind: 'step', label: 'Образ новой роли', desc: 'Кем я становлюсь, опираясь на зрелые ценности, а не на страх.', tasks: ['Новая идентичность', 'Ценностная формула', 'Допустимое будущее'] },
-          { kind: 'prototype', label: 'Прототип новой жизни', desc: '7-дневный эксперимент нового образа жизни и роли.', tasks: ['7-дневный lifestyle-тест', 'Пробная консультация', 'Новая среда'] },
-          { kind: 'pnr', label: 'Выход из старой роли', desc: 'Горизонт событий: после этого шага старый сценарий не продолжить. Это момент пересборки, а не катастрофа.', tasks: ['Завершить прежнее', 'Объяснить среде', 'Удержать границы'] },
-          { kind: 'step', label: 'Новая ниша и среда', desc: 'Закрепиться в новом пространстве возможностей.', tasks: ['Войти в новую среду', 'Первые результаты', 'Поддерживающие связи'] },
-          { kind: 'role', label: 'Новая идентичность', desc: 'Новая профессиональная и жизненная идентичность собрана.', tasks: ['Авторская позиция', 'Модель дохода новой роли', 'Устойчивый ритм'] },
-        ],
-      },
+      { id:'careful', title:'Бережный', orbitName:'Безопасная орбита', tagline:'Развитие без резких разрушений',
+        roleOutcome:'Усиление текущей роли эксперта', fit:'если высоки риски и нужна устойчивость',
+        accent:'#2DD4BF', preview:'preview-careful.png', dest:{x:15,y:17}, ctrl:{x:20,y:46},
+        nodes:[
+          {kind:'step',label:'Аудит опоры',desc:'Что уже работает и что важно сохранить при изменениях.',tasks:['Карта ресурсов','Что нельзя терять','Зоны усталости']},
+          {kind:'step',label:'Уточнение роли',desc:'Усилить текущую экспертную роль, а не ломать её.',tasks:['«Кому я полезен»','Доказательства экспертизы','Язык о себе']},
+          {kind:'prototype',label:'Упаковка опыта',desc:'Оформить экспертизу в видимую форму — мини-проверка спроса.',tasks:['Экспертный пост','Мини-услуга','3 разговора']},
+          {kind:'step',label:'Первая монетизация',desc:'Аккуратно повысить чек или добавить услугу.',tasks:['Гипотеза цены','Пробное предложение','Сверка устойчивости']},
+          {kind:'step',label:'Устойчивая практика',desc:'Стабильный поток без перегрузки.',tasks:['Ритм нагрузки','Регулярные клиенты','Контроль энергии']},
+          {kind:'role',label:'Признанный эксперт',desc:'Новая роль закреплена без потери опоры.',tasks:['Позиционирование','Сообщество','Следующий цикл']},
+        ]},
+      { id:'growth', title:'Рост', orbitName:'Орбита роста', tagline:'Усиление роли, дохода и влияния',
+        roleOutcome:'Эксперт → предприниматель / руководитель', fit:'если есть ресурс и амбиция',
+        accent:'#A78BFA', preview:'preview-growth.png', dest:{x:50,y:8}, ctrl:{x:47,y:40},
+        nodes:[
+          {kind:'step',label:'Карта ресурсов',desc:'Активы и амбиция: на что опереться в рывке.',tasks:['Опыт и связи','Готовность к риску','Точка отсчёта']},
+          {kind:'step',label:'Гипотеза дохода',desc:'Новая модель монетизации опыта.',tasks:['Кому ценность','Формат продукта','Ориентиры']},
+          {kind:'prototype',label:'Запуск направления',desc:'Малая безопасная проверка новой модели.',tasks:['MVP за 2 недели','Прямые продажи','Обратная связь']},
+          {kind:'step',label:'Первые клиенты',desc:'Подтверждение спроса на новую модель.',tasks:['10 платящих','Кейсы','Уточнение оффера']},
+          {kind:'pnr',label:'Система и команда',desc:'Перевод в систему — после этого назад к «соло» не вернуться.',tasks:['Процессы','Первый найм','Делегирование']},
+          {kind:'role',label:'Масштаб и влияние',desc:'Устойчивый рост роли, дохода и позиционирования.',tasks:['Каналы','Линейка продуктов','Публичность']},
+        ]},
+      { id:'breakthrough', title:'Пересборка', orbitName:'Орбита прорыва', tagline:'Новая ниша и идентичность',
+        roleOutcome:'Смелая ценностная траектория', fit:'если старая модель исчерпана',
+        accent:'#FBBF24', preview:'preview-breakthrough.png', dest:{x:85,y:17}, ctrl:{x:80,y:46},
+        nodes:[
+          {kind:'step',label:'Честный разговор',desc:'Что исчерпано и больше не продолжается по-старому.',tasks:['Что завершилось','Цена старого','Что зовёт']},
+          {kind:'step',label:'Образ новой роли',desc:'Кем становлюсь, опираясь на зрелые ценности.',tasks:['Новая идентичность','Ценностная формула','Допустимое будущее']},
+          {kind:'prototype',label:'Прототип новой жизни',desc:'7-дневный эксперимент нового образа жизни.',tasks:['7-дн тест','Пробная консультация','Новая среда']},
+          {kind:'pnr',label:'Выход из старой роли',desc:'Горизонт событий: старый сценарий не продолжить. Момент пересборки.',tasks:['Завершить прежнее','Объяснить среде','Удержать границы']},
+          {kind:'step',label:'Новая ниша и среда',desc:'Закрепиться в новом пространстве возможностей.',tasks:['Войти в среду','Первые результаты','Связи']},
+          {kind:'role',label:'Новая идентичность',desc:'Новая профессиональная и жизненная идентичность собрана.',tasks:['Авторская позиция','Модель дохода','Ритм']},
+        ]},
     ];
+    const byId = (id) => SCENARIOS.find(s => s.id === id) || SCENARIOS[1];
 
-    /* Прошлое как поле притяжения — гравитационные силы, тянущие назад (философия, блок 4).
-       Деликатно, без болезненных ярлыков (этика основы). */
-    const GRAVITY_FIELDS = [
-      { label: 'Привычная роль', pos: { x: 27, y: 92 }, r: 15 },
-      { label: 'Страх перемен', pos: { x: 50, y: 96 }, r: 17 },
-      { label: 'Обязательства', pos: { x: 73, y: 92 }, r: 15 },
+    const NAV = [
+      { id:'map', label:'Карта', icon:'map', active:true }, { id:'profile', label:'Профиль', icon:'user' },
+      { id:'journal', label:'Дневник', icon:'book' }, { id:'resources', label:'Ресурсы', icon:'grid' },
+      { id:'mentor', label:'Ментор', icon:'message' },
     ];
-
-    /* Гравитация искривляет пространство-время: точка притягивается к полям прошлого.
-       Чем дальше орбита от полей (смелее сценарий) — тем меньше прогиб: «прорыв» вырывается из притяжения. */
-    const warpPoint = (p) => {
-      let dx = 0, dy = 0;
-      for (const g of GRAVITY_FIELDS) {
-        const ex = g.pos.x - p.x, ey = g.pos.y - p.y;
-        const dist = Math.hypot(ex, ey) + 0.001;
-        const pull = (g.r * 8.5) / (dist + 9);       // «масса» поля ~ радиус, falloff с расстоянием
-        dx += (ex / dist) * pull;
-        dy += (ey / dist) * pull;
-      }
-      dx = Math.max(-7, Math.min(7, dx));
-      dy = Math.max(-2, Math.min(12, dy));           // поля внизу — тянут преимущественно вниз
-      return { x: p.x + dx, y: p.y + dy };
-    };
-    const wPos = (orbit, i) => warpPoint(nodePos(orbit, i));
-
-    /* Силы ускорения — что выводит на новую орбиту (философия, блок 5) */
-    const ACCEL_FORCES = ['Опыт', 'Связи', 'Экспертиза', 'AI', 'Образование'];
-
-    /* ========== MOCK-ПРОФИЛЬ (премиум 35+, без геймификации) ========== */
-    const USER = { name: 'Мария Ковалёва', role: 'Эксперт · точка перехода', stage: 4, stageTotal: 6, readiness: 62 };
-
+    const USER = { name:'Мария Ковалёва', role:'Эксперт · точка перехода' };
     const STAGES = [
-      { id: 1, name: 'Диагностика', status: 'done' },
-      { id: 2, name: 'Ценности', status: 'done' },
-      { id: 3, name: 'Идентичность', status: 'done' },
-      { id: 4, name: 'Сценарии', status: 'active' },
-      { id: 5, name: 'Дорожная карта', status: 'upcoming' },
-      { id: 6, name: 'Сопровождение', status: 'upcoming' },
+      { id:1, name:'Диагностика' }, { id:2, name:'Ценности' }, { id:3, name:'Идентичность' },
+      { id:4, name:'Сценарии' }, { id:5, name:'Дорожная карта' }, { id:6, name:'Сопровождение' },
     ];
-
-    // Несколько пространств жизни одновременно (философия, п.2)
     const LIFE_SPACES = [
-      { key: 'energy', label: 'Энергия', value: 64, icon: 'zap' },
-      { key: 'focus', label: 'Фокус', value: 58, icon: 'focus' },
-      { key: 'skills', label: 'Навыки', value: 70, icon: 'brain' },
-      { key: 'env', label: 'Окружение', value: 52, icon: 'users' },
-      { key: 'finance', label: 'Деньги', value: 60, icon: 'money' },
+      { key:'energy', label:'Энергия', icon:'zap' }, { key:'focus', label:'Фокус', icon:'focus' },
+      { key:'skills', label:'Навыки', icon:'brain' }, { key:'env', label:'Окружение', icon:'users' },
+      { key:'finance', label:'Деньги', icon:'money' },
+    ];
+    const VALUE_ICONS = { 'Свобода':'compass','Развитие':'trending','Достоинство':'star','Влияние':'sparkle','Творчество':'sparkle','Опора':'anchor','Семья':'heart','Знания':'book','Служение':'heart' };
+    const ALL_VALUES = ['Свобода','Развитие','Достоинство','Влияние','Творчество','Опора','Семья','Знания','Служение'];
+
+    const QUESTIONS = [
+      { id:'state', q:'Что точнее про вашу ситуацию сейчас?', opts:[
+        { label:'Всё в целом работает — хочу аккуратно усилить', s:{careful:2,growth:1,breakthrough:0} },
+        { label:'Прежняя роль стала тесной — хочу расти', s:{careful:0,growth:2,breakthrough:1} },
+        { label:'Старая модель исчерпана — нужна пересборка', s:{careful:0,growth:1,breakthrough:2} },
+      ]},
+      { id:'risk', q:'Готовность к риску и переменам?', opts:[
+        { label:'Низкая — важна устойчивость', s:{careful:2,growth:0,breakthrough:0} },
+        { label:'Средняя — готов(а) к расчётному риску', s:{careful:0,growth:2,breakthrough:1} },
+        { label:'Высокая — готов(а) к смелым шагам', s:{careful:0,growth:1,breakthrough:2} },
+      ]},
+      { id:'energy', q:'Сколько у вас сейчас энергии и ресурса?', opts:[
+        { label:'Мало — берегу силы', s:{careful:2,growth:0,breakthrough:0} },
+        { label:'Достаточно для рывка', s:{careful:0,growth:2,breakthrough:1} },
+        { label:'Много — хочу масштаба', s:{careful:0,growth:1,breakthrough:2} },
+      ]},
+      { id:'income', q:'Что важнее в деньгах на 2–3 года?', opts:[
+        { label:'Стабильность дохода', s:{careful:2,growth:0,breakthrough:0} },
+        { label:'Заметный рост дохода', s:{careful:0,growth:2,breakthrough:0} },
+        { label:'Новая модель дохода', s:{careful:0,growth:0,breakthrough:2} },
+      ]},
+      { id:'horizon', q:'Каким видите себя через 2–3 года?', opts:[
+        { label:'Признанный эксперт в своём деле', s:{careful:2,growth:1,breakthrough:0} },
+        { label:'Предприниматель / руководитель', s:{careful:0,growth:2,breakthrough:1} },
+        { label:'В новой нише и новой роли', s:{careful:0,growth:0,breakthrough:2} },
+      ]},
     ];
 
-    const VALUES = [
-      { name: 'Свобода', icon: 'compass' },
-      { name: 'Развитие', icon: 'trending' },
-      { name: 'Достоинство', icon: 'star' },
-      { name: 'Знания', icon: 'book' },
-      { name: 'Опора', icon: 'anchor' },
-    ];
+    function computeResult(picks, values) {
+      const sc = { careful:0, growth:0, breakthrough:0 };
+      picks.forEach(p => { if (p) for (const k in p.s) sc[k] += p.s[k]; });
+      const total = (sc.careful + sc.growth + sc.breakthrough) || 1;
+      const match = { careful: Math.round(sc.careful/total*100), growth: Math.round(sc.growth/total*100), breakthrough: Math.round(sc.breakthrough/total*100) };
+      const recommended = ['breakthrough','growth','careful'].reduce((a,b)=> sc[b] > sc[a] ? b : a, 'careful');
+      const readiness = Math.min(94, Math.max(38, Math.round(45 + sc.growth*4 + sc.breakthrough*6 - sc.careful*2)));
+      const spaces = {
+        energy: Math.min(95, 50 + (sc.growth+sc.breakthrough)*3), focus: Math.min(92, 52 + sc.growth*3),
+        skills: 68, env: Math.max(40, 60 - sc.breakthrough*2), finance: Math.min(90, 50 + sc.growth*4),
+      };
+      return { match, recommended, readiness, values: (values && values.length ? values : ['Свобода','Развитие','Опора']), spaces, ts: Date.now() };
+    }
 
-    // Карта идентичности: был → есть → становлюсь (итоговый продукт, п.2)
-    const IDENTITY = [
-      { phase: 'Кем была', text: 'Наёмный руководитель', tone: 'past' },
-      { phase: 'Кто сейчас', text: 'Эксперт-консультант', tone: 'present' },
-      { phase: 'Кем становлюсь', text: 'Автор методики и наставник', tone: 'future' },
-    ];
+    const bez = (a, c, b, t) => { const u = 1 - t; return { x: u*u*a.x + 2*u*t*c.x + t*t*b.x, y: u*u*a.y + 2*u*t*c.y + t*t*b.y }; };
+    const pathD = (s) => `M ${FIG.x} ${FIG.y} Q ${s.ctrl.x} ${s.ctrl.y} ${s.dest.x} ${s.dest.y}`;
+    const nodeT = (i) => 0.18 + 0.80 * Math.pow(i / (HORIZONS.length - 1), 1.12);
+    const nodePos = (s, i) => bez(FIG, s.ctrl, s.dest, nodeT(i));
+    const withStatus = (n, i) => i < 2 ? {...n,status:'done'} : i === 2 ? {...n,status:'active'} : {...n,status:'upcoming'};
 
-    // Социокультурный код (10 кодов основы; tone — ресурс/ограничение)
-    const SOCIOCODE = [
-      { name: 'Трудовой', tone: 'resource' },
-      { name: 'Образовательный', tone: 'resource' },
-      { name: 'Семейный', tone: 'mixed' },
-      { name: 'Денежный', tone: 'limit' },
-      { name: 'Статусный', tone: 'limit' },
-      { name: 'Свободы', tone: 'resource' },
-      { name: 'Среды', tone: 'mixed' },
-      { name: 'Символический', tone: 'resource' },
-    ];
-
-    const PRO_CAPITAL = ['15 лет опыта', 'Экспертиза', 'Репутация', 'Управленческий опыт', 'Сеть контактов'];
-
-    // Модель дохода — КАЧЕСТВЕННО, без обещаний % (этика основы)
-    const INCOME_HYPOTHESES = ['Консалтинг', 'Авторская методика', 'Обучающий продукт'];
-
-    // Прототипы будущего — малые безопасные проверки (итоговый продукт, п.10)
-    const PROTOTYPES = [
-      { label: 'Экспертный пост', done: true },
-      { label: 'Пробная консультация', done: false },
-      { label: 'Мини-услуга', done: false },
-      { label: '7-дневный эксперимент', done: false },
-    ];
-
-    // Контрольные точки — полный горизонт основы
-    const MILESTONES = [
-      { horizon: '7 дней', status: 'done' },
-      { horizon: '30 дней', status: 'done' },
-      { horizon: '3 месяца', status: 'active' },
-      { horizon: '6 месяцев', status: 'upcoming' },
-      { horizon: '1 год', status: 'upcoming' },
-      { horizon: '2–3 года', status: 'upcoming' },
-    ];
-
-    // Ключевые индикаторы — без числового прогноза дохода
-    const KEY_INDICATORS = [
-      { label: 'Ясность', value: '65%', sub: 'растёт', tone: 'positive', icon: 'compass' },
-      { label: 'Шаги сделаны', value: '12', sub: 'из 27', tone: 'neutral', icon: 'check' },
-      { label: 'Прототипы', value: '1/4', sub: 'проверка спроса', tone: 'neutral', icon: 'flask' },
-      { label: 'Окружение', value: '7/10', sub: 'поддерживает', tone: 'neutral', icon: 'users' },
-      { label: 'Доходные гипотезы', value: '3', sub: 'проверяем', tone: 'neutral', icon: 'money' },
-    ];
-
-    /* ========== SHARED UI ========== */
-    const Gauge = ({ value, size = 108, stroke = 9 }) => {
-      const radius = (size - stroke) / 2;
-      const circ = 2 * Math.PI * radius;
-      const offset = circ - (value / 100) * circ;
+    /* ========== БАЗОВЫЙ UI ========== */
+    const Card = ({ children, className='' }) => (<div className={`rounded-2xl glass ${className}`}>{children}</div>);
+    const CardTitle = ({ children, icon }) => (
+      <div className="flex items-center gap-2 mb-3"><Icon name={icon} className="w-3.5 h-3.5 opacity-50" /><div className="font-display font-semibold text-[11px] uppercase tracking-wider opacity-70">{children}</div></div>
+    );
+    const Gauge = ({ value, size=96, stroke=8, label='Готовность' }) => {
+      const r = (size-stroke)/2, c = 2*Math.PI*r, off = c - (value/100)*c;
       return (
-        <div className="relative" style={{ width: size, height: size }}>
-          <svg width={size} height={size} className="transform -rotate-90">
-            <circle cx={size/2} cy={size/2} r={radius} stroke="#1A2335" strokeWidth={stroke} fill="none" />
-            <defs>
-              <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#2DD4BF" />
-                <stop offset="100%" stopColor="#A78BFA" />
-              </linearGradient>
-            </defs>
-            <circle cx={size/2} cy={size/2} r={radius} stroke="url(#gaugeGrad)" strokeWidth={stroke}
-              strokeDasharray={circ} strokeDashoffset={offset} strokeLinecap="round" fill="none"
-              style={{ transition: 'stroke-dashoffset 1s ease' }} />
+        <div className="relative" style={{ width:size, height:size }}>
+          <svg width={size} height={size} className="-rotate-90">
+            <circle cx={size/2} cy={size/2} r={r} stroke="#1A2335" strokeWidth={stroke} fill="none"/>
+            <defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#2DD4BF"/><stop offset="100%" stopColor="#A78BFA"/></linearGradient></defs>
+            <circle cx={size/2} cy={size/2} r={r} stroke="url(#gg)" strokeWidth={stroke} strokeDasharray={c} strokeDashoffset={off} strokeLinecap="round" fill="none" style={{transition:'stroke-dashoffset 1s ease'}}/>
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <div className="font-display font-bold text-2xl">{value}%</div>
-            <div className="text-[10px] uppercase tracking-wider opacity-60 text-center leading-tight px-3">Готовность<br/>к переходу</div>
+            <div className="font-display font-bold text-xl">{value}%</div>
+            <div className="text-[9px] uppercase tracking-wider opacity-55 text-center leading-tight px-2">{label}</div>
           </div>
         </div>
       );
     };
-
-    const Card = ({ children, className = '', onClick }) => (
-      <div onClick={onClick} className={`rounded-2xl glass ${className}`}>{children}</div>
-    );
-
-    const CardTitle = ({ children, icon }) => (
-      <div className="flex items-center gap-2 mb-3">
-        {icon && <Icon name={icon} className="w-3.5 h-3.5 opacity-50" />}
-        <div className="font-display font-semibold text-xs uppercase tracking-wider opacity-70">{children}</div>
-      </div>
-    );
-
-    const MetricBar = ({ label, value, icon }) => (
-      <div className="flex items-center gap-3">
-        <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center opacity-80">
-          <Icon name={icon} className="w-3.5 h-3.5" />
-        </div>
+    const Bar = ({ value, label, icon }) => (
+      <div className="flex items-center gap-2.5">
+        <Icon name={icon} className="w-3.5 h-3.5 opacity-60 shrink-0" />
         <div className="flex-1">
-          <div className="flex justify-between items-baseline mb-1">
-            <span className="text-[13px]">{label}</span>
-            <span className="text-[13px] font-semibold tabular-nums">{value}%</span>
-          </div>
-          <div className="h-1.5 rounded-full overflow-hidden bg-white/5">
-            <div className="h-full rounded-full bg-gradient-to-r from-teal-400 to-violet-500"
-              style={{ width: `${value}%`, transition: 'width 1s ease' }} />
-          </div>
+          <div className="flex justify-between mb-1"><span className="text-[12px]">{label}</span><span className="text-[12px] font-semibold tabular-nums opacity-80">{value}%</span></div>
+          <div className="h-1.5 rounded-full overflow-hidden bg-white/8"><div className="h-full rounded-full bg-gradient-to-r from-teal-400 to-violet-500" style={{width:`${value}%`,transition:'width 1s ease'}}/></div>
         </div>
       </div>
     );
 
-    const StageIndicator = () => (
-      <div className="flex items-center gap-1.5 flex-wrap">
-        {STAGES.map((s, i) => {
-          const isDone = s.status === 'done';
-          const isActive = s.status === 'active';
-          return (
-            <React.Fragment key={s.id}>
-              <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium
-                ${isDone ? 'bg-teal-500/12 text-teal-300' : ''}
-                ${isActive ? 'bg-gradient-to-r from-teal-500 to-violet-500 text-white shadow-glow-violet' : ''}
-                ${s.status === 'upcoming' ? 'text-white/40' : ''}`}>
-                <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold
-                  ${isDone ? 'bg-teal-500/25' : ''} ${isActive ? 'bg-white/25' : ''} ${s.status === 'upcoming' ? 'bg-white/5' : ''}`}>
-                  {isDone ? <Icon name="check" className="w-3 h-3" stroke={3} /> : s.id}
-                </span>
-                <span className="hidden md:inline">{s.name}</span>
-              </div>
-              {i < STAGES.length - 1 && <div className="w-3 h-px bg-white/10" />}
-            </React.Fragment>
-          );
-        })}
-      </div>
+    /* ========== ВЕРХНЯЯ ПАНЕЛЬ ========== */
+    const TopBar = ({ onQuiz }) => (
+      <header className="flex items-center justify-between px-4 md:px-5 py-2.5 shrink-0 border-b border-white/5">
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500 to-violet-600 flex items-center justify-center text-white shadow-glow-violet"><Icon name="compass" className="w-5 h-5" stroke={2}/></div>
+          <div className="leading-tight"><div className="font-display font-bold text-[15px]">LIFE DESIGN</div><div className="text-[9px] uppercase tracking-[0.2em] opacity-50">Дорожная карта</div></div>
+        </div>
+        <nav className="hidden lg:flex items-center gap-1 glass rounded-full px-1.5 py-1">
+          {NAV.map(n => (
+            <button key={n.id} disabled={!n.active} title={n.active ? '' : 'Скоро'}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[12px] font-medium transition ${n.active ? 'bg-gradient-to-r from-teal-500/80 to-violet-600/80 text-white' : 'opacity-55 hover:opacity-80'}`}>
+              <Icon name={n.icon} className="w-3.5 h-3.5"/><span>{n.label}</span>
+            </button>
+          ))}
+        </nav>
+        <div className="flex items-center gap-3">
+          <button onClick={onQuiz} className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-semibold bg-white/8 hover:bg-white/14 transition"><Icon name="clipboard" className="w-3.5 h-3.5"/>Анкета</button>
+          <button className="w-9 h-9 rounded-full relative flex items-center justify-center bg-white/5 hover:bg-white/10"><Icon name="bell" className="w-4 h-4"/><span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-teal-400"/></button>
+          <div className="flex items-center gap-2.5">
+            <div className="hidden sm:block text-right leading-tight"><div className="font-semibold text-[13px]">{USER.name}</div><div className="text-[10px] opacity-55">{USER.role}</div></div>
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-teal-400 to-violet-500 flex items-center justify-center text-white font-bold font-display">{USER.name[0]}</div>
+          </div>
+        </div>
+      </header>
     );
 
-    /* ========== КАРТА ПРОСТРАНСТВА-ВРЕМЕНИ ========== */
-
-    // Искривлённая сетка пространства-времени (рубер-шит у хаба) — заменяет статичный PNG
-    const SpacetimeGrid = () => {
-      const dip = (y) => {
-        const d = Math.max(0, 1 - Math.abs(y - HUB.y) / 60); // ближе к хабу — сильнее искривление
-        return d * 9;
-      };
-      const hLines = [30, 40, 50, 60, 70, 80, 90];
-      const vLines = [10, 25, 40, 50, 60, 75, 90];
-      return (
-        <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <g stroke="rgba(148,163,184,0.05)" strokeWidth="0.15" fill="none">
-            {hLines.map((y, i) => (
-              <path key={`h${i}`} d={`M 0 ${y} Q 50 ${y + dip(y)} 100 ${y}`} />
-            ))}
-            {vLines.map((x, i) => (
-              <path key={`v${i}`} d={`M ${x} 28 Q ${50 + (x - 50) * 0.55} ${HUB.y} ${x} 100`} />
-            ))}
-          </g>
+    /* ========== ЛЕВАЯ ПАНЕЛЬ ========== */
+    const Waveform = () => (
+      <div className="h-12 overflow-hidden rounded-lg bg-white/5 relative">
+        <svg className="absolute inset-0 w-[200%] h-full wave-anim" viewBox="0 0 200 48" preserveAspectRatio="none">
+          <defs><linearGradient id="wv" x1="0" x2="1"><stop offset="0%" stopColor="#2DD4BF"/><stop offset="50%" stopColor="#A78BFA"/><stop offset="100%" stopColor="#2DD4BF"/></linearGradient></defs>
+          <path d="M0 24 Q 12 6 25 24 T 50 24 T 75 24 T 100 24 T 125 24 T 150 24 T 175 24 T 200 24" fill="none" stroke="url(#wv)" strokeWidth="2" opacity="0.9"/>
         </svg>
-      );
-    };
-
-    // Гравитационные поля прошлого — тёмные зоны притяжения под хабом
-    const GravityWells = () => (
-      <>
-        {GRAVITY_FIELDS.map((g, i) => (
-          <div key={i} className="absolute -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-               style={{ left: `${g.pos.x}%`, top: `${g.pos.y}%`, width: `${g.r * 1.9}%`, aspectRatio: '1.7 / 1' }}>
-            <div className="w-full h-full rounded-full"
-                 style={{ background: 'radial-gradient(ellipse at center, rgba(10,8,24,0.85), rgba(40,20,60,0.25) 55%, transparent 72%)' }} />
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[9px] text-white/45 whitespace-nowrap">{g.label}</div>
-          </div>
-        ))}
-      </>
+      </div>
     );
-
-    // Smooth Catmull-Rom path через точки (0..100)
-    const buildSmoothPath = (pts) => {
-      if (pts.length < 2) return '';
-      let d = `M ${pts[0].x} ${pts[0].y}`;
-      for (let i = 0; i < pts.length - 1; i++) {
-        const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
-        const c1x = p1.x + (p2.x - p0.x) / 6, c1y = p1.y + (p2.y - p0.y) / 6;
-        const c2x = p2.x - (p3.x - p1.x) / 6, c2y = p2.y - (p3.y - p1.y) / 6;
-        d += ` C ${c1x} ${c1y}, ${c2x} ${c2y}, ${p2.x} ${p2.y}`;
-      }
-      return d;
+    const LeftPanel = ({ result, onQuiz }) => {
+      const sp = result ? result.spaces : { energy:64, focus:58, skills:70, env:52, finance:60 };
+      const vals = result ? result.values : ['Свобода','Развитие','Достоинство','Знания','Опора'];
+      const readiness = result ? result.readiness : 48;
+      const stability = result ? Math.min(90, 55 + Math.round((100-result.match.breakthrough)/5)) : 72;
+      return (
+        <aside className="w-full lg:w-64 shrink-0 order-2 lg:order-1 lg:min-h-0 lg:overflow-y-auto thin-scroll lg:pr-1">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+            <Card className="p-4">
+              <CardTitle icon="target">Ваш путь</CardTitle>
+              <div className="flex items-center gap-3 mb-3">
+                <Gauge value={readiness} label="Прогресс пути"/>
+                <div className="text-[12px] opacity-75 leading-snug">{result ? `Рекомендованная траектория: ${byId(result.recommended).title}.` : 'Заполните анкету, чтобы построить персональную траекторию.'}</div>
+              </div>
+              <button onClick={onQuiz} className="w-full py-2 rounded-lg text-[12px] font-semibold text-white bg-gradient-to-r from-teal-500 to-violet-600 hover:opacity-90 transition flex items-center justify-center gap-1.5"><Icon name="clipboard" className="w-3.5 h-3.5"/>{result ? 'Обновить путь' : 'Заполнить анкету'}</button>
+            </Card>
+            <Card className="p-4"><CardTitle icon="focus">Текущий статус</CardTitle><div className="space-y-2.5">{LIFE_SPACES.map(m => <Bar key={m.key} label={m.label} icon={m.icon} value={sp[m.key]}/>)}</div></Card>
+            <Card className="p-4"><CardTitle icon="heart">Ценности</CardTitle><div className="flex flex-wrap gap-2">{vals.map(v => (<span key={v} className="flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-lg bg-teal-500/12 text-teal-200"><Icon name={VALUE_ICONS[v]||'star'} className="w-3 h-3"/>{v}</span>))}</div></Card>
+            <Card className="p-4"><CardTitle icon="zap">Энергия жизни</CardTitle><Waveform/><div className="mt-3"><Bar label="Устойчивость" icon="anchor" value={stability}/></div></Card>
+          </div>
+        </aside>
+      );
     };
 
-    const MapNode = ({ node, pos, accent, onClick, spotlight }) => {
-      const isDone = node.status === 'done';
-      const isActive = node.status === 'active';
-      const isPnr = node.kind === 'pnr';
-      const isProto = node.kind === 'prototype';
-
-      let bg = node.status === 'upcoming' ? 'rgba(255,255,255,0.07)' : `linear-gradient(135deg, ${accent}, ${accent}cc)`;
-      let iconName = isPnr ? 'horizon' : isProto ? 'flask' : node.kind === 'role' ? 'compassRole' : (isDone ? 'check' : node.icon || 'star');
-      const pnrAccent = '#FB923C';
-      const c = isPnr ? pnrAccent : accent;
-      const btnTransform = `${isPnr ? 'rotate(45deg)' : ''} ${spotlight ? 'scale(1.22)' : ''}`.trim() || 'none';
-
+    /* ========== КАРТА ========== */
+    const NODE_ICON = (n) => n.kind===PNR_NODE ? 'horizon' : n.kind===PROTO ? 'flask' : n.kind==='role' ? 'compassRole' : (n.status==='done' ? 'check' : 'star');
+    const MapNode = ({ node, pos, accent, dim, onClick }) => {
+      const up = node.status==='upcoming', active = node.status==='active', pnr = node.kind===PNR_NODE;
+      const c = pnr ? PNR : accent;
       return (
-        <div className="absolute node-wrapper" style={{ left: `${pos.x}%`, top: `${pos.y}%`, transform: 'translate(-50%, -50%)', zIndex: spotlight ? 35 : undefined }}>
-          <button onClick={onClick} className="node-btn relative flex items-center justify-center"
-            style={{
-              width: isPnr ? 44 : 40, height: isPnr ? 44 : 40,
-              borderRadius: isPnr ? 10 : isProto ? 12 : 9999,
-              transform: btnTransform,
-              background: isPnr ? `linear-gradient(135deg, ${pnrAccent}, ${pnrAccent}cc)` : bg,
-              border: (isActive || spotlight) ? `2px solid #fff` : `2px solid rgba(255,255,255,0.5)`,
-              boxShadow: spotlight ? `0 0 34px ${c}, 0 0 0 8px ${c}33`
-                       : isPnr ? `0 0 26px ${pnrAccent}, 0 0 0 6px ${pnrAccent}22`
-                       : isActive ? `0 0 26px ${accent}, 0 0 0 6px ${accent}26`
-                       : node.status === 'upcoming' ? '0 4px 10px rgba(0,0,0,0.4)'
-                       : `0 6px 16px ${accent}55`,
-              color: node.status === 'upcoming' ? 'rgba(255,255,255,0.6)' : 'white',
-            }}>
-            <span style={{ transform: isPnr ? 'rotate(-45deg)' : 'none', display: 'flex' }}>
-              <Icon name={iconName} className="w-4 h-4" stroke={2.2} />
-            </span>
-            {(isActive || spotlight) && <span className="absolute inset-0 ring-pulse" style={{ borderRadius: isPnr ? 10 : 9999, border: `2px solid ${spotlight ? '#fff' : accent}`, animationDuration: spotlight ? '1.05s' : '3s' }} />}
+        <div className="absolute" style={{ left:`${pos.x}%`, top:`${pos.y}%`, transform:'translate(-50%,-50%)', opacity: dim?0.55:1, transition:'opacity .3s', zIndex: active?20:10 }}>
+          <button onClick={onClick} className="relative flex items-center justify-center transition-transform duration-200 hover:scale-110"
+            style={{ width: pnr?34:28, height: pnr?34:28, borderRadius: pnr?8:9999, transform: pnr?'rotate(45deg)':'none',
+                     background: up ? 'rgba(255,255,255,0.10)' : `linear-gradient(135deg,${c},${c}cc)`,
+                     border: active ? '2px solid #fff' : '1.5px solid rgba(255,255,255,0.5)',
+                     boxShadow: active ? `0 0 20px ${c}` : up ? '0 2px 8px rgba(0,0,0,0.5)' : `0 4px 12px ${c}66`,
+                     color: up ? 'rgba(255,255,255,0.65)' : '#fff' }}>
+            <span style={{ transform: pnr?'rotate(-45deg)':'none', display:'flex' }}><Icon name={up ? 'lock' : NODE_ICON(node)} className="w-3.5 h-3.5" stroke={2.3}/></span>
+            {active && !pnr && <span className="absolute inset-0 rounded-full ring-pulse" style={{ border:`2px solid ${accent}` }}/>}
           </button>
-          <div className="node-tooltip">
-            <div className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-night-800 text-white border border-white/10 shadow-lg flex items-center gap-1.5">
-              <span className="opacity-60">{node.horizon}</span>·<span>{node.label}</span>
-            </div>
-          </div>
         </div>
       );
     };
-
-    const CenterHub = ({ accent = '#A78BFA' }) => {
-      const ringStyle = (anim) => ({ transformBox: 'fill-box', transformOrigin: 'center', animation: anim });
-      const C = 130; // центр svg-контейнера 260x260
-      return (
-        <div className="relative" style={{ width: 260, height: 260 }}>
-          {/* Аура */}
-          <div className="absolute inset-0 aura-pulse"
-               style={{ background: 'radial-gradient(circle at 50% 50%, rgba(167,139,250,0.42), rgba(45,212,191,0.12) 38%, transparent 64%)' }} />
-
-          {/* Круговые волны + вращающиеся орбитальные кольца вокруг точки А */}
-          <svg viewBox="0 0 260 260" className="absolute inset-0 w-full h-full overflow-visible pointer-events-none">
-            {[0, 1, 2].map(i => (
-              <circle key={i} cx={C} cy={C} r="34" fill="none" stroke="rgba(167,139,250,0.5)" strokeWidth="0.9"
-                      style={ringStyle(`waveRing 4.4s ease-out ${i * 1.45}s infinite`)} />
-            ))}
-            <circle cx={C} cy={C} r="96" fill="none" stroke={accent} strokeOpacity="0.45" strokeWidth="0.7" strokeDasharray="2 5"
-                    style={ringStyle('spin 54s linear infinite')} />
-            <circle cx={C} cy={C} r="76" fill="none" stroke="rgba(45,212,191,0.4)" strokeWidth="0.6" strokeDasharray="1 6"
-                    style={ringStyle('spin 72s linear infinite reverse')} />
-            <circle cx={C} cy={C} r="116" fill="none" stroke={accent} strokeOpacity="0.18" strokeWidth="0.5" strokeDasharray="0.5 7"
-                    style={ringStyle('spin 90s linear infinite')} />
-          </svg>
-
-          {/* Фигура света — крупная, по центру ядра (AI-генерация Grok, фон прозрачный) */}
-          <div className="absolute left-1/2 top-1/2" style={{ width: 150, height: 224, transform: 'translate(-50%, -48%)' }}>
-            <img src="./assets/figure-light.png" alt="Вы здесь · точка А" draggable="false"
-                 style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center bottom',
-                          filter: 'drop-shadow(0 0 22px rgba(167,139,250,0.55))' }} />
+    const DestinationCard = ({ s, selected, recommended, match, onClick }) => (
+      <button onClick={onClick} className="absolute text-left transition-transform duration-300"
+        style={{ left:`${s.dest.x}%`, top:`${s.dest.y}%`, transform:`translate(-50%,-50%) scale(${selected?1.04:1})`, zIndex: selected?30:15, width:168 }}>
+        <div className="rounded-xl overflow-hidden glass-strong" style={{ borderColor: selected ? s.accent : 'rgba(255,255,255,0.12)', boxShadow: selected ? `0 0 26px ${s.accent}66` : '0 8px 24px rgba(0,0,0,0.5)' }}>
+          <div className="relative h-16">
+            <img src={`./assets/${s.preview}`} alt="" className="w-full h-full object-cover"/>
+            <div className="absolute inset-0" style={{ background:'linear-gradient(to top, rgba(12,18,32,0.96), transparent 72%)' }}/>
+            {recommended && <div className="absolute top-1.5 left-1.5 text-[8px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded text-night-900" style={{ background:s.accent }}>Рекомендовано</div>}
+            {match!=null && <div className="absolute top-1.5 right-1.5 text-[10px] font-bold px-1.5 py-0.5 rounded bg-black/55" style={{ color:s.accent }}>{match}%</div>}
           </div>
-
-          {/* Подпись */}
-          <div className="absolute left-1/2 -translate-x-1/2 text-center whitespace-nowrap" style={{ top: 'calc(50% + 120px)' }}>
-            <div className="px-3 py-1 rounded-full text-xs font-display font-bold bg-black/55 backdrop-blur text-white border border-white/15">
-              Вы здесь · точка А
-            </div>
+          <div className="px-2.5 py-2">
+            <div className="text-[9px] uppercase tracking-wider" style={{ color:s.accent }}>{s.orbitName}</div>
+            <div className="font-display font-bold text-sm leading-tight">{s.title}</div>
+            <div className="text-[10px] opacity-65 leading-tight mt-0.5">{s.tagline}</div>
           </div>
-        </div>
-      );
-    };
-
-    const OrbitChip = ({ scenario, isSelected, onClick }) => (
-      <button onClick={onClick}
-        className={`px-2.5 py-1.5 rounded-lg border text-left transition-all duration-300 flex items-center gap-2 ${isSelected ? 'scale-[1.03]' : 'opacity-70 hover:opacity-100'}`}
-        style={{ background: `${scenario.accent}1f`, borderColor: isSelected ? `${scenario.accent}` : `${scenario.accent}55`,
-                 boxShadow: isSelected ? `0 0 18px ${scenario.accent}55` : 'none' }}>
-        <span className="w-2 h-2 rounded-full shrink-0" style={{ background: scenario.accent }} />
-        <div>
-          <div className="font-display font-bold text-[13px] leading-tight" style={{ color: scenario.accent }}>{scenario.title}</div>
-          <div className="text-[9px] uppercase tracking-wider opacity-70 leading-tight" style={{ color: scenario.accent }}>{scenario.orbitName}</div>
         </div>
       </button>
     );
+    const Figure = () => (
+      <div className="absolute pointer-events-none hub-scale" style={{ left:`${FIG.x}%`, top:`${FIG.y}%` }}>
+        <div className="relative" style={{ width:140, height:150 }}>
+          <div className="absolute inset-0 aura-pulse" style={{ background:'radial-gradient(circle at 50% 55%, rgba(167,139,250,0.45), rgba(45,212,191,0.12) 40%, transparent 65%)' }}/>
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ width:88, height:130 }}>
+            <img src="./assets/figure-light.png" alt="Вы здесь" draggable="false" style={{ width:'100%', height:'100%', objectFit:'contain', objectPosition:'center bottom', filter:'drop-shadow(0 0 16px rgba(167,139,250,0.55))' }}/>
+          </div>
+          <div className="absolute left-1/2 -translate-x-1/2" style={{ top:'calc(50% + 66px)' }}>
+            <div className="px-3 py-1 rounded-full text-[11px] font-display font-bold bg-black/55 backdrop-blur text-white border border-white/15 whitespace-nowrap">Вы здесь · Настоящее</div>
+          </div>
+        </div>
+      </div>
+    );
 
-    const Legend = () => {
-      const items = [
-        { c: '#2DD4BF', label: 'Орбита-сценарий' },
-        { c: '#34D399', label: 'Контрольная точка', round: true },
-        { c: '#FBBF24', label: 'Прототип (проверка)', square: true },
-        { c: '#FB923C', label: 'Точка невозврата', diamond: true },
-        { c: '#3B2A55', label: 'Гравитационное поле' },
-      ];
-      return (
-        <div className="flex items-center gap-x-4 gap-y-1 flex-wrap text-[10px] mt-2 opacity-75">
-          {items.map((it, i) => (
-            <div key={i} className="flex items-center gap-1.5">
-              <span className="inline-block" style={{
-                width: 8, height: 8, background: it.c,
-                borderRadius: it.diamond ? 2 : it.square ? 2 : 9999,
-                transform: it.diamond ? 'rotate(45deg)' : 'none',
-              }} />
-              <span>{it.label}</span>
-            </div>
+    const RoadMap = ({ selected, setSelected, result, onNodeClick }) => (
+      <div className="flex-1 flex flex-col min-h-0">
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-2 shrink-0">
+          <div className="min-w-0">
+            <h1 className="font-display font-bold text-lg md:text-xl leading-tight">Ваш путь · выберите направление</h1>
+            <p className="text-[11px] opacity-55 hidden md:block leading-tight">Три траектории расходятся из точки А. {result ? 'Анкета подсветила рекомендованную.' : 'Пройдите анкету — построим персональную.'}</p>
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            {SCENARIOS.map(s => (
+              <button key={s.id} onClick={()=>setSelected(s.id)} className={`px-2.5 py-1.5 rounded-lg border transition flex items-center gap-2 ${selected===s.id?'scale-[1.03]':'opacity-70 hover:opacity-100'}`}
+                style={{ background:`${s.accent}1f`, borderColor: selected===s.id?s.accent:`${s.accent}55`, boxShadow: selected===s.id?`0 0 16px ${s.accent}55`:'none' }}>
+                <span className="w-2 h-2 rounded-full" style={{ background:s.accent }}/><span className="font-display font-bold text-[13px]" style={{ color:s.accent }}>{s.title}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="relative rounded-2xl overflow-hidden border border-white/5 intro-up min-h-[340px] sm:min-h-[420px] lg:min-h-0 lg:flex-1 bg-night-900">
+          <img src="./assets/terrain.png" alt="" className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition:'center 35%' }}/>
+          <div className="absolute inset-0 pointer-events-none" style={{ background:'linear-gradient(to bottom, rgba(7,11,20,0.55) 0%, rgba(7,11,20,0.05) 30%, rgba(7,11,20,0) 55%, rgba(7,11,20,0.45) 100%)' }}/>
+          <div className="absolute top-2.5 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.2em] text-white/45 pointer-events-none" style={{ textShadow:'0 1px 6px #000' }}>Будущее · поле возможностей</div>
+
+          <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>{SCENARIOS.map(s => (<linearGradient key={s.id} id={`g-${s.id}`} x1="0" x2="1" y1="1" y2="0"><stop offset="0%" stopColor={s.accent} stopOpacity="0.25"/><stop offset="100%" stopColor={s.accent} stopOpacity="1"/></linearGradient>))}</defs>
+            {SCENARIOS.map(s => { const sel = selected===s.id; const d = pathD(s); return (
+              <g key={s.id}>
+                <path d={d} fill="none" stroke={s.accent} strokeOpacity={sel?0.55:0.18} strokeWidth={sel?1.3:0.8} strokeLinecap="round" style={{ filter:`drop-shadow(0 0 ${sel?2.5:1.5}px ${s.accent})` }}/>
+                <path d={d} fill="none" stroke={`url(#g-${s.id})`} strokeWidth={sel?0.55:0.35} strokeLinecap="round" strokeDasharray="1.4 1.3" className={sel?'path-flow':''}/>
+              </g>
+            );})}
+          </svg>
+
+          {SCENARIOS.map(s => s.nodes.map((n,i) => { const node = {...withStatus(n,i), horizon:HORIZONS[i]}; return (
+            <MapNode key={`${s.id}-${i}`} node={node} pos={nodePos(s,i)} accent={s.accent} dim={selected!==s.id} onClick={()=>onNodeClick({ ...node, scenario:s })}/>
+          );}))}
+
+          {SCENARIOS.map(s => (
+            <DestinationCard key={s.id} s={s} selected={selected===s.id} recommended={result && result.recommended===s.id} match={result ? result.match[s.id] : null} onClick={()=>setSelected(s.id)}/>
           ))}
-        </div>
-      );
-    };
 
-    const ScenarioMap = ({ selected, setSelected, onNodeClick }) => {
-      const mapRef = useRef(null), bgRef = useRef(null), hubRef = useRef(null);
-      // звёзды (верхняя зона) и частицы аккреции — генерируем один раз
-      const STARS = useMemo(() => Array.from({ length: 50 }, () => ({
-        x: Math.random() * 100, y: Math.random() * 62, r: Math.random() * 1.3 + 0.3,
-        d: 2.5 + Math.random() * 4, delay: Math.random() * 6,
-      })), []);
-      const PARTS = useMemo(() => Array.from({ length: 28 }, () => ({
-        a: (Math.random() < 0.5 ? 0 : 180) + (Math.random() * 90 - 45), // приток вдоль плоскости диска
-        r: 50 + Math.random() * 140, d: 3.5 + Math.random() * 4.5,
-        delay: Math.random() * 8, c: Math.random() < 0.5 ? '#A78BFA' : '#FBBF24',
-      })), []);
-      // мышиный параллакс — слои смещаются на разной глубине (через CSS-свойство translate)
-      const onMove = (e) => {
-        const r = mapRef.current && mapRef.current.getBoundingClientRect();
-        if (!r) return;
-        const mx = ((e.clientX - r.left) / r.width - 0.5) * 2;
-        const my = ((e.clientY - r.top) / r.height - 0.5) * 2;
-        if (bgRef.current) bgRef.current.style.translate = `${mx * -15}px ${my * -9}px`;
-        if (hubRef.current) hubRef.current.style.translate = `${mx * 11}px ${my * 7}px`;
-      };
-      const onLeave = () => {
-        if (bgRef.current) bgRef.current.style.translate = '0 0';
-        if (hubRef.current) hubRef.current.style.translate = '0 0';
-      };
-      // Сюжетный «облёт»: при выборе орбиты по очереди подсвечиваем её контрольные точки
-      const [tour, setTour] = useState(0);
-      useEffect(() => {
-        setTour(0);
-        let i = 0;
-        const id = setInterval(() => {
-          i += 1;
-          if (i >= HORIZONS.length) { clearInterval(id); setTour(null); }
-          else setTour(i);
-        }, 1050);
-        return () => clearInterval(id);
-      }, [selected]);
-      const selScenario = SCENARIOS.find(s => s.id === selected) || SCENARIOS[0];
+          <Figure/>
+        </div>
+
+        <div className="shrink-0 mt-2 hidden sm:flex items-center justify-between glass rounded-xl px-3 py-2">
+          {STAGES.map((st,i) => { const done = i<3, active = i===3; return (
+            <React.Fragment key={st.id}>
+              <div className="flex items-center gap-2">
+                <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${done?'bg-teal-500/25 text-teal-300':active?'bg-gradient-to-br from-teal-500 to-violet-600 text-white':'bg-white/8 text-white/40'}`}>{done?<Icon name="check" className="w-3 h-3" stroke={3}/>:st.id}</span>
+                <span className={`text-[11px] font-medium hidden md:inline ${active?'text-white':done?'text-teal-300':'opacity-45'}`}>{st.name}</span>
+              </div>
+              {i<STAGES.length-1 && <div className={`flex-1 h-px mx-1 ${done?'bg-teal-400/40':'bg-white/10'}`}/>}
+            </React.Fragment>
+          );})}
+        </div>
+      </div>
+    );
+
+    /* ========== ПРАВАЯ ПАНЕЛЬ ========== */
+    const RightPanel = ({ selected, result }) => {
+      const s = byId(selected);
+      const nodes = s.nodes.map((n,i)=>({...withStatus(n,i),horizon:HORIZONS[i]}));
+      const active = nodes.find(n=>n.status==='active') || nodes[2];
+      const done = nodes.filter(n=>n.status==='done');
+      const rec = result ? byId(result.recommended) : null;
       return (
-        <div className="flex-1 flex flex-col min-h-0">
-          {/* Компактная шапка: заголовок + выбор орбиты */}
-          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-2 shrink-0">
-            <div className="min-w-0">
-              <h1 className="font-display font-bold text-lg md:text-xl leading-tight">Карта вашего пространства-времени</h1>
-              <p className="text-[11px] opacity-55 hidden md:block leading-tight">Будущее — не прямая линия, а пространство возможностей. Три орбиты — три степени перехода.</p>
-            </div>
-            <div className="flex gap-2 flex-wrap">
-              {SCENARIOS.map(s => (
-                <OrbitChip key={s.id} scenario={s} isSelected={selected === s.id} onClick={() => setSelected(s.id)} />
-              ))}
-            </div>
+        <aside className="w-full lg:w-72 shrink-0 order-3 lg:min-h-0 lg:overflow-y-auto thin-scroll lg:pl-1">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+            <Card className="p-4">
+              <CardTitle icon="target">Текущий фокус</CardTitle>
+              <div className="text-[10px] uppercase tracking-wider mb-1" style={{ color:s.accent }}>{s.orbitName} · {active.horizon}</div>
+              <div className="font-semibold text-[15px] mb-1">{active.label}</div>
+              <p className="text-[11px] opacity-65 leading-snug mb-3">{active.desc}</p>
+              <div className="space-y-1.5 mb-3">{active.tasks.map((t,i)=>(<div key={i} className="flex items-center gap-2 text-[12px]"><span className="w-4 h-4 rounded-full border-2 shrink-0" style={{ borderColor:s.accent }}/>{t}</div>))}</div>
+              <button className="w-full py-2 rounded-lg text-white font-semibold text-[12px] hover:opacity-90 transition" style={{ background:`linear-gradient(135deg,${s.accent},${s.accent}dd)` }}>Перейти к шагу</button>
+            </Card>
+            <Card className="p-4">
+              <CardTitle icon="check">Недавнее</CardTitle>
+              <div className="space-y-2">
+                {done.map((n,i)=>(<div key={i} className="flex items-center gap-2 text-[12px]"><span className="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0"><Icon name="check" className="w-2.5 h-2.5" stroke={3}/></span><span className="opacity-80">Пройдено: {n.label}</span></div>))}
+                <div className="flex items-center gap-2 text-[12px] opacity-55"><span className="w-4 h-4 rounded-full border border-white/25 shrink-0"/>Заполнена диагностика</div>
+              </div>
+            </Card>
+            <Card className="p-4">
+              <CardTitle icon="trending">Инсайт траектории</CardTitle>
+              {result ? (
+                <>
+                  <div className="text-[11px] opacity-65 mb-1">Вы движетесь к</div>
+                  <div className="font-display font-bold text-base mb-2" style={{ color:rec.accent }}>{rec.title} · {rec.orbitName}</div>
+                  <div className="flex justify-between text-[11px] mb-1"><span className="opacity-70">Соответствие</span><span className="font-semibold" style={{ color:rec.accent }}>{result.match[result.recommended]}%</span></div>
+                  <div className="h-2 rounded-full overflow-hidden bg-white/8 mb-3"><div className="h-full rounded-full" style={{ width:`${result.match[result.recommended]}%`, background:`linear-gradient(to right,${rec.accent},#ffffff88)` }}/></div>
+                  <p className="text-[11px] opacity-65 leading-snug">{rec.roleOutcome}. Подходит, {rec.fit}.</p>
+                </>
+              ) : (<p className="text-[12px] opacity-65 leading-snug">Пройдите анкету — и здесь появится ваша рекомендованная траектория с оценкой соответствия.</p>)}
+            </Card>
           </div>
-
-          <div ref={mapRef} onMouseMove={onMove} onMouseLeave={onLeave}
-               className="relative rounded-2xl overflow-hidden border border-white/5 space-bg intro-rise min-h-[320px] sm:min-h-[400px] lg:min-h-0 lg:flex-1">
-            {/* AI-фон (Grok): чёрная дыра и искривлённое пространство-время */}
-            <img ref={bgRef} src="./assets/map-spacetime.png" alt="" draggable="false"
-                 className="absolute inset-0 w-full h-full object-cover bg-drift"
-                 style={{ objectPosition: 'center', translate: '0 0', transition: 'translate 0.35s ease-out' }} />
-            {/* Слои читаемости: затемнение верха/низа + виньетка */}
-            <div className="absolute inset-0 pointer-events-none"
-                 style={{ background: 'linear-gradient(to bottom, rgba(6,9,18,0.62) 0%, rgba(6,9,18,0.16) 26%, rgba(6,9,18,0) 46%, rgba(6,9,18,0) 62%, rgba(6,9,18,0.32) 100%)' }} />
-            <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 0 0 140px 50px rgba(6,9,18,0.72)' }} />
-
-            {/* Зона будущего / прошлого — подписи */}
-            <div className="absolute top-3 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.2em] text-white/45 pointer-events-none" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.8)' }}>Будущее · поле возможностей</div>
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.2em] text-white/35 pointer-events-none" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.8)' }}>Прошлое · поле притяжения</div>
-
-            {/* Мерцающие звёзды */}
-            <div className="absolute inset-0 pointer-events-none">
-              {STARS.map((s, i) => (
-                <span key={i} className="absolute rounded-full bg-white"
-                      style={{ left: `${s.x}%`, top: `${s.y}%`, width: s.r * 2, height: s.r * 2, opacity: 0.5,
-                               animation: `twinkle ${s.d}s ease-in-out ${s.delay}s infinite` }} />
-              ))}
-            </div>
-
-            {/* Тонкая интерактивная сетка поверх AI-фона */}
-            <SpacetimeGrid />
-
-            {/* Орбитальные направляющие + пути сценариев */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
-              <defs>
-                {SCENARIOS.map(s => (
-                  <linearGradient key={s.id} id={`stroke-${s.id}`} x1="0" x2="1" y1="0" y2="0">
-                    <stop offset="0%" stopColor={s.accent} stopOpacity="0.3" />
-                    <stop offset="55%" stopColor={s.accent} stopOpacity="1" />
-                    <stop offset="100%" stopColor={s.accent} stopOpacity="0.5" />
-                  </linearGradient>
-                ))}
-              </defs>
-              {/* путь-дуга сценария через узлы (искривлён гравитацией прошлого, прочерчивается при входе) */}
-              {SCENARIOS.map((s, idx) => {
-                const pts = s.nodes.map((n, i) => wPos(s, i));
-                const d = buildSmoothPath(pts);
-                const sel = selected === s.id;
-                const gd = idx * 0.32; // стаггер прочерчивания: Бережный → Рост → Прорыв
-                return (
-                  <g key={s.id}>
-                    {/* свечение — рисуется от начала к концу */}
-                    <path d={d} pathLength="1" fill="none" stroke={s.accent} strokeOpacity={sel ? 0.6 : 0.22}
-                          strokeWidth={sel ? 1.4 : 0.9} strokeLinecap="round"
-                          style={{ filter: `drop-shadow(0 0 ${sel ? 3 : 2}px ${s.accent})`, strokeDasharray: 1,
-                                   animation: `drawIn 1.3s ease-out ${gd}s both` }} />
-                    {/* пунктирное ядро линии — проявляется после прочерчивания */}
-                    <path d={d} fill="none" stroke={`url(#stroke-${s.id})`} strokeWidth={sel ? 0.55 : 0.35}
-                          strokeLinecap="round" strokeDasharray="1.4 1.2"
-                          style={{ animation: `fadeInLate 0.7s ease ${gd + 1.15}s both` }} />
-                    {/* живой поток времени — только на выбранной орбите */}
-                    {sel && (
-                      <path d={d} fill="none" stroke={`url(#stroke-${s.id})`} strokeWidth="0.55"
-                            strokeLinecap="round" strokeDasharray="1.4 1.2" className="orbit-flow" />
-                    )}
-                  </g>
-                );
-              })}
-            </svg>
-
-            {/* Гравитационные поля прошлого */}
-            <GravityWells />
-
-            {/* Силы ускорения — лёгкие подписи в зоне будущего */}
-            <div className="absolute top-9 right-4 flex flex-col items-end gap-1 pointer-events-none">
-              <div className="text-[9px] uppercase tracking-wider text-white/30">Силы ускорения</div>
-              <div className="flex gap-1 flex-wrap justify-end max-w-[150px]">
-                {ACCEL_FORCES.map(f => (
-                  <span key={f} className="text-[9px] px-1.5 py-0.5 rounded bg-white/5 text-white/45 border border-white/5">{f}</span>
-                ))}
-              </div>
-            </div>
-
-            {/* Узлы орбит */}
-            {SCENARIOS.map(s =>
-              s.nodes.map((n, i) => {
-                const node = { ...n, horizon: HORIZONS[i] };
-                const dim = selected !== s.id;
-                return (
-                  <div key={`${s.id}-${i}`} style={{ opacity: dim ? 0.5 : 1, transition: 'opacity 0.3s' }}>
-                    <MapNode node={node} pos={wPos(s, i)} accent={s.accent}
-                      spotlight={selected === s.id && tour === i}
-                      onClick={() => onNodeClick({ ...node, scenario: s })} />
-                  </div>
-                );
-              })
-            )}
-
-            {/* Подпись сюжетного «облёта» */}
-            {tour != null && (
-              <div key={tour} className="absolute left-1/2 z-30 pointer-events-none" style={{ top: '7%', animation: 'captionIn 0.4s ease both' }}>
-                <div className="px-4 py-2 rounded-xl bg-black/65 backdrop-blur border text-center shadow-lg" style={{ borderColor: `${selScenario.accent}66` }}>
-                  <div className="text-[10px] uppercase tracking-wider" style={{ color: selScenario.accent }}>{selScenario.orbitName} · {HORIZONS[tour]}</div>
-                  <div className="font-display font-semibold text-sm text-white">{selScenario.nodes[tour].label}</div>
-                </div>
-              </div>
-            )}
-
-            {/* Аккреция: частицы света по спирали затягиваются в ядро */}
-            <div className="absolute pointer-events-none" style={{ left: `${CORE.x}%`, top: `${CORE.y}%` }}>
-              {PARTS.map((p, i) => (
-                <span key={i} style={{ position: 'absolute', width: 3, height: 3, borderRadius: 9999, background: p.c,
-                                       boxShadow: `0 0 6px ${p.c}`, transformOrigin: '0 0',
-                                       '--a': `${p.a}deg`, '--r': `${p.r}px`,
-                                       animation: `accrete ${p.d}s linear ${p.delay}s infinite` }} />
-              ))}
-            </div>
-
-            {/* Центральный хаб — точка А (фигура в центре ядра; позиционирование отдельно от дрейфа) */}
-            <div ref={hubRef} className="absolute pointer-events-none hub-scale"
-                 style={{ left: `${CORE.x}%`, top: `${CORE.y}%`, translate: '0 0', transition: 'translate 0.35s ease-out' }}>
-              <div className="drift">
-                <CenterHub accent={(SCENARIOS.find(s => s.id === selected) || SCENARIOS[0]).accent} />
-              </div>
-            </div>
-          </div>
-
-          <Legend />
-        </div>
+        </aside>
       );
     };
 
-    /* ========== MODAL ========== */
+    /* ========== МОДАЛКА УЗЛА ========== */
     const NodeModal = ({ data, onClose }) => {
       if (!data) return null;
-      const { scenario } = data;
-      const isDone = data.status === 'done';
-      const isActive = data.status === 'active';
-      const isPnr = data.kind === 'pnr';
-      const isProto = data.kind === 'prototype';
-      const accent = isPnr ? '#FB923C' : scenario.accent;
-
+      const s = data.scenario, pnr = data.kind===PNR_NODE, proto = data.kind===PROTO;
+      const done = data.status==='done', active = data.status==='active', up = data.status==='upcoming';
+      const accent = pnr ? PNR : s.accent;
       return (
-        <div onClick={onClose} className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay"
-             style={{ background: 'rgba(6, 9, 18, 0.7)', backdropFilter: 'blur(8px)' }}>
-          <div onClick={(e) => e.stopPropagation()} className="modal-content w-full max-w-md rounded-3xl p-6 relative bg-night-800 border border-white/10 text-white">
-            <button onClick={onClose} className="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10">
-              <Icon name="close" className="w-4 h-4" />
-            </button>
-
+        <div onClick={onClose} className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay" style={{ background:'rgba(7,11,20,0.72)', backdropFilter:'blur(8px)' }}>
+          <div onClick={e=>e.stopPropagation()} className="modal-content w-full max-w-md rounded-3xl p-6 relative bg-night-800 border border-white/10 text-white">
+            <button onClick={onClose} className="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10"><Icon name="close" className="w-4 h-4"/></button>
             <div className="flex items-start gap-4 mb-4">
-              <div className="w-14 h-14 flex items-center justify-center shrink-0 text-white"
-                style={{ background: `linear-gradient(135deg, ${accent}, ${accent}dd)`, borderRadius: isPnr ? 12 : 16, boxShadow: `0 8px 24px ${accent}55` }}>
-                <Icon name={isPnr ? 'horizon' : isProto ? 'flask' : data.kind === 'role' ? 'compassRole' : (data.icon || 'star')} className="w-6 h-6" />
-              </div>
+              <div className="w-14 h-14 flex items-center justify-center shrink-0 text-white" style={{ background:`linear-gradient(135deg,${accent},${accent}dd)`, borderRadius: pnr?12:16, boxShadow:`0 8px 24px ${accent}55` }}><Icon name={pnr?'horizon':proto?'flask':data.kind==='role'?'compassRole':'star'} className="w-6 h-6"/></div>
               <div className="flex-1 pt-1">
-                <div className="text-[10px] uppercase tracking-wider opacity-70 font-semibold" style={{ color: scenario.accent }}>
-                  {scenario.orbitName} · {data.horizon}
-                </div>
+                <div className="text-[10px] uppercase tracking-wider opacity-70 font-semibold" style={{ color:s.accent }}>{s.orbitName} · {data.horizon}</div>
                 <h3 className="font-display font-bold text-xl leading-tight">{data.label}</h3>
                 <div className="mt-1.5">
-                  {isDone && <span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-semibold">Пройдено</span>}
-                  {isActive && <span className="text-[11px] px-2 py-0.5 rounded-full font-semibold" style={{ background: `${accent}22`, color: accent }}>Текущий шаг</span>}
-                  {isPnr && <span className="text-[11px] px-2 py-0.5 rounded-full font-semibold bg-orange-500/15 text-orange-300">Точка невозврата</span>}
-                  {isProto && !isPnr && <span className="text-[11px] px-2 py-0.5 rounded-full font-semibold bg-amber-500/15 text-amber-300">Прототип · проверка</span>}
+                  {done && <span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-semibold">Пройдено</span>}
+                  {active && <span className="text-[11px] px-2 py-0.5 rounded-full font-semibold" style={{ background:`${accent}22`, color:accent }}>Текущий шаг</span>}
+                  {pnr && <span className="text-[11px] px-2 py-0.5 rounded-full font-semibold bg-orange-500/15 text-orange-300">Точка невозврата</span>}
+                  {proto && !pnr && <span className="text-[11px] px-2 py-0.5 rounded-full font-semibold bg-amber-500/15 text-amber-300">Прототип</span>}
                 </div>
               </div>
             </div>
-
             <p className="text-sm opacity-80 leading-relaxed mb-4">{data.desc}</p>
-
-            {isPnr && (
-              <div className="mb-4 p-3 rounded-xl bg-orange-500/10 border border-orange-500/20 text-[13px] text-orange-200 leading-relaxed">
-                Горизонт событий: после этого решения старый сценарий уже не продолжить. Это не катастрофа, а момент пересборки.
-              </div>
-            )}
-
+            {pnr && <div className="mb-4 p-3 rounded-xl bg-orange-500/10 border border-orange-500/20 text-[13px] text-orange-200 leading-relaxed">Горизонт событий: после этого решения старый сценарий уже не продолжить. Это не катастрофа, а момент пересборки.</div>}
             <div className="mb-4">
               <div className="text-[10px] uppercase tracking-wider opacity-60 font-semibold mb-2">Шаги</div>
-              <div className="space-y-2">
-                {data.tasks.map((t, i) => (
-                  <div key={i} className="flex items-center gap-3 p-2.5 rounded-xl bg-white/5">
-                    <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${isDone ? 'bg-emerald-500 text-white' : 'border-2'}`} style={!isDone ? { borderColor: accent } : {}}>
-                      {isDone && <Icon name="check" className="w-3 h-3" stroke={3} />}
-                    </div>
-                    <span className="text-sm">{t}</span>
-                  </div>
-                ))}
-              </div>
+              <div className="space-y-2">{data.tasks.map((t,i)=>(<div key={i} className="flex items-center gap-3 p-2.5 rounded-xl bg-white/5"><div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${done?'bg-emerald-500 text-white':'border-2'}`} style={!done?{borderColor:accent}:{}}>{done && <Icon name="check" className="w-3 h-3" stroke={3}/>}</div><span className="text-sm">{t}</span></div>))}</div>
             </div>
-
-            {isActive && (
-              <button className="w-full py-3 rounded-xl text-white font-semibold text-sm transition hover:opacity-90"
-                style={{ background: `linear-gradient(135deg, ${accent}, ${accent}dd)`, boxShadow: `0 8px 24px ${accent}55` }}>
-                Отметить шаг выполненным
-              </button>
-            )}
-            {data.status === 'upcoming' && (
-              <div className="p-3 rounded-xl text-xs text-center bg-white/5 text-white/70">Откроется после прохождения предыдущих контрольных точек</div>
-            )}
-            {isDone && (
-              <button className="w-full py-3 rounded-xl font-semibold text-sm bg-white/5 hover:bg-white/10">Открыть разбор шага</button>
-            )}
-
+            {active && <button className="w-full py-3 rounded-xl text-white font-semibold text-sm hover:opacity-90 transition" style={{ background:`linear-gradient(135deg,${accent},${accent}dd)` }}>Отметить шаг выполненным</button>}
+            {up && <div className="p-3 rounded-xl text-xs text-center bg-white/5 text-white/70">Откроется после прохождения предыдущих контрольных точек</div>}
+            {done && <button className="w-full py-3 rounded-xl font-semibold text-sm bg-white/5 hover:bg-white/10">Открыть разбор шага</button>}
             <p className="text-[11px] opacity-45 mt-3 leading-relaxed text-center">Это рекомендация и опора для решения, а не гарантия. Выбор остаётся за вами.</p>
           </div>
         </div>
       );
     };
 
-    /* ========== LAYOUT ========== */
-    const Header = () => (
-      <header className="flex items-center justify-between px-4 md:px-5 py-2.5 shrink-0">
-        <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500 to-violet-600 flex items-center justify-center text-white shadow-glow-violet">
-            <Icon name="compass" className="w-5 h-5" stroke={2} />
-          </div>
-          <div>
-            <div className="font-display font-bold text-base leading-tight">Дорожная карта будущего</div>
-            <div className="text-[10px] uppercase tracking-wider opacity-55 hidden sm:block">Life Design · личное пространство-время</div>
-          </div>
-        </div>
-
-        <div className="hidden 2xl:block"><StageIndicator /></div>
-
-        <div className="flex items-center gap-4">
-          <button className="w-10 h-10 rounded-full relative flex items-center justify-center bg-white/5 hover:bg-white/10">
-            <Icon name="bell" className="w-4 h-4" />
-            <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-teal-400" />
-          </button>
-          <div className="flex items-center gap-3 pl-2">
-            <div className="hidden sm:block text-right">
-              <div className="font-semibold text-sm leading-tight">{USER.name}</div>
-              <div className="text-[11px] opacity-60">{USER.role}</div>
-              <div className="flex items-center gap-2 mt-1 justify-end">
-                <div className="w-24 h-1 rounded-full overflow-hidden bg-white/10">
-                  <div className="h-full bg-gradient-to-r from-teal-400 to-violet-500" style={{ width: `${USER.stage / USER.stageTotal * 100}%` }} />
-                </div>
-                <span className="text-[10px] tabular-nums opacity-70">Этап {USER.stage}/{USER.stageTotal}</span>
-              </div>
-            </div>
-            <div className="w-11 h-11 rounded-full bg-gradient-to-br from-teal-400 to-violet-500 flex items-center justify-center text-white font-bold font-display">
-              {USER.name[0]}
-            </div>
-          </div>
-        </div>
-      </header>
-    );
-
-    const toneColor = (tone) => tone === 'resource' ? 'text-teal-300 bg-teal-500/12'
-      : tone === 'limit' ? 'text-orange-300 bg-orange-500/12' : 'text-violet-300 bg-violet-500/12';
-
-    const LeftSidebar = () => (
-      <aside className="w-full lg:w-64 shrink-0 order-2 lg:order-1 lg:min-h-0 lg:overflow-y-auto thin-scroll lg:pr-1">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
-        <Card className="p-4">
-          <CardTitle icon="pin">Точка А · текущая ситуация</CardTitle>
-          <div className="flex justify-center my-2"><Gauge value={USER.readiness} size={88} /></div>
-          <p className="text-[13px] opacity-75 leading-relaxed">Запрос: «выросла из прежней роли, нужна новая траектория без резких разрушений».</p>
-        </Card>
-
-        <Card className="p-4">
-          <CardTitle icon="layers">Пространства жизни</CardTitle>
-          <div className="space-y-3">
-            {LIFE_SPACES.map(m => <MetricBar key={m.key} {...m} />)}
-          </div>
-        </Card>
-
-        <Card className="p-4">
-          <CardTitle icon="compassRole">Карта идентичности</CardTitle>
-          <div className="space-y-2.5">
-            {IDENTITY.map((it, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <div className={`w-2 h-2 rounded-full shrink-0 ${it.tone === 'present' ? 'bg-teal-400' : it.tone === 'future' ? 'bg-violet-400' : 'bg-white/30'}`} />
-                <div>
-                  <div className="text-[10px] uppercase tracking-wider opacity-50">{it.phase}</div>
-                  <div className="text-sm">{it.text}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        <Card className="p-4">
-          <CardTitle icon="heart">Ценности и смыслы</CardTitle>
-          <div className="space-y-2.5">
-            {VALUES.map(v => (
-              <div key={v.name} className="flex items-center gap-3">
-                <div className="w-7 h-7 rounded-lg flex items-center justify-center bg-white/5">
-                  <Icon name={v.icon} className="w-3.5 h-3.5 text-teal-300" />
-                </div>
-                <span className="text-sm">{v.name}</span>
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        <Card className="p-4">
-          <CardTitle icon="globe">Социокультурный код</CardTitle>
-          <div className="flex flex-wrap gap-2">
-            {SOCIOCODE.map(c => (
-              <span key={c.name} className={`text-xs px-2.5 py-1.5 rounded-lg ${toneColor(c.tone)}`}>{c.name}</span>
-            ))}
-          </div>
-          <div className="flex items-center gap-3 mt-3 text-[10px] opacity-55">
-            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-teal-400" />ресурс</span>
-            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-orange-400" />ограничение</span>
-          </div>
-        </Card>
-
-        <Card className="p-4">
-          <CardTitle icon="star">Профессиональный капитал</CardTitle>
-          <div className="flex flex-wrap gap-2">
-            {PRO_CAPITAL.map(s => <span key={s} className="text-xs px-2.5 py-1.5 rounded-lg bg-violet-500/12 text-violet-200">{s}</span>)}
-          </div>
-        </Card>
-        </div>
-      </aside>
-    );
-
-    const RightSidebar = ({ scenario }) => (
-      <aside className="w-full lg:w-72 shrink-0 order-3 lg:min-h-0 lg:overflow-y-auto thin-scroll lg:pl-1">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
-        <Card className="p-4">
-          <CardTitle icon="target">Текущий фокус</CardTitle>
-          <div className="text-[10px] uppercase tracking-wider mb-1" style={{ color: scenario.accent }}>{scenario.orbitName}</div>
-          <div className="font-semibold text-base mb-1">Контрольная точка «3 месяца»</div>
-          <p className="text-xs opacity-70 leading-relaxed mb-3">Проверить спрос малым прототипом, не разрушая текущую опору.</p>
-          <button className="w-full py-2.5 rounded-xl text-white font-semibold text-sm hover:opacity-90 transition"
-            style={{ background: `linear-gradient(135deg, ${scenario.accent}, ${scenario.accent}dd)`, boxShadow: `0 8px 22px ${scenario.accent}44` }}>
-            Перейти к шагу
-          </button>
-        </Card>
-
-        <Card className="p-4">
-          <CardTitle icon="compassRole">Новая роль · позиционирование</CardTitle>
-          <div className="font-display font-semibold text-base mb-1" style={{ color: scenario.accent }}>{scenario.roleOutcome}</div>
-          <p className="text-xs opacity-70 leading-relaxed">{scenario.subtitle}. {scenario.fit}.</p>
-        </Card>
-
-        <Card className="p-4">
-          <CardTitle icon="money">Модель дохода</CardTitle>
-          <p className="text-xs opacity-70 leading-relaxed mb-2.5">Гипотезы монетизации опыта — проверяем малыми шагами, без обещаний по сумме.</p>
-          <div className="flex flex-wrap gap-2">
-            {INCOME_HYPOTHESES.map(h => <span key={h} className="text-xs px-2.5 py-1.5 rounded-lg bg-white/5 text-white/80">{h}</span>)}
-          </div>
-        </Card>
-
-        <Card className="p-4">
-          <CardTitle icon="flask">Прототипы будущего</CardTitle>
-          <div className="space-y-2">
-            {PROTOTYPES.map((p, i) => (
-              <div key={i} className="flex items-center gap-3 text-sm">
-                <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${p.done ? 'bg-emerald-500 text-white' : 'border-2 border-white/25'}`}>
-                  {p.done && <Icon name="check" className="w-3 h-3" stroke={3} />}
-                </div>
-                <span className={p.done ? 'opacity-60 line-through' : ''}>{p.label}</span>
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        <Card className="p-4">
-          <CardTitle icon="calendar">Контрольные точки</CardTitle>
-          <div className="space-y-2">
-            {MILESTONES.map((m, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <div className={`w-2.5 h-2.5 rounded-full shrink-0 ${m.status === 'done' ? 'bg-emerald-400' : m.status === 'active' ? 'bg-teal-400 ring-4 ring-teal-400/20' : 'bg-white/20'}`} />
-                <span className={`text-sm ${m.status === 'upcoming' ? 'opacity-50' : ''}`}>{m.horizon}</span>
-                {m.status === 'active' && <span className="ml-auto text-[10px] text-teal-300">сейчас</span>}
-                {m.status === 'done' && <span className="ml-auto text-[10px] opacity-50">пройдено</span>}
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        <Card className="p-4">
-          <CardTitle icon="anchor">Ритм действий</CardTitle>
-          <div className="flex justify-between text-sm mb-2">
-            <span className="opacity-75">Регулярность</span>
-            <span className="font-semibold">5 недель подряд</span>
-          </div>
-          <div className="flex items-center gap-1">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className={`flex-1 h-1.5 rounded-full ${i < 5 ? 'bg-gradient-to-r from-teal-400 to-violet-500' : 'bg-white/10'}`} />
-            ))}
-          </div>
-          <p className="text-xs opacity-65 leading-relaxed mt-3">«Ваша дорожная карта. Моя работа. Ваша опора.»</p>
-        </Card>
-        </div>
-      </aside>
-    );
-
-    const TimelineBar = () => (
-      <div className="mt-6">
-        <div className="font-display font-semibold text-sm uppercase tracking-wider opacity-70 mb-3 px-1">Горизонт движения · 2–3 года</div>
-        <Card className="p-4">
-          <div className="relative flex items-center justify-between">
-            <div className="absolute left-0 right-0 top-1/2 h-px bg-white/10" />
-            <div className="absolute left-0 top-1/2 h-px bg-gradient-to-r from-emerald-400 to-teal-400" style={{ width: '40%' }} />
-            {MILESTONES.map((m, i) => (
-              <div key={i} className="relative flex flex-col items-center gap-2 z-10">
-                <div className={`w-4 h-4 rounded-full border-2 ${m.status === 'done' ? 'bg-emerald-400 border-emerald-400' : m.status === 'active' ? 'bg-teal-400 border-teal-400 ring-4 ring-teal-400/20' : 'bg-night-800 border-white/25'}`} />
-                <span className={`text-[11px] ${m.status === 'upcoming' ? 'opacity-50' : ''}`}>{m.horizon}</span>
-              </div>
-            ))}
-          </div>
-        </Card>
-      </div>
-    );
-
-    const BottomIndicators = () => (
-      <div className="mt-6">
-        <div className="font-display font-semibold text-sm uppercase tracking-wider opacity-70 mb-3 px-1">Ключевые индикаторы</div>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-          {KEY_INDICATORS.map((m, i) => (
-            <Card key={i} className="p-4">
-              <div className="flex items-center gap-2 mb-1">
-                <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center"><Icon name={m.icon} className="w-3.5 h-3.5 opacity-80" /></div>
-                <span className="text-xs opacity-70">{m.label}</span>
-              </div>
-              <div className={`font-display font-bold text-2xl ${m.tone === 'positive' ? 'text-teal-300' : ''}`}>{m.value}</div>
-              <div className="text-[11px] opacity-70 mt-0.5">{m.sub}</div>
-            </Card>
-          ))}
-        </div>
-      </div>
-    );
-
-    /* ========== КОМПАКТНАЯ НИЖНЯЯ ПОЛОСА (горизонт + индикаторы + дисклеймер) ========== */
-    const BottomStrip = () => (
-      <Card className="p-3 shrink-0">
-        <div className="flex flex-col lg:flex-row lg:items-center gap-3">
-          <div className="flex-1 min-w-0">
-            <div className="text-[10px] uppercase tracking-wider opacity-50 mb-1.5 hidden sm:block">Горизонт движения · 2–3 года</div>
-            <div className="relative flex items-center justify-between">
-              <div className="absolute left-0 right-0 top-1/2 h-px bg-white/10" />
-              <div className="absolute left-0 top-1/2 h-px bg-gradient-to-r from-emerald-400 to-teal-400" style={{ width: '40%' }} />
-              {MILESTONES.map((m, i) => (
-                <div key={i} className="relative flex flex-col items-center gap-1 z-10">
-                  <div className={`w-3 h-3 rounded-full border-2 ${m.status === 'done' ? 'bg-emerald-400 border-emerald-400' : m.status === 'active' ? 'bg-teal-400 border-teal-400 ring-4 ring-teal-400/20' : 'bg-night-800 border-white/25'}`} />
-                  <span className={`text-[10px] ${m.status === 'upcoming' ? 'opacity-50' : ''}`}>{m.horizon}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="flex items-center justify-between lg:justify-end gap-3 lg:gap-5 lg:border-l lg:border-white/10 lg:pl-5">
-            {KEY_INDICATORS.map((m, i) => (
-              <div key={i} className="text-center">
-                <div className="flex items-center gap-1 justify-center opacity-60"><Icon name={m.icon} className="w-3 h-3" /><span className="text-[9px] uppercase tracking-wide hidden xl:inline">{m.label}</span></div>
-                <div className={`font-display font-bold text-base leading-tight ${m.tone === 'positive' ? 'text-teal-300' : ''}`}>{m.value}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <p className="text-[10px] opacity-40 text-center mt-2 leading-snug">Карта помогает выбирать, но не выбирает за вас. Не прогноз и не диагноз. <a href="./landing.html" className="underline hover:text-white/60">о проекте</a></p>
-      </Card>
-    );
-
-    /* ========== APP ========== */
-    const App = () => {
-      const [selected, setSelected] = useState('growth');
-      const [selectedNode, setSelectedNode] = useState(null);
-      const scenario = SCENARIOS.find(s => s.id === selected) || SCENARIOS[0];
-
-      // присвоить статусы узлам выбранного сценария (демо-прогресс)
-      const withStatus = (node, i) => {
-        if (i < 2) return { ...node, status: 'done' };
-        if (i === 2) return { ...node, status: 'active' };
-        return { ...node, status: 'upcoming' };
-      };
-      // подмешать статусы во все сценарии для рендера
-      SCENARIOS.forEach(s => s.nodes = s.nodes.map((n, i) => ({ ...n, status: withStatus(n, i).status })));
-
-      useEffect(() => {
-        const onKey = (e) => { if (e.key === 'Escape') setSelectedNode(null); };
-        window.addEventListener('keydown', onKey);
-        return () => window.removeEventListener('keydown', onKey);
-      }, []);
-
+    /* ========== АНКЕТА ========== */
+    const Questionnaire = ({ onClose, onComplete }) => {
+      const total = QUESTIONS.length + 1;
+      const [step, setStep] = useState(0);
+      const [picks, setPicks] = useState(Array(QUESTIONS.length).fill(null));
+      const [values, setValues] = useState([]);
+      const isValues = step === QUESTIONS.length;
+      const canNext = isValues ? values.length > 0 : picks[step] != null;
+      const choose = (opt) => { const pp = picks.slice(); pp[step] = opt; setPicks(pp); setTimeout(()=>setStep(s=>Math.min(s+1, total-1)), 180); };
+      const toggleVal = (v) => setValues(vs => vs.includes(v) ? vs.filter(x=>x!==v) : (vs.length<3 ? [...vs,v] : vs));
       return (
-        <div className="min-h-screen lg:h-screen lg:overflow-hidden flex flex-col space-bg text-white grain">
-          <Header />
-          <main className="flex-1 min-h-0 flex flex-col lg:flex-row gap-3 px-3 md:px-4 pb-3 overflow-y-auto lg:overflow-hidden">
-            <LeftSidebar />
-            <div className="order-1 lg:order-2 flex-1 min-w-0 flex flex-col min-h-0 gap-2">
-              <ScenarioMap selected={selected} setSelected={setSelected} onNodeClick={setSelectedNode} />
-              <BottomStrip />
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 modal-overlay" style={{ background:'rgba(7,11,20,0.8)', backdropFilter:'blur(10px)' }}>
+          <div className="modal-content w-full max-w-lg rounded-3xl p-6 md:p-7 relative bg-night-800 border border-white/10 text-white">
+            <button onClick={onClose} className="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10"><Icon name="close" className="w-4 h-4"/></button>
+            <div className="text-[10px] uppercase tracking-wider opacity-55 mb-1">Анкета · шаг {step+1} из {total}</div>
+            <div className="h-1.5 rounded-full bg-white/8 overflow-hidden mb-5"><div className="h-full rounded-full bg-gradient-to-r from-teal-400 to-violet-500" style={{ width:`${(step+1)/total*100}%`, transition:'width .3s' }}/></div>
+            {!isValues ? (
+              <>
+                <h3 className="font-display font-bold text-xl leading-tight mb-5">{QUESTIONS[step].q}</h3>
+                <div className="space-y-2.5">
+                  {QUESTIONS[step].opts.map((o,i) => { const sel = picks[step]===o; return (
+                    <button key={i} onClick={()=>choose(o)} className={`w-full text-left px-4 py-3 rounded-xl border transition flex items-center gap-3 ${sel?'border-teal-400 bg-teal-500/10':'border-white/10 hover:border-white/25 hover:bg-white/5'}`}>
+                      <span className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center ${sel?'border-teal-400 bg-teal-400 text-night-900':'border-white/30'}`}>{sel && <Icon name="check" className="w-3 h-3" stroke={3}/>}</span>
+                      <span className="text-sm">{o.label}</span>
+                    </button>
+                  );})}
+                </div>
+              </>
+            ) : (
+              <>
+                <h3 className="font-display font-bold text-xl leading-tight mb-1">Выберите до 3 ценностей-опор</h3>
+                <p className="text-[12px] opacity-60 mb-4">На что хотите опираться в движении ({values.length}/3).</p>
+                <div className="flex flex-wrap gap-2">
+                  {ALL_VALUES.map(v => { const sel = values.includes(v); return (
+                    <button key={v} onClick={()=>toggleVal(v)} className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm border transition ${sel?'border-teal-400 bg-teal-500/15 text-teal-200':'border-white/10 hover:border-white/25'}`}><Icon name={VALUE_ICONS[v]||'star'} className="w-3.5 h-3.5"/>{v}</button>
+                  );})}
+                </div>
+              </>
+            )}
+            <div className="flex items-center justify-between mt-6">
+              <button onClick={()=>step>0 ? setStep(step-1) : onClose()} className="flex items-center gap-1.5 text-sm opacity-70 hover:opacity-100 transition"><Icon name="chevronL" className="w-4 h-4"/>{step>0?'Назад':'Отмена'}</button>
+              {isValues
+                ? <button onClick={()=>canNext && onComplete(computeResult(picks, values))} disabled={!canNext} className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition ${canNext?'bg-gradient-to-r from-teal-500 to-violet-600 text-white hover:opacity-90':'bg-white/8 text-white/40'}`}>Построить путь</button>
+                : <button onClick={()=>canNext && setStep(step+1)} disabled={!canNext} className={`flex items-center gap-1.5 px-5 py-2.5 rounded-xl font-semibold text-sm transition ${canNext?'bg-white/10 hover:bg-white/16':'bg-white/5 text-white/40'}`}>Далее<Icon name="chevron" className="w-4 h-4"/></button>}
             </div>
-            <RightSidebar scenario={scenario} />
-          </main>
-
-          <NodeModal data={selectedNode} onClose={() => setSelectedNode(null)} />
+          </div>
         </div>
       );
     };
 
-    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    /* ========== APP ========== */
+    const STORE = 'lifedesign_result_v1';
+    const App = () => {
+      const [result, setResult] = useState(null);
+      const [selected, setSelected] = useState('growth');
+      const [node, setNode] = useState(null);
+      const [quiz, setQuiz] = useState(false);
+      useEffect(() => {
+        try { const r = JSON.parse(localStorage.getItem(STORE) || 'null'); if (r) { setResult(r); setSelected(r.recommended); } else { setQuiz(true); } } catch (e) {}
+        const k = (e)=>{ if(e.key==='Escape'){ setNode(null); setQuiz(false); } };
+        window.addEventListener('keydown', k); return ()=>window.removeEventListener('keydown', k);
+      }, []);
+      const onComplete = (r) => { setResult(r); setSelected(r.recommended); setQuiz(false); try { localStorage.setItem(STORE, JSON.stringify(r)); } catch(e){} };
+      return (
+        <div className="min-h-screen lg:h-screen lg:overflow-hidden flex flex-col text-white grain bg-night-900">
+          <TopBar onQuiz={()=>setQuiz(true)}/>
+          <main className="flex-1 min-h-0 flex flex-col lg:flex-row gap-3 px-3 md:px-4 py-3 overflow-y-auto lg:overflow-hidden">
+            <LeftPanel result={result} onQuiz={()=>setQuiz(true)}/>
+            <div className="order-1 lg:order-2 flex-1 min-w-0 flex flex-col min-h-0"><RoadMap selected={selected} setSelected={setSelected} result={result} onNodeClick={setNode}/></div>
+            <RightPanel selected={selected} result={result}/>
+          </main>
+          <NodeModal data={node} onClose={()=>setNode(null)}/>
+          {quiz && <Questionnaire onClose={()=>setQuiz(false)} onComplete={onComplete}/>}
+        </div>
+      );
+    };
+    ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
   </script>
 </body>
 </html>
