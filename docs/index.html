@@ -88,13 +88,13 @@
 
     /* ========== БАЗОВЫЕ ДАННЫЕ ========== */
     const HORIZONS = ['7 дней','30 дней','3 месяца','6 месяцев','1 год','2–3 года'];
-    const PNR = '#FB923C', FIG = { x:50, y:72 }, PNR_NODE='pnr', PROTO='prototype';
+    const PNR = '#FB923C', FIG = { x:50, y:79 }, PNR_NODE='pnr', PROTO='prototype';
     const BOT_URL = 'https://t.me/dorozhnaya_karta_bot'; // плейсхолдер — заменить на реальный @username
 
     const SCENARIOS = [
       { id:'careful', title:'Бережный', orbitName:'Безопасная орбита', tagline:'Развитие без резких разрушений',
         roleOutcome:'Усиление текущей роли эксперта', fit:'если высоки риски и нужна устойчивость',
-        accent:'#2DD4BF', preview:'preview-careful.png', dest:{x:15,y:17}, ctrl:{x:20,y:46},
+        accent:'#2DD4BF', preview:'preview-careful.png', dest:{x:14,y:18}, ctrl:{x:11,y:54},
         nodes:[
           {kind:'step',label:'Аудит опоры',desc:'Что уже работает и что важно сохранить при изменениях.',tasks:['Карта ресурсов','Что нельзя терять','Зоны усталости']},
           {kind:'step',label:'Уточнение роли',desc:'Усилить текущую экспертную роль, а не ломать её.',tasks:['«Кому я полезен»','Доказательства экспертизы','Язык о себе']},
@@ -105,7 +105,7 @@
         ]},
       { id:'growth', title:'Рост', orbitName:'Орбита роста', tagline:'Усиление роли, дохода и влияния',
         roleOutcome:'Эксперт → предприниматель / руководитель', fit:'если есть ресурс и амбиция',
-        accent:'#A78BFA', preview:'preview-growth.png', dest:{x:50,y:8}, ctrl:{x:47,y:40},
+        accent:'#A78BFA', preview:'preview-growth.png', dest:{x:50,y:12}, ctrl:{x:50,y:50},
         nodes:[
           {kind:'step',label:'Карта ресурсов',desc:'Активы и амбиция: на что опереться в рывке.',tasks:['Опыт и связи','Готовность к риску','Точка отсчёта']},
           {kind:'step',label:'Гипотеза дохода',desc:'Новая модель монетизации опыта.',tasks:['Кому ценность','Формат продукта','Ориентиры']},
@@ -116,7 +116,7 @@
         ]},
       { id:'breakthrough', title:'Пересборка', orbitName:'Орбита прорыва', tagline:'Новая ниша и идентичность',
         roleOutcome:'Смелая ценностная траектория', fit:'если старая модель исчерпана',
-        accent:'#FBBF24', preview:'preview-breakthrough.png', dest:{x:85,y:17}, ctrl:{x:80,y:46},
+        accent:'#FBBF24', preview:'preview-breakthrough.png', dest:{x:86,y:18}, ctrl:{x:89,y:54},
         nodes:[
           {kind:'step',label:'Честный разговор',desc:'Что исчерпано и больше не продолжается по-старому.',tasks:['Что завершилось','Цена старого','Что зовёт']},
           {kind:'step',label:'Образ новой роли',desc:'Кем становлюсь, опираясь на зрелые ценности.',tasks:['Новая идентичность','Ценностная формула','Допустимое будущее']},
@@ -367,7 +367,7 @@
       <div className="flex-1 flex flex-col min-h-0">
         <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-2 shrink-0"><div className="min-w-0"><h1 className="font-display font-bold text-lg md:text-xl leading-tight">Ваш путь · выберите направление</h1><p className="text-[11px] opacity-55 hidden md:block leading-tight">Три траектории расходятся из точки А. {result?'Анкета подсветила рекомендованную.':'Пройдите анкету — построим персональную.'}</p></div><div className="flex gap-2 flex-wrap">{SCENARIOS.map(s=>(<button key={s.id} onClick={()=>setSelected(s.id)} className={`px-2.5 py-1.5 rounded-lg border transition flex items-center gap-2 ${selected===s.id?'scale-[1.03]':'opacity-70 hover:opacity-100'}`} style={{background:`${s.accent}1f`,borderColor:selected===s.id?s.accent:`${s.accent}55`,boxShadow:selected===s.id?`0 0 16px ${s.accent}55`:'none'}}><span className="w-2 h-2 rounded-full" style={{background:s.accent}}/><span className="font-display font-bold text-[13px]" style={{color:s.accent}}>{s.title}</span></button>))}</div></div>
         <div className="relative rounded-2xl overflow-hidden border border-white/5 intro-up min-h-[340px] sm:min-h-[420px] lg:min-h-0 lg:flex-1 bg-night-900">
-          <img src="./assets/terrain.png" alt="" className="absolute inset-0 w-full h-full object-cover" style={{objectPosition:'center 35%'}}/>
+          <img src="./assets/roads.png" alt="" className="absolute inset-0 w-full h-full object-cover" style={{objectPosition:'center 70%'}}/>
           <div className="absolute inset-0 pointer-events-none" style={{background:'linear-gradient(to bottom, rgba(7,11,20,0.55) 0%, rgba(7,11,20,0.05) 30%, rgba(7,11,20,0) 55%, rgba(7,11,20,0.45) 100%)'}}/>
           <div className="absolute top-2.5 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.2em] text-white/45 pointer-events-none" style={{textShadow:'0 1px 6px #000'}}>Будущее · поле возможностей</div>
           <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none"><defs>{SCENARIOS.map(s=>(<linearGradient key={s.id} id={`g-${s.id}`} x1="0" x2="1" y1="1" y2="0"><stop offset="0%" stopColor={s.accent} stopOpacity="0.25"/><stop offset="100%" stopColor={s.accent} stopOpacity="1"/></linearGradient>))}</defs>{SCENARIOS.map(s=>{const sel=selected===s.id;const d=pathD(s);return(<g key={s.id}><path d={d} fill="none" stroke={s.accent} strokeOpacity={sel?0.55:0.18} strokeWidth={sel?1.3:0.8} strokeLinecap="round" style={{filter:`drop-shadow(0 0 ${sel?2.5:1.5}px ${s.accent})`}}/><path d={d} fill="none" stroke={`url(#g-${s.id})`} strokeWidth={sel?0.55:0.35} strokeLinecap="round" strokeDasharray="1.4 1.3" className={sel?'path-flow':''}/></g>);})}</svg>
