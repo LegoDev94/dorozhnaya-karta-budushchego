@@ -88,13 +88,13 @@
 
     /* ========== БАЗОВЫЕ ДАННЫЕ ========== */
     const HORIZONS = ['7 дней','30 дней','3 месяца','6 месяцев','1 год','2–3 года'];
-    const PNR = '#FB923C', FIG = { x:50, y:79 }, PNR_NODE='pnr', PROTO='prototype';
+    const PNR = '#FB923C', FORK = { x:50, y:75 }, FIG = { x:50, y:86 }, PNR_NODE='pnr', PROTO='prototype';
     const BOT_URL = 'https://t.me/dorozhnaya_karta_bot'; // плейсхолдер — заменить на реальный @username
 
     const SCENARIOS = [
       { id:'careful', title:'Бережный', orbitName:'Безопасная орбита', tagline:'Развитие без резких разрушений',
         roleOutcome:'Усиление текущей роли эксперта', fit:'если высоки риски и нужна устойчивость',
-        accent:'#2DD4BF', preview:'preview-careful.png', dest:{x:14,y:18}, ctrl:{x:11,y:54},
+        accent:'#2DD4BF', preview:'preview-careful.png', dest:{x:14,y:18}, c1:{x:9,y:57}, c2:{x:13,y:33},
         nodes:[
           {kind:'step',label:'Аудит опоры',desc:'Что уже работает и что важно сохранить при изменениях.',tasks:['Карта ресурсов','Что нельзя терять','Зоны усталости']},
           {kind:'step',label:'Уточнение роли',desc:'Усилить текущую экспертную роль, а не ломать её.',tasks:['«Кому я полезен»','Доказательства экспертизы','Язык о себе']},
@@ -105,7 +105,7 @@
         ]},
       { id:'growth', title:'Рост', orbitName:'Орбита роста', tagline:'Усиление роли, дохода и влияния',
         roleOutcome:'Эксперт → предприниматель / руководитель', fit:'если есть ресурс и амбиция',
-        accent:'#A78BFA', preview:'preview-growth.png', dest:{x:50,y:12}, ctrl:{x:50,y:50},
+        accent:'#A78BFA', preview:'preview-growth.png', dest:{x:50,y:12}, c1:{x:50,y:57}, c2:{x:50,y:33},
         nodes:[
           {kind:'step',label:'Карта ресурсов',desc:'Активы и амбиция: на что опереться в рывке.',tasks:['Опыт и связи','Готовность к риску','Точка отсчёта']},
           {kind:'step',label:'Гипотеза дохода',desc:'Новая модель монетизации опыта.',tasks:['Кому ценность','Формат продукта','Ориентиры']},
@@ -116,7 +116,7 @@
         ]},
       { id:'breakthrough', title:'Пересборка', orbitName:'Орбита прорыва', tagline:'Новая ниша и идентичность',
         roleOutcome:'Смелая ценностная траектория', fit:'если старая модель исчерпана',
-        accent:'#FBBF24', preview:'preview-breakthrough.png', dest:{x:86,y:18}, ctrl:{x:89,y:54},
+        accent:'#FBBF24', preview:'preview-breakthrough.png', dest:{x:86,y:18}, c1:{x:91,y:57}, c2:{x:87,y:33},
         nodes:[
           {kind:'step',label:'Честный разговор',desc:'Что исчерпано и больше не продолжается по-старому.',tasks:['Что завершилось','Цена старого','Что зовёт']},
           {kind:'step',label:'Образ новой роли',desc:'Кем становлюсь, опираясь на зрелые ценности.',tasks:['Новая идентичность','Ценностная формула','Допустимое будущее']},
@@ -170,10 +170,10 @@
       return { match, recommended, readiness, values:(values&&values.length?values:['Свобода','Развитие','Опора']), spaces, ts:Date.now() };
     }
 
-    const bez = (a,c,b,t) => { const u=1-t; return { x:u*u*a.x+2*u*t*c.x+t*t*b.x, y:u*u*a.y+2*u*t*c.y+t*t*b.y }; };
-    const pathD = (s) => `M ${FIG.x} ${FIG.y} Q ${s.ctrl.x} ${s.ctrl.y} ${s.dest.x} ${s.dest.y}`;
-    const nodeT = (i) => 0.18 + 0.80*Math.pow(i/(HORIZONS.length-1),1.12);
-    const nodePos = (s,i) => bez(FIG, s.ctrl, s.dest, nodeT(i));
+    const bez = (p0,c1,c2,p3,t) => { const u=1-t,a=u*u*u,b=3*u*u*t,c=3*u*t*t,d=t*t*t; return { x:a*p0.x+b*c1.x+c*c2.x+d*p3.x, y:a*p0.y+b*c1.y+c*c2.y+d*p3.y }; };
+    const pathD = (s) => `M ${FORK.x} ${FORK.y} C ${s.c1.x} ${s.c1.y}, ${s.c2.x} ${s.c2.y}, ${s.dest.x} ${s.dest.y}`;
+    const nodeT = (i) => 0.16 + 0.82*Math.pow(i/(HORIZONS.length-1),1.1);
+    const nodePos = (s,i) => bez(FORK, s.c1, s.c2, s.dest, nodeT(i));
     const withStatus = (n,i,doneSteps,sid) => (doneSteps && doneSteps[sid+'-'+i]) ? {...n,status:'done'} : (i<2?{...n,status:'done'}:i===2?{...n,status:'active'}:{...n,status:'upcoming'});
 
     /* ========== КОНТЕНТ ПО ОСНОВЕ ========== */
