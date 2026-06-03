@@ -4,107 +4,92 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Дорожная карта будущего — Life Design</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: { extend: {
-        fontFamily: { sans: ['Inter','system-ui','sans-serif'], display: ['Manrope','Inter','sans-serif'] },
-        colors: { night: { 900:'#070B14', 800:'#0C1220', 700:'#131B2C', 600:'#1B2438' } },
-        boxShadow: {
-          'glow-teal':'0 0 22px rgba(45,212,191,0.40)',
-          'glow-violet':'0 0 22px rgba(167,139,250,0.45)',
-          'glow-amber':'0 0 24px rgba(251,191,36,0.45)',
-        },
-      }},
-    };
+    tailwind.config = { darkMode:'class', theme:{ extend:{
+      fontFamily:{ sans:['Inter','system-ui','sans-serif'], display:['Manrope','Inter','sans-serif'] },
+      colors:{ night:{ 900:'#070B14', 800:'#0C1220', 700:'#131B2C', 600:'#1B2438' } },
+      boxShadow:{ 'glow-teal':'0 0 22px rgba(45,212,191,0.40)', 'glow-violet':'0 0 22px rgba(167,139,250,0.45)', 'glow-amber':'0 0 24px rgba(251,191,36,0.45)' },
+    }}};
   </script>
   <style>
-    html, body { font-family:'Inter',sans-serif; background:#070B14; color:#E5E7EB; margin:0; }
-    .font-display { font-family:'Manrope',sans-serif; }
-    .grain { background-image: radial-gradient(rgba(255,255,255,0.012) 1px, transparent 1px); background-size:3px 3px; }
-    .glass { background: rgba(12,18,32,0.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border:1px solid rgba(255,255,255,0.07); }
-    .glass-strong { background: rgba(12,18,32,0.82); backdrop-filter: blur(16px); border:1px solid rgba(255,255,255,0.10); }
-    ::-webkit-scrollbar { width:7px; height:7px; }
-    ::-webkit-scrollbar-thumb { background:rgba(100,116,139,0.28); border-radius:4px; }
-    .thin-scroll::-webkit-scrollbar { width:6px; }
-    .thin-scroll::-webkit-scrollbar-thumb { background:rgba(100,116,139,0.22); border-radius:3px; }
-
-    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
-    @keyframes slideUp { from{opacity:0;transform:translateY(18px) scale(.97)} to{opacity:1;transform:none} }
-    .modal-overlay { animation: fadeIn .2s ease-out; }
-    .modal-content { animation: slideUp .3s cubic-bezier(.16,1,.3,1); }
-    @keyframes dashFlow { to { stroke-dashoffset: -28; } }
-    .path-flow { animation: dashFlow 2.8s linear infinite; }
-    @keyframes ringPulse { 0%{transform:scale(1);opacity:.7} 100%{transform:scale(2.2);opacity:0} }
-    .ring-pulse { animation: ringPulse 2.6s ease-out infinite; }
-    @keyframes auraPulse { 0%,100%{opacity:.5;transform:scale(1)} 50%{opacity:.85;transform:scale(1.06)} }
-    .aura-pulse { animation: auraPulse 5s ease-in-out infinite; }
-    @keyframes waveShift { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-    .wave-anim { animation: waveShift 7s linear infinite; }
-    @keyframes introUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:none} }
-    .intro-up { animation: introUp .8s cubic-bezier(.16,1,.3,1) both; }
-    .hub-scale { transform: translate(-50%, -50%) scale(1); }
-    @media (max-width:1280px){ .hub-scale{ transform:translate(-50%,-50%) scale(.85);} }
-    @media (max-width:640px){ .hub-scale{ transform:translate(-50%,-50%) scale(.62);} }
+    html,body{font-family:'Inter',sans-serif;background:#070B14;color:#E5E7EB;margin:0}
+    .font-display{font-family:'Manrope',sans-serif}
+    .grain{background-image:radial-gradient(rgba(255,255,255,0.012) 1px,transparent 1px);background-size:3px 3px}
+    .glass{background:rgba(12,18,32,0.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.07)}
+    .glass-strong{background:rgba(12,18,32,0.9);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.10)}
+    ::-webkit-scrollbar{width:7px;height:7px}::-webkit-scrollbar-thumb{background:rgba(100,116,139,0.28);border-radius:4px}
+    .thin-scroll::-webkit-scrollbar{width:6px}.thin-scroll::-webkit-scrollbar-thumb{background:rgba(100,116,139,0.22);border-radius:3px}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes slideUp{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+    .modal-overlay{animation:fadeIn .2s ease-out}.modal-content{animation:slideUp .3s cubic-bezier(.16,1,.3,1)}
+    @keyframes dashFlow{to{stroke-dashoffset:-28}}.path-flow{animation:dashFlow 2.8s linear infinite}
+    @keyframes ringPulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.2);opacity:0}}.ring-pulse{animation:ringPulse 2.6s ease-out infinite}
+    @keyframes auraPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.85;transform:scale(1.06)}}.aura-pulse{animation:auraPulse 5s ease-in-out infinite}
+    @keyframes waveShift{from{transform:translateX(0)}to{transform:translateX(-50%)}}.wave-anim{animation:waveShift 7s linear infinite}
+    @keyframes introUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}.intro-up{animation:introUp .7s cubic-bezier(.16,1,.3,1) both}
+    @keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}.dot{animation:blink 1.2s infinite}
+    .hub-scale{transform:translate(-50%,-50%) scale(1)}
+    @media(max-width:1280px){.hub-scale{transform:translate(-50%,-50%) scale(.85)}}
+    @media(max-width:640px){.hub-scale{transform:translate(-50%,-50%) scale(.62)}}
   </style>
-
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body class="grain">
   <div id="root"></div>
-
   <script type="text/babel" data-presets="react">
-    const { useState, useEffect } = React;
+    const { useState, useEffect, useMemo, useRef } = React;
 
     /* ========== ICONS ========== */
-    const Icon = ({ name, className = "w-5 h-5", stroke = 1.8 }) => {
+    const Icon = ({ name, className="w-5 h-5", stroke=1.8 }) => {
       const p = {
-        compass: <><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></>,
-        check: <polyline points="20 6 9 17 4 12"/>,
-        lock: <><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></>,
-        star: <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>,
-        users: <><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>,
-        trending: <><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></>,
-        target: <><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></>,
-        compassRole: <><circle cx="12" cy="12" r="10"/><polyline points="8 12 11 15 16 9"/></>,
-        anchor: <><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></>,
-        heart: <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>,
-        book: <><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></>,
-        sparkle: <path d="M12 3l1.9 5.6L20 10l-5.5 1.6L12 17l-1.9-5.6L4 10l5.6-1.6L12 3z"/>,
-        globe: <><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></>,
-        zap: <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>,
-        focus: <><circle cx="12" cy="12" r="3"/><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></>,
-        brain: <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2z"/>,
-        money: <><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>,
-        flask: <><path d="M9 3h6"/><path d="M10 3v6.5L4.5 18a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 9.5V3"/><line x1="7" y1="15" x2="17" y2="15"/></>,
-        horizon: <><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/></>,
-        close: <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>,
-        chevron: <polyline points="9 18 15 12 9 6"/>,
-        chevronL: <polyline points="15 18 9 12 15 6"/>,
-        bell: <><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></>,
-        clipboard: <><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></>,
-        grid: <><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></>,
-        message: <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>,
-        user: <><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></>,
-        map: <><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></>,
-        arrowRight: <><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></>,
+        compass:<><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></>,
+        check:<polyline points="20 6 9 17 4 12"/>,
+        lock:<><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></>,
+        star:<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>,
+        users:<><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>,
+        trending:<><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></>,
+        target:<><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></>,
+        compassRole:<><circle cx="12" cy="12" r="10"/><polyline points="8 12 11 15 16 9"/></>,
+        anchor:<><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></>,
+        heart:<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>,
+        book:<><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></>,
+        sparkle:<path d="M12 3l1.9 5.6L20 10l-5.5 1.6L12 17l-1.9-5.6L4 10l5.6-1.6L12 3z"/>,
+        globe:<><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></>,
+        zap:<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>,
+        focus:<><circle cx="12" cy="12" r="3"/><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></>,
+        brain:<path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2z"/>,
+        money:<><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>,
+        flask:<><path d="M9 3h6"/><path d="M10 3v6.5L4.5 18a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 9.5V3"/><line x1="7" y1="15" x2="17" y2="15"/></>,
+        horizon:<><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/></>,
+        close:<><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>,
+        chevron:<polyline points="9 18 15 12 9 6"/>,chevronL:<polyline points="15 18 9 12 15 6"/>,
+        bell:<><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></>,
+        clipboard:<><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></>,
+        grid:<><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></>,
+        message:<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>,
+        user:<><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></>,
+        map:<><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></>,
+        arrowRight:<><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></>,
+        plus:<><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></>,
+        calendar:<><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></>,
+        edit:<><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></>,
+        shield:<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>,
+        send:<><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></>,
+        sprout:<><path d="M7 20h10"/><path d="M12 20V10"/><path d="M12 10c0-3-2-5-5-5 0 3 2 5 5 5z"/><path d="M12 12c0-3 2-5 5-5 0 3-2 5-5 5z"/></>,
       };
-      return (<svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round">{p[name] || p.compass}</svg>);
+      return (<svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round">{p[name]||p.compass}</svg>);
     };
 
-    /* ========== ДАННЫЕ ========== */
-    const HORIZONS = ['7 дней', '30 дней', '3 месяца', '6 месяцев', '1 год', '2–3 года'];
-    const PNR = '#FB923C';
-    const FIG = { x: 50, y: 72 };
-    const PNR_NODE = 'pnr', PROTO = 'prototype';
+    /* ========== БАЗОВЫЕ ДАННЫЕ ========== */
+    const HORIZONS = ['7 дней','30 дней','3 месяца','6 месяцев','1 год','2–3 года'];
+    const PNR = '#FB923C', FIG = { x:50, y:72 }, PNR_NODE='pnr', PROTO='prototype';
+    const BOT_URL = 'https://t.me/dorozhnaya_karta_bot'; // плейсхолдер — заменить на реальный @username
 
     const SCENARIOS = [
       { id:'careful', title:'Бережный', orbitName:'Безопасная орбита', tagline:'Развитие без резких разрушений',
@@ -141,427 +126,458 @@
           {kind:'role',label:'Новая идентичность',desc:'Новая профессиональная и жизненная идентичность собрана.',tasks:['Авторская позиция','Модель дохода','Ритм']},
         ]},
     ];
-    const byId = (id) => SCENARIOS.find(s => s.id === id) || SCENARIOS[1];
-
+    const byId = (id) => SCENARIOS.find(s => s.id===id) || SCENARIOS[1];
     const NAV = [
-      { id:'map', label:'Карта', icon:'map', active:true }, { id:'profile', label:'Профиль', icon:'user' },
-      { id:'journal', label:'Дневник', icon:'book' }, { id:'resources', label:'Ресурсы', icon:'grid' },
-      { id:'mentor', label:'Ментор', icon:'message' },
+      { id:'map', label:'Карта', icon:'map' }, { id:'profile', label:'Профиль', icon:'user' },
+      { id:'journal', label:'Дневник', icon:'book' }, { id:'resources', label:'Ресурсы', icon:'grid' }, { id:'mentor', label:'Ментор', icon:'message' },
     ];
     const USER = { name:'Мария Ковалёва', role:'Эксперт · точка перехода' };
-    const STAGES = [
-      { id:1, name:'Диагностика' }, { id:2, name:'Ценности' }, { id:3, name:'Идентичность' },
-      { id:4, name:'Сценарии' }, { id:5, name:'Дорожная карта' }, { id:6, name:'Сопровождение' },
-    ];
-    const LIFE_SPACES = [
-      { key:'energy', label:'Энергия', icon:'zap' }, { key:'focus', label:'Фокус', icon:'focus' },
-      { key:'skills', label:'Навыки', icon:'brain' }, { key:'env', label:'Окружение', icon:'users' },
-      { key:'finance', label:'Деньги', icon:'money' },
-    ];
-    const VALUE_ICONS = { 'Свобода':'compass','Развитие':'trending','Достоинство':'star','Влияние':'sparkle','Творчество':'sparkle','Опора':'anchor','Семья':'heart','Знания':'book','Служение':'heart' };
+    const STAGES = [{id:1,name:'Диагностика'},{id:2,name:'Ценности'},{id:3,name:'Идентичность'},{id:4,name:'Сценарии'},{id:5,name:'Дорожная карта'},{id:6,name:'Сопровождение'}];
+    const LIFE_SPACES = [{key:'energy',label:'Энергия',icon:'zap'},{key:'focus',label:'Фокус',icon:'focus'},{key:'skills',label:'Навыки',icon:'brain'},{key:'env',label:'Окружение',icon:'users'},{key:'finance',label:'Деньги',icon:'money'}];
+    const VALUE_ICONS = {'Свобода':'compass','Развитие':'trending','Достоинство':'star','Влияние':'sparkle','Творчество':'sparkle','Опора':'anchor','Семья':'heart','Знания':'book','Служение':'heart'};
     const ALL_VALUES = ['Свобода','Развитие','Достоинство','Влияние','Творчество','Опора','Семья','Знания','Служение'];
 
     const QUESTIONS = [
       { id:'state', q:'Что точнее про вашу ситуацию сейчас?', opts:[
-        { label:'Всё в целом работает — хочу аккуратно усилить', s:{careful:2,growth:1,breakthrough:0} },
-        { label:'Прежняя роль стала тесной — хочу расти', s:{careful:0,growth:2,breakthrough:1} },
-        { label:'Старая модель исчерпана — нужна пересборка', s:{careful:0,growth:1,breakthrough:2} },
-      ]},
+        {label:'Всё в целом работает — хочу аккуратно усилить', s:{careful:2,growth:1,breakthrough:0}},
+        {label:'Прежняя роль стала тесной — хочу расти', s:{careful:0,growth:2,breakthrough:1}},
+        {label:'Старая модель исчерпана — нужна пересборка', s:{careful:0,growth:1,breakthrough:2}}]},
       { id:'risk', q:'Готовность к риску и переменам?', opts:[
-        { label:'Низкая — важна устойчивость', s:{careful:2,growth:0,breakthrough:0} },
-        { label:'Средняя — готов(а) к расчётному риску', s:{careful:0,growth:2,breakthrough:1} },
-        { label:'Высокая — готов(а) к смелым шагам', s:{careful:0,growth:1,breakthrough:2} },
-      ]},
+        {label:'Низкая — важна устойчивость', s:{careful:2,growth:0,breakthrough:0}},
+        {label:'Средняя — готов(а) к расчётному риску', s:{careful:0,growth:2,breakthrough:1}},
+        {label:'Высокая — готов(а) к смелым шагам', s:{careful:0,growth:1,breakthrough:2}}]},
       { id:'energy', q:'Сколько у вас сейчас энергии и ресурса?', opts:[
-        { label:'Мало — берегу силы', s:{careful:2,growth:0,breakthrough:0} },
-        { label:'Достаточно для рывка', s:{careful:0,growth:2,breakthrough:1} },
-        { label:'Много — хочу масштаба', s:{careful:0,growth:1,breakthrough:2} },
-      ]},
+        {label:'Мало — берегу силы', s:{careful:2,growth:0,breakthrough:0}},
+        {label:'Достаточно для рывка', s:{careful:0,growth:2,breakthrough:1}},
+        {label:'Много — хочу масштаба', s:{careful:0,growth:1,breakthrough:2}}]},
       { id:'income', q:'Что важнее в деньгах на 2–3 года?', opts:[
-        { label:'Стабильность дохода', s:{careful:2,growth:0,breakthrough:0} },
-        { label:'Заметный рост дохода', s:{careful:0,growth:2,breakthrough:0} },
-        { label:'Новая модель дохода', s:{careful:0,growth:0,breakthrough:2} },
-      ]},
+        {label:'Стабильность дохода', s:{careful:2,growth:0,breakthrough:0}},
+        {label:'Заметный рост дохода', s:{careful:0,growth:2,breakthrough:0}},
+        {label:'Новая модель дохода', s:{careful:0,growth:0,breakthrough:2}}]},
       { id:'horizon', q:'Каким видите себя через 2–3 года?', opts:[
-        { label:'Признанный эксперт в своём деле', s:{careful:2,growth:1,breakthrough:0} },
-        { label:'Предприниматель / руководитель', s:{careful:0,growth:2,breakthrough:1} },
-        { label:'В новой нише и новой роли', s:{careful:0,growth:0,breakthrough:2} },
-      ]},
+        {label:'Признанный эксперт в своём деле', s:{careful:2,growth:1,breakthrough:0}},
+        {label:'Предприниматель / руководитель', s:{careful:0,growth:2,breakthrough:1}},
+        {label:'В новой нише и новой роли', s:{careful:0,growth:0,breakthrough:2}}]},
     ];
-
     function computeResult(picks, values) {
-      const sc = { careful:0, growth:0, breakthrough:0 };
-      picks.forEach(p => { if (p) for (const k in p.s) sc[k] += p.s[k]; });
-      const total = (sc.careful + sc.growth + sc.breakthrough) || 1;
-      const match = { careful: Math.round(sc.careful/total*100), growth: Math.round(sc.growth/total*100), breakthrough: Math.round(sc.breakthrough/total*100) };
-      const recommended = ['breakthrough','growth','careful'].reduce((a,b)=> sc[b] > sc[a] ? b : a, 'careful');
+      const sc = {careful:0,growth:0,breakthrough:0};
+      picks.forEach(p => { if (p) for (const k in p.s) sc[k]+=p.s[k]; });
+      const total = (sc.careful+sc.growth+sc.breakthrough)||1;
+      const match = { careful:Math.round(sc.careful/total*100), growth:Math.round(sc.growth/total*100), breakthrough:Math.round(sc.breakthrough/total*100) };
+      const recommended = ['breakthrough','growth','careful'].reduce((a,b)=> sc[b]>sc[a]?b:a, 'careful');
       const readiness = Math.min(94, Math.max(38, Math.round(45 + sc.growth*4 + sc.breakthrough*6 - sc.careful*2)));
-      const spaces = {
-        energy: Math.min(95, 50 + (sc.growth+sc.breakthrough)*3), focus: Math.min(92, 52 + sc.growth*3),
-        skills: 68, env: Math.max(40, 60 - sc.breakthrough*2), finance: Math.min(90, 50 + sc.growth*4),
-      };
-      return { match, recommended, readiness, values: (values && values.length ? values : ['Свобода','Развитие','Опора']), spaces, ts: Date.now() };
+      const spaces = { energy:Math.min(95,50+(sc.growth+sc.breakthrough)*3), focus:Math.min(92,52+sc.growth*3), skills:68, env:Math.max(40,60-sc.breakthrough*2), finance:Math.min(90,50+sc.growth*4) };
+      return { match, recommended, readiness, values:(values&&values.length?values:['Свобода','Развитие','Опора']), spaces, ts:Date.now() };
     }
 
-    const bez = (a, c, b, t) => { const u = 1 - t; return { x: u*u*a.x + 2*u*t*c.x + t*t*b.x, y: u*u*a.y + 2*u*t*c.y + t*t*b.y }; };
+    const bez = (a,c,b,t) => { const u=1-t; return { x:u*u*a.x+2*u*t*c.x+t*t*b.x, y:u*u*a.y+2*u*t*c.y+t*t*b.y }; };
     const pathD = (s) => `M ${FIG.x} ${FIG.y} Q ${s.ctrl.x} ${s.ctrl.y} ${s.dest.x} ${s.dest.y}`;
-    const nodeT = (i) => 0.18 + 0.80 * Math.pow(i / (HORIZONS.length - 1), 1.12);
-    const nodePos = (s, i) => bez(FIG, s.ctrl, s.dest, nodeT(i));
-    const withStatus = (n, i) => i < 2 ? {...n,status:'done'} : i === 2 ? {...n,status:'active'} : {...n,status:'upcoming'};
+    const nodeT = (i) => 0.18 + 0.80*Math.pow(i/(HORIZONS.length-1),1.12);
+    const nodePos = (s,i) => bez(FIG, s.ctrl, s.dest, nodeT(i));
+    const withStatus = (n,i,doneSteps,sid) => (doneSteps && doneSteps[sid+'-'+i]) ? {...n,status:'done'} : (i<2?{...n,status:'done'}:i===2?{...n,status:'active'}:{...n,status:'upcoming'});
+
+    /* ========== КОНТЕНТ ПО ОСНОВЕ ========== */
+    // Профиль (демо-персона) — итоговый продукт + психология + соцкультурный код
+    const PROFILE_DATA = {
+      transition:'Прежняя роль руководителя стала тесной: появился запрос на новую форму реализации. Триггер — ощущение «выросла из роли» и желание новой траектории без резких разрушений.',
+      portrait:{ decisionStyle:'Взвешенный аналитик: сильна в стратегии, склонна перепроверять перед решением.', strengths:['Стратегическое мышление','Экспертиза 15 лет','Коммуникация','Обучаемость'], vulnerabilities:['Перфекционизм','Тенденция откладывать смелый шаг','Берёт слишком много на себя'] },
+      identity:{ was:'Наёмный руководитель', now:'Эксперт-консультант', becoming:'Автор методики и наставник' },
+      socioCode:[
+        {name:'Трудовой',tone:'resource',note:'Сильная трудовая этика, доводит до результата.'},
+        {name:'Образовательный',tone:'resource',note:'Высокий образовательный капитал, доверие к знаниям.'},
+        {name:'Семейный',tone:'mixed',note:'Поддержка есть, но есть установка «не рисковать стабильностью».'},
+        {name:'Денежный',tone:'limit',note:'Скрытый страх большого дохода и «неудобно брать дорого».'},
+        {name:'Статусный',tone:'limit',note:'Установка «не высовываться», осторожность с публичностью.'},
+        {name:'Свободы',tone:'resource',note:'Ценит автономию и авторство решений.'},
+        {name:'Среды',tone:'mixed',note:'Текущая среда привычна, но не тянет вверх — нужна новая.'},
+        {name:'Символический',tone:'resource',note:'Опора на культурные смыслы и наставничество.'},
+        {name:'Географический',tone:'resource',note:'Мобильность и готовность к новой среде.'},
+        {name:'Код будущего',tone:'mixed',note:'Образ будущего привлекает, но требует «внутреннего разрешения».'},
+      ],
+      proCapital:['15 лет опыта','Управленческий опыт','Экспертиза','Репутация','Сеть контактов'],
+      income:['Консалтинг','Авторская методика','Обучающий продукт','Партнёрства'],
+      resources:['Победная стратегия: довести сложное до результата','Опыт преодолённых кризисов','Доверие аудитории и коллег'],
+      risks:['Страх потерять стабильность','Сопротивление публичности','Откат в привычную роль под нагрузкой'],
+      skills:[
+        ['Понимание себя','видеть причины запроса, а не симптомы'],['Осознанный выбор','отличать своё от давления среды'],
+        ['Проектирование будущего','видеть 2–3 сценария, а не один'],['Личная стратегия','связать ценности, роль, рынок, сроки'],
+        ['Профсамоопределение','выбрать роль/нишу как опору'],['Экономическое мышление','связать ценность и доход'],
+        ['Личное позиционирование','яснее описывать себя рынку'],['Работа с неопределённостью','двигаться через гипотезы'],
+        ['Digital/AI-навигация','использовать цифру и AI как опору'],['Реализация карты','перейти от инсайта к действию'],
+        ['Эмоциональная грамотность','понимать, какое чувство ведёт решение'],['Телесная навигация','слышать ресурс и темп тела'],
+      ],
+    };
+    const PROFILE_SECTIONS = [
+      ['transition','Точка перехода','compass'],['portrait','Психологический портрет','brain'],['identity','Карта идентичности','user'],
+      ['values','Ценности и смыслы','heart'],['socioCode','Социокультурный код','globe'],['proCapital','Профессиональный капитал','star'],
+      ['role','Новая роль и позиционирование','compassRole'],['income','Модель дохода','money'],['resources','Ресурсы и сильные стороны','anchor'],
+      ['risks','Риски и сопротивление','shield'],['scenarios','Три сценария будущего','trending'],['skills','Skill-карта','sparkle'],
+    ];
+    function buildProfile(result) {
+      const rec = result ? result.recommended : 'growth';
+      const accent = byId(rec).accent;
+      const values = result ? result.values : ['Свобода','Развитие','Опора'];
+      const readiness = result ? result.readiness : 48;
+      const spaces = result ? result.spaces : {energy:64,focus:58,skills:70,env:52,finance:60};
+      const match = result ? result.match : {careful:33,growth:34,breakthrough:33};
+      return { ...PROFILE_DATA, rec, accent, values, readiness, spaces, match };
+    }
+
+    // Ресурсы — форматы, что вы получите, пакет, прототипы, отличие, этика
+    const FORMATS = [
+      { id:'diag', title:'Диагностика перехода', dur:'1 встреча · короткий вход', accent:'#2DD4BF',
+        pitch:'За одну встречу определяем вашу точку перехода: что не работает, какая роль стала тесной, какой формат подойдёт.',
+        out:['Краткий разбор ситуации','Формулировка настоящего запроса','Карта ресурсов и ограничений','Гипотеза траектории','Рекомендация формата'] },
+      { id:'roadmap', title:'Alive Roadmap', dur:'10 недель · основной продукт', accent:'#A78BFA', main:true,
+        pitch:'Глубокая сборка личности, роли и будущего: от точки перехода до дорожной карты на 2–3 года.',
+        out:['Персональный аналитический отчёт','Психологический портрет и идентичность','Расшифровка социокультурного кода','Новая роль и модель дохода','Три сценария и прототипы','Дорожная карта 2–3 года + контрольные точки'] },
+      { id:'premium', title:'Premium-сопровождение', dur:'3 месяца внедрения', accent:'#FBBF24',
+        pitch:'Переводим карту в реальные шаги: новую роль, решения, доходную модель, среду — с контрольными сессиями.',
+        out:['Внедрение первых шагов','Контрольные сессии и сверка','Коррекция маршрута','Поддержка новой роли','Уточнённый план на 3–6 месяцев'] },
+    ];
+    const recommendFormat = (result) => !result ? null : (result.match[result.recommended] >= 55 ? 'roadmap' : 'diag');
+    const WHAT_YOU_GET = [
+      ['Ясность','Где вы сейчас и что на самом деле за запросом','compass'],['Внутренняя опора','Ценности, ресурсы и сценарии','anchor'],
+      ['Расшифровка кода','Что помогает, а что ограничивает','globe'],['Новая роль','Образ себя на следующем этапе','compassRole'],
+      ['Модель дохода','Как опыт перевести в доход','money'],['Три сценария','Несколько реалистичных вариантов','trending'],
+      ['Карта 2–3 года','Этапы, шаги, риски, контрольные точки','map'],['Цифровая поддержка','Telegram-бот и сопровождение','message'],
+    ];
+    const PACKAGE_ITEMS = [
+      'Персональный аналитический отчёт','Карта идентичности','Карта ценностей и смыслов','Карта социокультурного кода',
+      'Социальная карта точки А','Карта профессионального капитала','Новая роль и позиционирование','Модель дохода',
+      'Три сценария будущего','Прототипы будущего','Lifestyle-план','Дорожная карта на 2–3 года',
+    ];
+    const PROTOTYPES = [
+      ['Экспертный пост','Проверить отклик аудитории','flask'],['Пробная консультация','Проверить формат и спрос','flask'],
+      ['Мини-услуга','Малая платная проверка ценности','flask'],['7-дневный эксперимент','Тест нового образа жизни','flask'],
+      ['3 разговора со сферой','Разведка новой среды','users'],['Новая среда','Войти в поддерживающее окружение','sprout'],
+    ];
+    const DIFFERENCES = [
+      ['Коучинг','Вопросы — вы сами ищете ответы'],['Тест','Описывает черты по шкалам'],
+      ['Терапия','Работа с состоянием и переживаниями'],['Карьерная консультация','Профессия, рынок, резюме'],
+    ];
+    const ETHICS = {
+      can:['Структурированную картину ситуации','Сценарии, приоритеты, контрольные точки','Рекомендации по роли и действиям','Снижение хаоса и рост ясности','Конфиденциальную работу с данными'],
+      cannot:['Гарантированное будущее или доход','Точный прогноз без неопределённости','Обязательный рост дохода в сумме','Замену терапии/юридической/медпомощи','Решение за вас — выбор остаётся вашим'],
+    };
+
+    // Дневник
+    const HORIZON_CHECK = {
+      '7 дней':['Сделан первый малый шаг','Зафиксирован запрос словами'],
+      '30 дней':['Запущен прототип/проверка','Замечено сопротивление'],
+      '3 месяца':['Подтверждён спрос/направление','Сверка устойчивости'],
+      '6 месяцев':['Стабильный ритм действий','Скорректирован маршрут'],
+      '1 год':['Новая роль проявлена','Доходная гипотеза в работе'],
+      '2–3 года':['Траектория закреплена','Новый цикл целей'],
+    };
+    const PLAN_90 = [
+      ['30 дней','Прояснить запрос, собрать ресурсы, выбрать 1 прототип'],
+      ['60 дней','Запустить прототип, собрать обратную связь, уточнить оффер'],
+      ['90 дней','Решение по направлению, первые результаты, план следующего шага'],
+    ];
+    const REFLECT_CATS = [['insight','Инсайт','sparkle'],['resist','Сопротивление','shield'],['win','Что получилось','check']];
+    const SELF_SUPPORT = ['Возвращаться к ценностям как к фильтру решений','Сверять темп с телом и энергией','Замечать откат в старый сценарий без самокритики'];
+
+    // Ментор — скриптовые темы
+    const TG_URL = BOT_URL;
+    const TOPICS = [
+      { id:'start', label:'С чего начать?', quick:true, match:['начать','начну','первый','старт'],
+        build:(c)=>[{type:'text',t:`Начните с ближайшего шага вашей траектории «${c.recTitle}».`},{type:'steps',t:c.activeLabel,items:c.activeTasks},{type:'note',t:'Один маленький шаг важнее идеального плана.'}] },
+      { id:'stuck', label:'Я застрял(а) на шаге', quick:true, match:['застрял','не могу','стоп','прокрастин','страшно'],
+        build:(c)=>[{type:'text',t:'Это нормально на переходе. Разберём, что именно держит.'},{type:'list',t:'Проверьте:',items:['Это страх или нехватка ресурса?','Какой минимальный безопасный шаг возможен сегодня?','Что нельзя терять — и как это сохранить?']},{type:'note',t:'Если тревога высокая — снизьте масштаб шага, а не бросайте.'}] },
+      { id:'compare', label:'Сравнить сценарии', quick:true, match:['сравни','сценари','выбрать путь','куда'],
+        build:(c)=>[{type:'text',t:'Три траектории отличаются смелостью перехода:'},{type:'list',items:SCENARIOS.map(s=>s.title+' — '+s.tagline+' ('+c.match[s.id]+'%)')},{type:'text',t:'Вам ближе: '+c.recTitle+'. Выбор за вами — можно идти параллельно.'}] },
+      { id:'blockers', label:'Что мне мешает?', quick:true, match:['мешает','барьер','сопротивлен','блок'],
+        build:(c)=>[{type:'text',t:'Чаще мешают не способности, а гравитация прошлого:'},{type:'list',items:['Страх потерять стабильность','Привычная роль и среда','Денежные/статусные установки']},{type:'note',t:'Их не нужно ломать — важно увидеть и обойти бережно.'}] },
+      { id:'proto', label:'Подбери прототип', quick:true, match:['прототип','проверить','тест','эксперимент'],
+        build:(c)=>[{type:'text',t:'Малая безопасная проверка снижает риск:'},{type:'list',items:['Экспертный пост — отклик аудитории','Пробная консультация — формат и спрос','7-дневный эксперимент — новый ритм']},{type:'cta',t:'Открыть библиотеку методик',to:'resources'}] },
+      { id:'income', label:'Про доход', quick:false, match:['доход','деньги','монетиз','цена'],
+        build:(c)=>[{type:'text',t:'Доход связываем с ролью и ценностью, без обещаний по сумме.'},{type:'list',items:c.income}, {type:'note',t:'Проверяем доходные гипотезы малыми шагами, не разрушая опору.'}] },
+    ];
+    const SAFETY = { match:['суицид','не хочу жить','покончить','невыносимо','паническ'], build:()=>[{type:'text',t:'Похоже, сейчас очень тяжело. Это важно и серьёзно.'},{type:'note',t:'Я не заменяю помощь специалиста. Пожалуйста, обратитесь к психологу/врачу, а в кризисе — на линию психологической помощи 8-800-2000-122 (бесплатно, круглосуточно).'}] };
+    const buildMentorContext = (result, selected) => {
+      const rec = result ? result.recommended : selected;
+      const s = byId(rec);
+      const active = s.nodes.map((n,i)=>withStatus(n,i)).map((n,i)=>({...n,...s.nodes[i]})).find((n,i)=>withStatus(s.nodes[i],i).status==='active') || s.nodes[2];
+      return { hasResult:!!result, rec, recTitle:s.title, accent:s.accent, activeLabel:active.label, activeTasks:active.tasks, match:result?result.match:{careful:33,growth:34,breakthrough:33}, income:PROFILE_DATA.income };
+    };
+    const matchTopic = (text) => {
+      const low = (text||'').toLowerCase();
+      if (SAFETY.match.some(w=>low.includes(w))) return SAFETY;
+      return TOPICS.find(t => t.match.some(w=>low.includes(w)));
+    };
 
     /* ========== БАЗОВЫЙ UI ========== */
-    const Card = ({ children, className='' }) => (<div className={`rounded-2xl glass ${className}`}>{children}</div>);
-    const CardTitle = ({ children, icon }) => (
-      <div className="flex items-center gap-2 mb-3"><Icon name={icon} className="w-3.5 h-3.5 opacity-50" /><div className="font-display font-semibold text-[11px] uppercase tracking-wider opacity-70">{children}</div></div>
-    );
+    const Card = ({ children, className='', id }) => (<div id={id} className={`rounded-2xl glass ${className}`}>{children}</div>);
+    const CardTitle = ({ children, icon }) => (<div className="flex items-center gap-2 mb-3"><Icon name={icon} className="w-3.5 h-3.5 opacity-50"/><div className="font-display font-semibold text-[11px] uppercase tracking-wider opacity-70">{children}</div></div>);
+    const SectionHeader = ({ title, subtitle, icon }) => (<div className="mt-6 mb-3 flex items-center gap-2">{icon&&<Icon name={icon} className="w-4 h-4 opacity-60"/>}<div><h2 className="font-display font-bold text-lg leading-tight">{title}</h2>{subtitle&&<p className="text-[12px] opacity-55">{subtitle}</p>}</div></div>);
+    const Chip = ({ children, color }) => (<span className="text-[11px] px-2.5 py-1 rounded-full bg-white/8" style={color?{color}:{}}>{children}</span>);
+    const Disclaimer = ({ children }) => (<p className="text-[11px] opacity-45 leading-relaxed">{children}</p>);
     const Gauge = ({ value, size=96, stroke=8, label='Готовность' }) => {
-      const r = (size-stroke)/2, c = 2*Math.PI*r, off = c - (value/100)*c;
-      return (
-        <div className="relative" style={{ width:size, height:size }}>
-          <svg width={size} height={size} className="-rotate-90">
-            <circle cx={size/2} cy={size/2} r={r} stroke="#1A2335" strokeWidth={stroke} fill="none"/>
-            <defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#2DD4BF"/><stop offset="100%" stopColor="#A78BFA"/></linearGradient></defs>
-            <circle cx={size/2} cy={size/2} r={r} stroke="url(#gg)" strokeWidth={stroke} strokeDasharray={c} strokeDashoffset={off} strokeLinecap="round" fill="none" style={{transition:'stroke-dashoffset 1s ease'}}/>
-          </svg>
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <div className="font-display font-bold text-xl">{value}%</div>
-            <div className="text-[9px] uppercase tracking-wider opacity-55 text-center leading-tight px-2">{label}</div>
-          </div>
-        </div>
-      );
+      const r=(size-stroke)/2, c=2*Math.PI*r, off=c-(value/100)*c;
+      return (<div className="relative" style={{width:size,height:size}}>
+        <svg width={size} height={size} className="-rotate-90"><circle cx={size/2} cy={size/2} r={r} stroke="#1A2335" strokeWidth={stroke} fill="none"/><defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#2DD4BF"/><stop offset="100%" stopColor="#A78BFA"/></linearGradient></defs><circle cx={size/2} cy={size/2} r={r} stroke="url(#gg)" strokeWidth={stroke} strokeDasharray={c} strokeDashoffset={off} strokeLinecap="round" fill="none" style={{transition:'stroke-dashoffset 1s ease'}}/></svg>
+        <div className="absolute inset-0 flex flex-col items-center justify-center"><div className="font-display font-bold text-xl">{value}%</div><div className="text-[9px] uppercase tracking-wider opacity-55 text-center leading-tight px-2">{label}</div></div></div>);
     };
-    const Bar = ({ value, label, icon }) => (
-      <div className="flex items-center gap-2.5">
-        <Icon name={icon} className="w-3.5 h-3.5 opacity-60 shrink-0" />
-        <div className="flex-1">
-          <div className="flex justify-between mb-1"><span className="text-[12px]">{label}</span><span className="text-[12px] font-semibold tabular-nums opacity-80">{value}%</span></div>
-          <div className="h-1.5 rounded-full overflow-hidden bg-white/8"><div className="h-full rounded-full bg-gradient-to-r from-teal-400 to-violet-500" style={{width:`${value}%`,transition:'width 1s ease'}}/></div>
-        </div>
-      </div>
-    );
+    const Bar = ({ value, label, icon }) => (<div className="flex items-center gap-2.5"><Icon name={icon} className="w-3.5 h-3.5 opacity-60 shrink-0"/><div className="flex-1"><div className="flex justify-between mb-1"><span className="text-[12px]">{label}</span><span className="text-[12px] font-semibold tabular-nums opacity-80">{value}%</span></div><div className="h-1.5 rounded-full overflow-hidden bg-white/8"><div className="h-full rounded-full bg-gradient-to-r from-teal-400 to-violet-500" style={{width:`${value}%`,transition:'width 1s ease'}}/></div></div></div>);
+    const TabFrame = ({ title, icon, children }) => (<div className="h-full lg:overflow-y-auto thin-scroll"><div className="max-w-5xl mx-auto px-4 md:px-6 py-4 pb-24 lg:pb-8 intro-up"><div className="flex items-center gap-2 mb-4"><Icon name={icon} className="w-5 h-5 opacity-70"/><h1 className="font-display font-bold text-xl">{title}</h1></div>{children}</div></div>);
+    const EmptyState = ({ onQuiz, hint }) => (<Card className="p-8 text-center max-w-md mx-auto mt-8"><Icon name="compass" className="w-10 h-10 mx-auto opacity-60 mb-3"/><h3 className="font-display font-bold text-lg mb-1">Сначала постройте свой путь</h3><p className="text-[13px] opacity-65 mb-5">{hint||'Заполните короткую анкету — и вкладка наполнится под вашу траекторию.'}</p><button onClick={onQuiz} className="px-5 py-2.5 rounded-xl text-white font-semibold text-sm bg-gradient-to-r from-teal-500 to-violet-600 hover:opacity-90">Заполнить анкету</button></Card>);
 
-    /* ========== ВЕРХНЯЯ ПАНЕЛЬ ========== */
-    const TopBar = ({ onQuiz }) => (
+    /* ========== ОБОЛОЧКА: TopBar / MobileTabBar ========== */
+    const TopBar = ({ tab, onTab, onQuiz }) => (
       <header className="flex items-center justify-between px-4 md:px-5 py-2.5 shrink-0 border-b border-white/5">
-        <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500 to-violet-600 flex items-center justify-center text-white shadow-glow-violet"><Icon name="compass" className="w-5 h-5" stroke={2}/></div>
-          <div className="leading-tight"><div className="font-display font-bold text-[15px]">LIFE DESIGN</div><div className="text-[9px] uppercase tracking-[0.2em] opacity-50">Дорожная карта</div></div>
-        </div>
-        <nav className="hidden lg:flex items-center gap-1 glass rounded-full px-1.5 py-1">
-          {NAV.map(n => (
-            <button key={n.id} disabled={!n.active} title={n.active ? '' : 'Скоро'}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[12px] font-medium transition ${n.active ? 'bg-gradient-to-r from-teal-500/80 to-violet-600/80 text-white' : 'opacity-55 hover:opacity-80'}`}>
-              <Icon name={n.icon} className="w-3.5 h-3.5"/><span>{n.label}</span>
-            </button>
-          ))}
-        </nav>
+        <div className="flex items-center gap-2.5"><div className="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500 to-violet-600 flex items-center justify-center text-white shadow-glow-violet"><Icon name="compass" className="w-5 h-5" stroke={2}/></div><div className="leading-tight"><div className="font-display font-bold text-[15px]">LIFE DESIGN</div><div className="text-[9px] uppercase tracking-[0.2em] opacity-50">Дорожная карта</div></div></div>
+        <nav className="hidden lg:flex items-center gap-1 glass rounded-full px-1.5 py-1">{NAV.map(n=>{const on=tab===n.id;return(<button key={n.id} onClick={()=>onTab(n.id)} className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[12px] font-medium transition ${on?'bg-gradient-to-r from-teal-500/80 to-violet-600/80 text-white':'opacity-55 hover:opacity-90'}`}><Icon name={n.icon} className="w-3.5 h-3.5"/><span>{n.label}</span></button>);})}</nav>
         <div className="flex items-center gap-3">
           <button onClick={onQuiz} className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-semibold bg-white/8 hover:bg-white/14 transition"><Icon name="clipboard" className="w-3.5 h-3.5"/>Анкета</button>
           <button className="w-9 h-9 rounded-full relative flex items-center justify-center bg-white/5 hover:bg-white/10"><Icon name="bell" className="w-4 h-4"/><span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-teal-400"/></button>
-          <div className="flex items-center gap-2.5">
-            <div className="hidden sm:block text-right leading-tight"><div className="font-semibold text-[13px]">{USER.name}</div><div className="text-[10px] opacity-55">{USER.role}</div></div>
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-teal-400 to-violet-500 flex items-center justify-center text-white font-bold font-display">{USER.name[0]}</div>
-          </div>
+          <div className="flex items-center gap-2.5"><div className="hidden sm:block text-right leading-tight"><div className="font-semibold text-[13px]">{USER.name}</div><div className="text-[10px] opacity-55">{USER.role}</div></div><div className="w-9 h-9 rounded-full bg-gradient-to-br from-teal-400 to-violet-500 flex items-center justify-center text-white font-bold font-display">{USER.name[0]}</div></div>
         </div>
       </header>
     );
-
-    /* ========== ЛЕВАЯ ПАНЕЛЬ ========== */
-    const Waveform = () => (
-      <div className="h-12 overflow-hidden rounded-lg bg-white/5 relative">
-        <svg className="absolute inset-0 w-[200%] h-full wave-anim" viewBox="0 0 200 48" preserveAspectRatio="none">
-          <defs><linearGradient id="wv" x1="0" x2="1"><stop offset="0%" stopColor="#2DD4BF"/><stop offset="50%" stopColor="#A78BFA"/><stop offset="100%" stopColor="#2DD4BF"/></linearGradient></defs>
-          <path d="M0 24 Q 12 6 25 24 T 50 24 T 75 24 T 100 24 T 125 24 T 150 24 T 175 24 T 200 24" fill="none" stroke="url(#wv)" strokeWidth="2" opacity="0.9"/>
-        </svg>
-      </div>
-    );
-    const LeftPanel = ({ result, onQuiz }) => {
-      const sp = result ? result.spaces : { energy:64, focus:58, skills:70, env:52, finance:60 };
-      const vals = result ? result.values : ['Свобода','Развитие','Достоинство','Знания','Опора'];
-      const readiness = result ? result.readiness : 48;
-      const stability = result ? Math.min(90, 55 + Math.round((100-result.match.breakthrough)/5)) : 72;
-      return (
-        <aside className="w-full lg:w-64 shrink-0 order-2 lg:order-1 lg:min-h-0 lg:overflow-y-auto thin-scroll lg:pr-1">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
-            <Card className="p-4">
-              <CardTitle icon="target">Ваш путь</CardTitle>
-              <div className="flex items-center gap-3 mb-3">
-                <Gauge value={readiness} label="Прогресс пути"/>
-                <div className="text-[12px] opacity-75 leading-snug">{result ? `Рекомендованная траектория: ${byId(result.recommended).title}.` : 'Заполните анкету, чтобы построить персональную траекторию.'}</div>
-              </div>
-              <button onClick={onQuiz} className="w-full py-2 rounded-lg text-[12px] font-semibold text-white bg-gradient-to-r from-teal-500 to-violet-600 hover:opacity-90 transition flex items-center justify-center gap-1.5"><Icon name="clipboard" className="w-3.5 h-3.5"/>{result ? 'Обновить путь' : 'Заполнить анкету'}</button>
-            </Card>
-            <Card className="p-4"><CardTitle icon="focus">Текущий статус</CardTitle><div className="space-y-2.5">{LIFE_SPACES.map(m => <Bar key={m.key} label={m.label} icon={m.icon} value={sp[m.key]}/>)}</div></Card>
-            <Card className="p-4"><CardTitle icon="heart">Ценности</CardTitle><div className="flex flex-wrap gap-2">{vals.map(v => (<span key={v} className="flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-lg bg-teal-500/12 text-teal-200"><Icon name={VALUE_ICONS[v]||'star'} className="w-3 h-3"/>{v}</span>))}</div></Card>
-            <Card className="p-4"><CardTitle icon="zap">Энергия жизни</CardTitle><Waveform/><div className="mt-3"><Bar label="Устойчивость" icon="anchor" value={stability}/></div></Card>
-          </div>
-        </aside>
-      );
-    };
+    const MobileTabBar = ({ tab, onTab }) => (<nav className="lg:hidden fixed bottom-0 inset-x-0 z-40 glass-strong border-t border-white/10 flex">{NAV.map(n=>{const on=tab===n.id;return(<button key={n.id} onClick={()=>onTab(n.id)} className={`flex-1 flex flex-col items-center gap-0.5 py-2 relative ${on?'text-teal-300':'opacity-55'}`}><Icon name={n.icon} className="w-5 h-5"/><span className="text-[9px]">{n.label}</span>{on&&<span className="absolute top-0 h-0.5 w-8 rounded-full bg-gradient-to-r from-teal-400 to-violet-500"/>}</button>);})}</nav>);
 
     /* ========== КАРТА ========== */
-    const NODE_ICON = (n) => n.kind===PNR_NODE ? 'horizon' : n.kind===PROTO ? 'flask' : n.kind==='role' ? 'compassRole' : (n.status==='done' ? 'check' : 'star');
-    const MapNode = ({ node, pos, accent, dim, onClick }) => {
-      const up = node.status==='upcoming', active = node.status==='active', pnr = node.kind===PNR_NODE;
-      const c = pnr ? PNR : accent;
-      return (
-        <div className="absolute" style={{ left:`${pos.x}%`, top:`${pos.y}%`, transform:'translate(-50%,-50%)', opacity: dim?0.55:1, transition:'opacity .3s', zIndex: active?20:10 }}>
-          <button onClick={onClick} className="relative flex items-center justify-center transition-transform duration-200 hover:scale-110"
-            style={{ width: pnr?34:28, height: pnr?34:28, borderRadius: pnr?8:9999, transform: pnr?'rotate(45deg)':'none',
-                     background: up ? 'rgba(255,255,255,0.10)' : `linear-gradient(135deg,${c},${c}cc)`,
-                     border: active ? '2px solid #fff' : '1.5px solid rgba(255,255,255,0.5)',
-                     boxShadow: active ? `0 0 20px ${c}` : up ? '0 2px 8px rgba(0,0,0,0.5)' : `0 4px 12px ${c}66`,
-                     color: up ? 'rgba(255,255,255,0.65)' : '#fff' }}>
-            <span style={{ transform: pnr?'rotate(-45deg)':'none', display:'flex' }}><Icon name={up ? 'lock' : NODE_ICON(node)} className="w-3.5 h-3.5" stroke={2.3}/></span>
-            {active && !pnr && <span className="absolute inset-0 rounded-full ring-pulse" style={{ border:`2px solid ${accent}` }}/>}
-          </button>
-        </div>
-      );
+    const Waveform = () => (<div className="h-12 overflow-hidden rounded-lg bg-white/5 relative"><svg className="absolute inset-0 w-[200%] h-full wave-anim" viewBox="0 0 200 48" preserveAspectRatio="none"><defs><linearGradient id="wv" x1="0" x2="1"><stop offset="0%" stopColor="#2DD4BF"/><stop offset="50%" stopColor="#A78BFA"/><stop offset="100%" stopColor="#2DD4BF"/></linearGradient></defs><path d="M0 24 Q 12 6 25 24 T 50 24 T 75 24 T 100 24 T 125 24 T 150 24 T 175 24 T 200 24" fill="none" stroke="url(#wv)" strokeWidth="2" opacity="0.9"/></svg></div>);
+    const LeftPanel = ({ result, onQuiz }) => {
+      const sp = result?result.spaces:{energy:64,focus:58,skills:70,env:52,finance:60};
+      const vals = result?result.values:['Свобода','Развитие','Достоинство','Знания','Опора'];
+      const readiness = result?result.readiness:48;
+      const stability = result?Math.min(90,55+Math.round((100-result.match.breakthrough)/5)):72;
+      return (<aside className="w-full lg:w-64 shrink-0 order-2 lg:order-1 lg:min-h-0 lg:overflow-y-auto thin-scroll lg:pr-1"><div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+        <Card className="p-4"><CardTitle icon="target">Ваш путь</CardTitle><div className="flex items-center gap-3 mb-3"><Gauge value={readiness} label="Прогресс пути"/><div className="text-[12px] opacity-75 leading-snug">{result?`Рекомендованная траектория: ${byId(result.recommended).title}.`:'Заполните анкету, чтобы построить персональную траекторию.'}</div></div><button onClick={onQuiz} className="w-full py-2 rounded-lg text-[12px] font-semibold text-white bg-gradient-to-r from-teal-500 to-violet-600 hover:opacity-90 transition flex items-center justify-center gap-1.5"><Icon name="clipboard" className="w-3.5 h-3.5"/>{result?'Обновить путь':'Заполнить анкету'}</button></Card>
+        <Card className="p-4"><CardTitle icon="focus">Текущий статус</CardTitle><div className="space-y-2.5">{LIFE_SPACES.map(m=><Bar key={m.key} label={m.label} icon={m.icon} value={sp[m.key]}/>)}</div></Card>
+        <Card className="p-4"><CardTitle icon="heart">Ценности</CardTitle><div className="flex flex-wrap gap-2">{vals.map(v=>(<span key={v} className="flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-lg bg-teal-500/12 text-teal-200"><Icon name={VALUE_ICONS[v]||'star'} className="w-3 h-3"/>{v}</span>))}</div></Card>
+        <Card className="p-4"><CardTitle icon="zap">Энергия жизни</CardTitle><Waveform/><div className="mt-3"><Bar label="Устойчивость" icon="anchor" value={stability}/></div></Card>
+      </div></aside>);
     };
-    const DestinationCard = ({ s, selected, recommended, match, onClick }) => (
-      <button onClick={onClick} className="absolute text-left transition-transform duration-300"
-        style={{ left:`${s.dest.x}%`, top:`${s.dest.y}%`, transform:`translate(-50%,-50%) scale(${selected?1.04:1})`, zIndex: selected?30:15, width:168 }}>
-        <div className="rounded-xl overflow-hidden glass-strong" style={{ borderColor: selected ? s.accent : 'rgba(255,255,255,0.12)', boxShadow: selected ? `0 0 26px ${s.accent}66` : '0 8px 24px rgba(0,0,0,0.5)' }}>
-          <div className="relative h-16">
-            <img src={`./assets/${s.preview}`} alt="" className="w-full h-full object-cover"/>
-            <div className="absolute inset-0" style={{ background:'linear-gradient(to top, rgba(12,18,32,0.96), transparent 72%)' }}/>
-            {recommended && <div className="absolute top-1.5 left-1.5 text-[8px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded text-night-900" style={{ background:s.accent }}>Рекомендовано</div>}
-            {match!=null && <div className="absolute top-1.5 right-1.5 text-[10px] font-bold px-1.5 py-0.5 rounded bg-black/55" style={{ color:s.accent }}>{match}%</div>}
-          </div>
-          <div className="px-2.5 py-2">
-            <div className="text-[9px] uppercase tracking-wider" style={{ color:s.accent }}>{s.orbitName}</div>
-            <div className="font-display font-bold text-sm leading-tight">{s.title}</div>
-            <div className="text-[10px] opacity-65 leading-tight mt-0.5">{s.tagline}</div>
-          </div>
-        </div>
-      </button>
-    );
-    const Figure = () => (
-      <div className="absolute pointer-events-none hub-scale" style={{ left:`${FIG.x}%`, top:`${FIG.y}%` }}>
-        <div className="relative" style={{ width:140, height:150 }}>
-          <div className="absolute inset-0 aura-pulse" style={{ background:'radial-gradient(circle at 50% 55%, rgba(167,139,250,0.45), rgba(45,212,191,0.12) 40%, transparent 65%)' }}/>
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ width:88, height:130 }}>
-            <img src="./assets/figure-light.png" alt="Вы здесь" draggable="false" style={{ width:'100%', height:'100%', objectFit:'contain', objectPosition:'center bottom', filter:'drop-shadow(0 0 16px rgba(167,139,250,0.55))' }}/>
-          </div>
-          <div className="absolute left-1/2 -translate-x-1/2" style={{ top:'calc(50% + 66px)' }}>
-            <div className="px-3 py-1 rounded-full text-[11px] font-display font-bold bg-black/55 backdrop-blur text-white border border-white/15 whitespace-nowrap">Вы здесь · Настоящее</div>
-          </div>
-        </div>
-      </div>
-    );
-
-    const RoadMap = ({ selected, setSelected, result, onNodeClick }) => (
+    const NODE_ICON = (n) => n.kind===PNR_NODE?'horizon':n.kind===PROTO?'flask':n.kind==='role'?'compassRole':(n.status==='done'?'check':'star');
+    const MapNode = ({ node, pos, accent, dim, onClick }) => {
+      const up=node.status==='upcoming', active=node.status==='active', pnr=node.kind===PNR_NODE, c=pnr?PNR:accent;
+      return (<div className="absolute" style={{left:`${pos.x}%`,top:`${pos.y}%`,transform:'translate(-50%,-50%)',opacity:dim?0.55:1,transition:'opacity .3s',zIndex:active?20:10}}>
+        <button onClick={onClick} className="relative flex items-center justify-center transition-transform duration-200 hover:scale-110" style={{width:pnr?34:28,height:pnr?34:28,borderRadius:pnr?8:9999,transform:pnr?'rotate(45deg)':'none',background:up?'rgba(255,255,255,0.10)':`linear-gradient(135deg,${c},${c}cc)`,border:active?'2px solid #fff':'1.5px solid rgba(255,255,255,0.5)',boxShadow:active?`0 0 20px ${c}`:up?'0 2px 8px rgba(0,0,0,0.5)':`0 4px 12px ${c}66`,color:up?'rgba(255,255,255,0.65)':'#fff'}}>
+          <span style={{transform:pnr?'rotate(-45deg)':'none',display:'flex'}}><Icon name={up?'lock':NODE_ICON(node)} className="w-3.5 h-3.5" stroke={2.3}/></span>{active&&!pnr&&<span className="absolute inset-0 rounded-full ring-pulse" style={{border:`2px solid ${accent}`}}/>}</button></div>);
+    };
+    const DestinationCard = ({ s, selected, recommended, match, onClick }) => (<button onClick={onClick} className="absolute text-left transition-transform duration-300" style={{left:`${s.dest.x}%`,top:`${s.dest.y}%`,transform:`translate(-50%,-50%) scale(${selected?1.04:1})`,zIndex:selected?30:15,width:168}}>
+      <div className="rounded-xl overflow-hidden glass-strong" style={{borderColor:selected?s.accent:'rgba(255,255,255,0.12)',boxShadow:selected?`0 0 26px ${s.accent}66`:'0 8px 24px rgba(0,0,0,0.5)'}}>
+        <div className="relative h-16"><img src={`./assets/${s.preview}`} alt="" className="w-full h-full object-cover"/><div className="absolute inset-0" style={{background:'linear-gradient(to top, rgba(12,18,32,0.96), transparent 72%)'}}/>{recommended&&<div className="absolute top-1.5 left-1.5 text-[8px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded text-night-900" style={{background:s.accent}}>Рекомендовано</div>}{match!=null&&<div className="absolute top-1.5 right-1.5 text-[10px] font-bold px-1.5 py-0.5 rounded bg-black/55" style={{color:s.accent}}>{match}%</div>}</div>
+        <div className="px-2.5 py-2"><div className="text-[9px] uppercase tracking-wider" style={{color:s.accent}}>{s.orbitName}</div><div className="font-display font-bold text-sm leading-tight">{s.title}</div><div className="text-[10px] opacity-65 leading-tight mt-0.5">{s.tagline}</div></div></div></button>);
+    const Figure = () => (<div className="absolute pointer-events-none hub-scale" style={{left:`${FIG.x}%`,top:`${FIG.y}%`}}><div className="relative" style={{width:140,height:150}}><div className="absolute inset-0 aura-pulse" style={{background:'radial-gradient(circle at 50% 55%, rgba(167,139,250,0.45), rgba(45,212,191,0.12) 40%, transparent 65%)'}}/><div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" style={{width:88,height:130}}><img src="./assets/figure-light.png" alt="Вы здесь" draggable="false" style={{width:'100%',height:'100%',objectFit:'contain',objectPosition:'center bottom',filter:'drop-shadow(0 0 16px rgba(167,139,250,0.55))'}}/></div><div className="absolute left-1/2 -translate-x-1/2" style={{top:'calc(50% + 66px)'}}><div className="px-3 py-1 rounded-full text-[11px] font-display font-bold bg-black/55 backdrop-blur text-white border border-white/15 whitespace-nowrap">Вы здесь · Настоящее</div></div></div></div>);
+    const RoadMap = ({ selected, setSelected, result, doneSteps, onNodeClick }) => (
       <div className="flex-1 flex flex-col min-h-0">
-        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-2 shrink-0">
-          <div className="min-w-0">
-            <h1 className="font-display font-bold text-lg md:text-xl leading-tight">Ваш путь · выберите направление</h1>
-            <p className="text-[11px] opacity-55 hidden md:block leading-tight">Три траектории расходятся из точки А. {result ? 'Анкета подсветила рекомендованную.' : 'Пройдите анкету — построим персональную.'}</p>
-          </div>
-          <div className="flex gap-2 flex-wrap">
-            {SCENARIOS.map(s => (
-              <button key={s.id} onClick={()=>setSelected(s.id)} className={`px-2.5 py-1.5 rounded-lg border transition flex items-center gap-2 ${selected===s.id?'scale-[1.03]':'opacity-70 hover:opacity-100'}`}
-                style={{ background:`${s.accent}1f`, borderColor: selected===s.id?s.accent:`${s.accent}55`, boxShadow: selected===s.id?`0 0 16px ${s.accent}55`:'none' }}>
-                <span className="w-2 h-2 rounded-full" style={{ background:s.accent }}/><span className="font-display font-bold text-[13px]" style={{ color:s.accent }}>{s.title}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-2 shrink-0"><div className="min-w-0"><h1 className="font-display font-bold text-lg md:text-xl leading-tight">Ваш путь · выберите направление</h1><p className="text-[11px] opacity-55 hidden md:block leading-tight">Три траектории расходятся из точки А. {result?'Анкета подсветила рекомендованную.':'Пройдите анкету — построим персональную.'}</p></div><div className="flex gap-2 flex-wrap">{SCENARIOS.map(s=>(<button key={s.id} onClick={()=>setSelected(s.id)} className={`px-2.5 py-1.5 rounded-lg border transition flex items-center gap-2 ${selected===s.id?'scale-[1.03]':'opacity-70 hover:opacity-100'}`} style={{background:`${s.accent}1f`,borderColor:selected===s.id?s.accent:`${s.accent}55`,boxShadow:selected===s.id?`0 0 16px ${s.accent}55`:'none'}}><span className="w-2 h-2 rounded-full" style={{background:s.accent}}/><span className="font-display font-bold text-[13px]" style={{color:s.accent}}>{s.title}</span></button>))}</div></div>
         <div className="relative rounded-2xl overflow-hidden border border-white/5 intro-up min-h-[340px] sm:min-h-[420px] lg:min-h-0 lg:flex-1 bg-night-900">
-          <img src="./assets/terrain.png" alt="" className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition:'center 35%' }}/>
-          <div className="absolute inset-0 pointer-events-none" style={{ background:'linear-gradient(to bottom, rgba(7,11,20,0.55) 0%, rgba(7,11,20,0.05) 30%, rgba(7,11,20,0) 55%, rgba(7,11,20,0.45) 100%)' }}/>
-          <div className="absolute top-2.5 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.2em] text-white/45 pointer-events-none" style={{ textShadow:'0 1px 6px #000' }}>Будущее · поле возможностей</div>
-
-          <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <defs>{SCENARIOS.map(s => (<linearGradient key={s.id} id={`g-${s.id}`} x1="0" x2="1" y1="1" y2="0"><stop offset="0%" stopColor={s.accent} stopOpacity="0.25"/><stop offset="100%" stopColor={s.accent} stopOpacity="1"/></linearGradient>))}</defs>
-            {SCENARIOS.map(s => { const sel = selected===s.id; const d = pathD(s); return (
-              <g key={s.id}>
-                <path d={d} fill="none" stroke={s.accent} strokeOpacity={sel?0.55:0.18} strokeWidth={sel?1.3:0.8} strokeLinecap="round" style={{ filter:`drop-shadow(0 0 ${sel?2.5:1.5}px ${s.accent})` }}/>
-                <path d={d} fill="none" stroke={`url(#g-${s.id})`} strokeWidth={sel?0.55:0.35} strokeLinecap="round" strokeDasharray="1.4 1.3" className={sel?'path-flow':''}/>
-              </g>
-            );})}
-          </svg>
-
-          {SCENARIOS.map(s => s.nodes.map((n,i) => { const node = {...withStatus(n,i), horizon:HORIZONS[i]}; return (
-            <MapNode key={`${s.id}-${i}`} node={node} pos={nodePos(s,i)} accent={s.accent} dim={selected!==s.id} onClick={()=>onNodeClick({ ...node, scenario:s })}/>
-          );}))}
-
-          {SCENARIOS.map(s => (
-            <DestinationCard key={s.id} s={s} selected={selected===s.id} recommended={result && result.recommended===s.id} match={result ? result.match[s.id] : null} onClick={()=>setSelected(s.id)}/>
-          ))}
-
+          <img src="./assets/terrain.png" alt="" className="absolute inset-0 w-full h-full object-cover" style={{objectPosition:'center 35%'}}/>
+          <div className="absolute inset-0 pointer-events-none" style={{background:'linear-gradient(to bottom, rgba(7,11,20,0.55) 0%, rgba(7,11,20,0.05) 30%, rgba(7,11,20,0) 55%, rgba(7,11,20,0.45) 100%)'}}/>
+          <div className="absolute top-2.5 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.2em] text-white/45 pointer-events-none" style={{textShadow:'0 1px 6px #000'}}>Будущее · поле возможностей</div>
+          <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none"><defs>{SCENARIOS.map(s=>(<linearGradient key={s.id} id={`g-${s.id}`} x1="0" x2="1" y1="1" y2="0"><stop offset="0%" stopColor={s.accent} stopOpacity="0.25"/><stop offset="100%" stopColor={s.accent} stopOpacity="1"/></linearGradient>))}</defs>{SCENARIOS.map(s=>{const sel=selected===s.id;const d=pathD(s);return(<g key={s.id}><path d={d} fill="none" stroke={s.accent} strokeOpacity={sel?0.55:0.18} strokeWidth={sel?1.3:0.8} strokeLinecap="round" style={{filter:`drop-shadow(0 0 ${sel?2.5:1.5}px ${s.accent})`}}/><path d={d} fill="none" stroke={`url(#g-${s.id})`} strokeWidth={sel?0.55:0.35} strokeLinecap="round" strokeDasharray="1.4 1.3" className={sel?'path-flow':''}/></g>);})}</svg>
+          {SCENARIOS.map(s=>s.nodes.map((n,i)=>{const node={...withStatus(n,i,doneSteps,s.id),horizon:HORIZONS[i]};return(<MapNode key={`${s.id}-${i}`} node={node} pos={nodePos(s,i)} accent={s.accent} dim={selected!==s.id} onClick={()=>onNodeClick({...node,scenario:s,sid:s.id,idx:i})}/>);}))}
+          {SCENARIOS.map(s=>(<DestinationCard key={s.id} s={s} selected={selected===s.id} recommended={result&&result.recommended===s.id} match={result?result.match[s.id]:null} onClick={()=>setSelected(s.id)}/>))}
           <Figure/>
         </div>
-
-        <div className="shrink-0 mt-2 hidden sm:flex items-center justify-between glass rounded-xl px-3 py-2">
-          {STAGES.map((st,i) => { const done = i<3, active = i===3; return (
-            <React.Fragment key={st.id}>
-              <div className="flex items-center gap-2">
-                <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${done?'bg-teal-500/25 text-teal-300':active?'bg-gradient-to-br from-teal-500 to-violet-600 text-white':'bg-white/8 text-white/40'}`}>{done?<Icon name="check" className="w-3 h-3" stroke={3}/>:st.id}</span>
-                <span className={`text-[11px] font-medium hidden md:inline ${active?'text-white':done?'text-teal-300':'opacity-45'}`}>{st.name}</span>
-              </div>
-              {i<STAGES.length-1 && <div className={`flex-1 h-px mx-1 ${done?'bg-teal-400/40':'bg-white/10'}`}/>}
-            </React.Fragment>
-          );})}
-        </div>
+        <div className="shrink-0 mt-2 hidden sm:flex items-center justify-between glass rounded-xl px-3 py-2">{STAGES.map((st,i)=>{const done=i<3,active=i===3;return(<React.Fragment key={st.id}><div className="flex items-center gap-2"><span className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${done?'bg-teal-500/25 text-teal-300':active?'bg-gradient-to-br from-teal-500 to-violet-600 text-white':'bg-white/8 text-white/40'}`}>{done?<Icon name="check" className="w-3 h-3" stroke={3}/>:st.id}</span><span className={`text-[11px] font-medium hidden md:inline ${active?'text-white':done?'text-teal-300':'opacity-45'}`}>{st.name}</span></div>{i<STAGES.length-1&&<div className={`flex-1 h-px mx-1 ${done?'bg-teal-400/40':'bg-white/10'}`}/>}</React.Fragment>);})}</div>
+      </div>
+    );
+    const RightPanel = ({ selected, result, doneSteps }) => {
+      const s = byId(selected);
+      const nodes = s.nodes.map((n,i)=>({...withStatus(n,i,doneSteps,s.id),horizon:HORIZONS[i]}));
+      const active = nodes.find(n=>n.status==='active') || nodes[2];
+      const done = nodes.filter(n=>n.status==='done');
+      const rec = result?byId(result.recommended):null;
+      return (<aside className="w-full lg:w-72 shrink-0 order-3 lg:min-h-0 lg:overflow-y-auto thin-scroll lg:pl-1"><div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+        <Card className="p-4"><CardTitle icon="target">Текущий фокус</CardTitle><div className="text-[10px] uppercase tracking-wider mb-1" style={{color:s.accent}}>{s.orbitName} · {active.horizon}</div><div className="font-semibold text-[15px] mb-1">{active.label}</div><p className="text-[11px] opacity-65 leading-snug mb-3">{active.desc}</p><div className="space-y-1.5 mb-3">{active.tasks.map((t,i)=>(<div key={i} className="flex items-center gap-2 text-[12px]"><span className="w-4 h-4 rounded-full border-2 shrink-0" style={{borderColor:s.accent}}/>{t}</div>))}</div></Card>
+        <Card className="p-4"><CardTitle icon="check">Недавнее</CardTitle><div className="space-y-2">{done.map((n,i)=>(<div key={i} className="flex items-center gap-2 text-[12px]"><span className="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0"><Icon name="check" className="w-2.5 h-2.5" stroke={3}/></span><span className="opacity-80">Пройдено: {n.label}</span></div>))}<div className="flex items-center gap-2 text-[12px] opacity-55"><span className="w-4 h-4 rounded-full border border-white/25 shrink-0"/>Заполнена диагностика</div></div></Card>
+        <Card className="p-4"><CardTitle icon="trending">Инсайт траектории</CardTitle>{result?(<><div className="text-[11px] opacity-65 mb-1">Вы движетесь к</div><div className="font-display font-bold text-base mb-2" style={{color:rec.accent}}>{rec.title} · {rec.orbitName}</div><div className="flex justify-between text-[11px] mb-1"><span className="opacity-70">Соответствие</span><span className="font-semibold" style={{color:rec.accent}}>{result.match[result.recommended]}%</span></div><div className="h-2 rounded-full overflow-hidden bg-white/8 mb-3"><div className="h-full rounded-full" style={{width:`${result.match[result.recommended]}%`,background:`linear-gradient(to right,${rec.accent},#ffffff88)`}}/></div><p className="text-[11px] opacity-65 leading-snug">{rec.roleOutcome}. Подходит, {rec.fit}.</p></>):(<p className="text-[12px] opacity-65 leading-snug">Пройдите анкету — и здесь появится ваша рекомендованная траектория с оценкой соответствия.</p>)}</Card>
+      </div></aside>);
+    };
+    const MapTab = ({ result, selected, setSelected, onNodeClick, doneSteps, openQuiz }) => (
+      <div className="h-full flex flex-col lg:flex-row gap-3 px-3 md:px-4 py-3 pb-20 lg:pb-3 overflow-y-auto lg:overflow-hidden">
+        <LeftPanel result={result} onQuiz={openQuiz}/>
+        <div className="order-1 lg:order-2 flex-1 min-w-0 flex flex-col min-h-0"><RoadMap selected={selected} setSelected={setSelected} result={result} doneSteps={doneSteps} onNodeClick={onNodeClick}/></div>
+        <RightPanel selected={selected} result={result} doneSteps={doneSteps}/>
       </div>
     );
 
-    /* ========== ПРАВАЯ ПАНЕЛЬ ========== */
-    const RightPanel = ({ selected, result }) => {
-      const s = byId(selected);
-      const nodes = s.nodes.map((n,i)=>({...withStatus(n,i),horizon:HORIZONS[i]}));
-      const active = nodes.find(n=>n.status==='active') || nodes[2];
-      const done = nodes.filter(n=>n.status==='done');
-      const rec = result ? byId(result.recommended) : null;
-      return (
-        <aside className="w-full lg:w-72 shrink-0 order-3 lg:min-h-0 lg:overflow-y-auto thin-scroll lg:pl-1">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
-            <Card className="p-4">
-              <CardTitle icon="target">Текущий фокус</CardTitle>
-              <div className="text-[10px] uppercase tracking-wider mb-1" style={{ color:s.accent }}>{s.orbitName} · {active.horizon}</div>
-              <div className="font-semibold text-[15px] mb-1">{active.label}</div>
-              <p className="text-[11px] opacity-65 leading-snug mb-3">{active.desc}</p>
-              <div className="space-y-1.5 mb-3">{active.tasks.map((t,i)=>(<div key={i} className="flex items-center gap-2 text-[12px]"><span className="w-4 h-4 rounded-full border-2 shrink-0" style={{ borderColor:s.accent }}/>{t}</div>))}</div>
-              <button className="w-full py-2 rounded-lg text-white font-semibold text-[12px] hover:opacity-90 transition" style={{ background:`linear-gradient(135deg,${s.accent},${s.accent}dd)` }}>Перейти к шагу</button>
-            </Card>
-            <Card className="p-4">
-              <CardTitle icon="check">Недавнее</CardTitle>
-              <div className="space-y-2">
-                {done.map((n,i)=>(<div key={i} className="flex items-center gap-2 text-[12px]"><span className="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0"><Icon name="check" className="w-2.5 h-2.5" stroke={3}/></span><span className="opacity-80">Пройдено: {n.label}</span></div>))}
-                <div className="flex items-center gap-2 text-[12px] opacity-55"><span className="w-4 h-4 rounded-full border border-white/25 shrink-0"/>Заполнена диагностика</div>
-              </div>
-            </Card>
-            <Card className="p-4">
-              <CardTitle icon="trending">Инсайт траектории</CardTitle>
-              {result ? (
-                <>
-                  <div className="text-[11px] opacity-65 mb-1">Вы движетесь к</div>
-                  <div className="font-display font-bold text-base mb-2" style={{ color:rec.accent }}>{rec.title} · {rec.orbitName}</div>
-                  <div className="flex justify-between text-[11px] mb-1"><span className="opacity-70">Соответствие</span><span className="font-semibold" style={{ color:rec.accent }}>{result.match[result.recommended]}%</span></div>
-                  <div className="h-2 rounded-full overflow-hidden bg-white/8 mb-3"><div className="h-full rounded-full" style={{ width:`${result.match[result.recommended]}%`, background:`linear-gradient(to right,${rec.accent},#ffffff88)` }}/></div>
-                  <p className="text-[11px] opacity-65 leading-snug">{rec.roleOutcome}. Подходит, {rec.fit}.</p>
-                </>
-              ) : (<p className="text-[12px] opacity-65 leading-snug">Пройдите анкету — и здесь появится ваша рекомендованная траектория с оценкой соответствия.</p>)}
-            </Card>
+    /* ========== ВКЛАДКА: ПРОФИЛЬ ========== */
+    const IdentityArc = ({ id }) => (<div className="flex items-center gap-2 flex-wrap">{[['Кем была',id.was,'opacity-60'],['Кто сейчас',id.now,'text-teal-300'],['Кем становлюсь',id.becoming,'text-violet-300']].map((p,i)=>(<React.Fragment key={i}><div className="px-3 py-2 rounded-xl bg-white/5 border border-white/10"><div className="text-[9px] uppercase tracking-wider opacity-45">{p[0]}</div><div className={`text-[13px] font-medium ${p[2]}`}>{p[1]}</div></div>{i<2&&<Icon name="arrowRight" className="w-4 h-4 opacity-40"/>}</React.Fragment>))}</div>);
+    const CodeRow = ({ c }) => { const [open,setOpen]=useState(false); const tone=c.tone==='resource'?'text-teal-300 bg-teal-500/12':c.tone==='limit'?'text-orange-300 bg-orange-500/12':'text-violet-300 bg-violet-500/12'; return (<button onClick={()=>setOpen(!open)} className="w-full text-left p-2.5 rounded-lg bg-white/5 hover:bg-white/8 transition"><div className="flex items-center gap-2"><span className="font-medium text-[13px] flex-1">{c.name}</span><span className={`text-[10px] px-2 py-0.5 rounded-full ${tone}`}>{c.tone==='resource'?'ресурс':c.tone==='limit'?'ограничение':'смешанный'}</span><Icon name="chevron" className={`w-3.5 h-3.5 opacity-40 transition-transform ${open?'rotate-90':''}`}/></div>{open&&<p className="text-[12px] opacity-70 mt-2 leading-snug">{c.note}</p>}</button>); };
+    const ProfileSection = ({ id, n, icon, title, accent, children }) => (<Card className="p-4" id={id}><div className="flex items-center gap-2 mb-3"><span className="w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold" style={{background:`${accent}22`,color:accent}}>{n}</span><Icon name={icon} className="w-4 h-4 opacity-60"/><h2 className="font-display font-bold text-base">{title}</h2></div>{children}</Card>);
+    const ProfileNav = ({ activeId, onJump, readiness, accent }) => (<aside className="w-full lg:w-56 shrink-0 order-1 lg:min-h-0 lg:overflow-y-auto thin-scroll"><Card className="p-3 lg:sticky lg:top-0"><div className="hidden lg:flex justify-center mb-3"><Gauge value={readiness} label="Готовность к переходу"/></div><div className="flex lg:flex-col gap-1 overflow-x-auto thin-scroll">{PROFILE_SECTIONS.map(([sid,title,icon],i)=>(<button key={sid} onClick={()=>onJump(sid)} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[12px] whitespace-nowrap transition ${activeId===sid?'bg-white/10 text-white':'opacity-60 hover:opacity-90'}`}><span className="w-4 text-[10px] opacity-50">{i+1}</span><Icon name={icon} className="w-3.5 h-3.5"/><span className="hidden lg:inline">{title}</span></button>))}</div></Card></aside>);
+    const RoleFormula = ({ accent, role, values }) => (<div className="space-y-1.5">{[['Кому полезна','экспертам и руководителям в точке перехода'],['Какую проблему решаю','помогаю собрать траекторию роли и дохода'],['Через что ценность',`опыт + ${values.join(', ').toLowerCase()}`],['Почему доверие','15 лет практики и пройденные кризисы']].map((r,i)=>(<div key={i} className="flex gap-2 text-[13px]"><span className="opacity-50 w-40 shrink-0">{r[0]}:</span><span>{r[1]}</span></div>))}<div className="mt-2 text-[13px] font-semibold" style={{color:accent}}>{role}</div></div>);
+    const ProfileTab = ({ result, openQuiz, setSelected, setTab }) => {
+      const data = useMemo(()=>buildProfile(result),[result]);
+      const [activeId,setActiveId]=useState('transition');
+      const jump = (id)=>{ const el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); setActiveId(id); };
+      const sc = [...SCENARIOS].sort((a,b)=>data.match[b.id]-data.match[a.id]);
+      return (<div className="h-full flex flex-col lg:flex-row gap-3 px-3 md:px-4 py-3 pb-20 lg:pb-3 overflow-y-auto lg:overflow-hidden">
+        <ProfileNav activeId={activeId} onJump={jump} readiness={data.readiness} accent={data.accent}/>
+        <div className="order-2 flex-1 min-w-0 lg:overflow-y-auto thin-scroll space-y-3 lg:pr-1">
+          {!result && <Card className="p-3 text-center"><span className="text-[12px] opacity-75">Это образец отчёта. </span><button onClick={openQuiz} className="text-teal-300 text-[12px] font-semibold">Заполните анкету, чтобы персонализировать →</button></Card>}
+          <ProfileSection id="transition" n={1} icon="compass" title="Точка перехода" accent={data.accent}><p className="text-[13px] opacity-80 leading-relaxed">{data.transition}</p></ProfileSection>
+          <ProfileSection id="portrait" n={2} icon="brain" title="Психологический портрет" accent={data.accent}><p className="text-[13px] opacity-80 mb-2">{data.portrait.decisionStyle}</p><div className="grid sm:grid-cols-2 gap-3"><div><div className="text-[10px] uppercase tracking-wider opacity-50 mb-1">Сильные стороны</div><div className="flex flex-wrap gap-1.5">{data.portrait.strengths.map(x=><Chip key={x}>{x}</Chip>)}</div></div><div><div className="text-[10px] uppercase tracking-wider opacity-50 mb-1">Зоны внимания</div><div className="flex flex-wrap gap-1.5">{data.portrait.vulnerabilities.map(x=><span key={x} className="text-[11px] px-2.5 py-1 rounded-full bg-orange-500/12 text-orange-200">{x}</span>)}</div></div></div></ProfileSection>
+          <ProfileSection id="identity" n={3} icon="user" title="Карта идентичности" accent={data.accent}><IdentityArc id={data.identity}/></ProfileSection>
+          <ProfileSection id="values" n={4} icon="heart" title="Ценности и смыслы" accent={data.accent}><div className="text-[11px] opacity-55 mb-2">Зрелые опоры (выбраны вами):</div><div className="flex flex-wrap gap-2 mb-3">{data.values.map(v=><span key={v} className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-lg bg-teal-500/15 text-teal-200"><Icon name={VALUE_ICONS[v]||'star'} className="w-3.5 h-3.5"/>{v}</span>)}</div><div className="text-[11px] opacity-45 mb-1">Фоновые ценности:</div><div className="flex flex-wrap gap-1.5">{ALL_VALUES.filter(v=>!data.values.includes(v)).map(v=><Chip key={v}>{v}</Chip>)}</div></ProfileSection>
+          <ProfileSection id="socioCode" n={5} icon="globe" title="Социокультурный код" accent={data.accent}><p className="text-[11px] opacity-55 mb-2">10 кодов — что даёт силу, а что ограничивает. Нажмите, чтобы раскрыть.</p><div className="grid sm:grid-cols-2 gap-2">{data.socioCode.map(c=><CodeRow key={c.name} c={c}/>)}</div></ProfileSection>
+          <ProfileSection id="proCapital" n={6} icon="star" title="Профессиональный капитал" accent={data.accent}><div className="flex flex-wrap gap-2">{data.proCapital.map(x=><span key={x} className="text-xs px-2.5 py-1.5 rounded-lg bg-violet-500/12 text-violet-200">{x}</span>)}</div></ProfileSection>
+          <ProfileSection id="role" n={7} icon="compassRole" title="Новая роль и позиционирование" accent={data.accent}><RoleFormula accent={data.accent} role={byId(data.rec).roleOutcome} values={data.values}/></ProfileSection>
+          <ProfileSection id="income" n={8} icon="money" title="Модель дохода" accent={data.accent}><p className="text-[12px] opacity-65 mb-2">Гипотезы монетизации опыта — без обещаний по сумме, проверяем малыми шагами.</p><div className="flex flex-wrap gap-2">{data.income.map(x=><Chip key={x}>{x}</Chip>)}</div></ProfileSection>
+          <ProfileSection id="resources" n={9} icon="anchor" title="Ресурсы и сильные стороны" accent={data.accent}><ul className="space-y-1.5">{data.resources.map((x,i)=><li key={i} className="flex gap-2 text-[13px]"><Icon name="check" className="w-3.5 h-3.5 text-teal-400 mt-0.5 shrink-0"/>{x}</li>)}</ul></ProfileSection>
+          <ProfileSection id="risks" n={10} icon="shield" title="Риски и сопротивление" accent={data.accent}><ul className="space-y-1.5">{data.risks.map((x,i)=><li key={i} className="flex gap-2 text-[13px]"><Icon name="horizon" className="w-3.5 h-3.5 text-orange-300 mt-0.5 shrink-0"/>{x}</li>)}</ul><p className="text-[11px] opacity-45 mt-2">{data.readiness<55?'Готовность умеренная — бережный темп предпочтителен.':'Готовность достаточная для активного движения.'}</p></ProfileSection>
+          <ProfileSection id="scenarios" n={11} icon="trending" title="Три сценария будущего" accent={data.accent}><div className="grid sm:grid-cols-3 gap-2">{sc.map(s=>(<button key={s.id} onClick={()=>{setSelected(s.id);setTab('map');}} className="text-left p-3 rounded-xl border transition hover:scale-[1.02]" style={{borderColor:`${s.accent}55`,background:`${s.accent}12`}}>{data.rec===s.id&&<div className="text-[8px] uppercase font-bold mb-1" style={{color:s.accent}}>Рекомендовано</div>}<div className="font-display font-bold text-sm" style={{color:s.accent}}>{s.title}</div><div className="text-[10px] opacity-65 leading-tight mb-1">{s.tagline}</div><div className="text-[11px] font-semibold" style={{color:s.accent}}>{data.match[s.id]}%</div></button>))}</div></ProfileSection>
+          <ProfileSection id="skills" n={12} icon="sparkle" title="Skill-карта" accent={data.accent}><div className="grid sm:grid-cols-2 gap-2">{data.skills.map((sk,i)=>(<div key={i} className="flex gap-2 p-2 rounded-lg bg-white/5"><span className="text-[10px] opacity-50 w-4 shrink-0">{i+1}</span><div><div className="text-[12px] font-medium">{sk[0]}</div><div className="text-[11px] opacity-60 leading-tight">{sk[1]}</div></div></div>))}</div></ProfileSection>
+          <Disclaimer>Отчёт — это гипотезы и опоры, а не диагноз и не прогноз. Данные хранятся локально в вашем браузере.</Disclaimer>
+        </div>
+      </div>);
+    };
+
+    /* ========== ВКЛАДКА: ДНЕВНИК ========== */
+    const lsLoad = (k,d)=>{ try{ const v=JSON.parse(localStorage.getItem(k)||'null'); return v==null?d:v; }catch(e){ return d; } };
+    const JournalTab = ({ result, openQuiz }) => {
+      const rec = result?result.recommended:'careful';
+      const [journal,setJournal]=useState(()=>lsLoad('lifedesign_journal_v1',{actions:[],reflections:[]}));
+      const [checks,setChecks]=useState(()=>lsLoad('lifedesign_checks_v1',{}));
+      const [draft,setDraft]=useState(''); const [cat,setCat]=useState('insight');
+      useEffect(()=>{ try{localStorage.setItem('lifedesign_journal_v1',JSON.stringify(journal));}catch(e){} },[journal]);
+      useEffect(()=>{ try{localStorage.setItem('lifedesign_checks_v1',JSON.stringify(checks));}catch(e){} },[checks]);
+      if(!result) return (<TabFrame title="Дневник" icon="book"><EmptyState onQuiz={openQuiz}/></TabFrame>);
+      const toggle=(k)=>setChecks(c=>({...c,[k]:!c[k]}));
+      const addReflection=()=>{ if(!draft.trim())return; setJournal(j=>({...j,reflections:[{cat,text:draft.trim(),date:new Date().toLocaleDateString('ru')},...j.reflections]})); setDraft(''); };
+      const doneCount = Object.values(checks).filter(Boolean).length;
+      return (<TabFrame title="Дневник · сопровождение и движение" icon="book">
+        <div className="grid sm:grid-cols-3 gap-3 mb-4"><Card className="p-3 text-center"><div className="font-display font-bold text-2xl text-teal-300">{result.readiness}%</div><div className="text-[11px] opacity-60">Ясность пути</div></Card><Card className="p-3 text-center"><div className="font-display font-bold text-2xl">{doneCount}</div><div className="text-[11px] opacity-60">Контрольных точек отмечено</div></Card><Card className="p-3 text-center"><div className="font-display font-bold text-2xl">{journal.reflections.length}</div><div className="text-[11px] opacity-60">Записей рефлексии</div></Card></div>
+        <SectionHeader title="Контрольные точки" subtitle="7 дней → 2–3 года" icon="calendar"/>
+        <div className="space-y-2">{HORIZONS.map(h=>(<Card key={h} className="p-3"><div className="font-display font-semibold text-sm mb-2">{h}</div><div className="space-y-1.5">{(HORIZON_CHECK[h]||[]).map((t,i)=>{const k=h+'-'+i;return(<button key={i} onClick={()=>toggle(k)} className="flex items-center gap-2 text-[13px] w-full text-left"><span className={`w-4 h-4 rounded-full flex items-center justify-center shrink-0 ${checks[k]?'bg-emerald-500 text-white':'border-2 border-white/25'}`}>{checks[k]&&<Icon name="check" className="w-2.5 h-2.5" stroke={3}/>}</span><span className={checks[k]?'opacity-50 line-through':''}>{t}</span></button>);})}</div></Card>))}</div>
+        <SectionHeader title="Рефлексия" subtitle="Заметки о движении — хранятся локально" icon="edit"/>
+        <Card className="p-3"><div className="flex gap-1.5 mb-2">{REFLECT_CATS.map(([id,label,icon])=>(<button key={id} onClick={()=>setCat(id)} className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-[12px] ${cat===id?'bg-teal-500/20 text-teal-200':'bg-white/5 opacity-70'}`}><Icon name={icon} className="w-3 h-3"/>{label}</button>))}</div><div className="flex gap-2"><input value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>e.key==='Enter'&&addReflection()} placeholder="Что заметили сегодня?" className="flex-1 bg-white/5 rounded-lg px-3 py-2 text-[13px] outline-none border border-white/10 focus:border-teal-400/50"/><button onClick={addReflection} className="px-3 rounded-lg bg-gradient-to-r from-teal-500 to-violet-600 text-white"><Icon name="plus" className="w-4 h-4"/></button></div>
+          <div className="space-y-2 mt-3">{journal.reflections.length===0&&<p className="text-[12px] opacity-45">Пока нет записей. Добавьте первую.</p>}{journal.reflections.map((r,i)=>{const meta=REFLECT_CATS.find(c=>c[0]===r.cat)||REFLECT_CATS[0];return(<div key={i} className="flex gap-2 p-2 rounded-lg bg-white/5"><Icon name={meta[2]} className="w-3.5 h-3.5 opacity-60 mt-0.5 shrink-0"/><div className="flex-1"><div className="text-[13px]">{r.text}</div><div className="text-[10px] opacity-40">{meta[1]} · {r.date}</div></div><button onClick={()=>setJournal(j=>({...j,reflections:j.reflections.filter((_,x)=>x!==i)}))} className="opacity-40 hover:opacity-80"><Icon name="close" className="w-3.5 h-3.5"/></button></div>);})}</div></Card>
+        <SectionHeader title="План первых 90 дней" icon="flag"/>
+        <div className="grid sm:grid-cols-3 gap-3">{PLAN_90.map(([d,t])=>(<Card key={d} className="p-3"><div className="font-display font-bold text-teal-300 mb-1">{d}</div><div className="text-[12px] opacity-75 leading-snug">{t}</div></Card>))}</div>
+        <SectionHeader title="Самоподдержка" icon="anchor"/>
+        <Card className="p-3"><ul className="space-y-1.5">{SELF_SUPPORT.map((x,i)=><li key={i} className="flex gap-2 text-[13px]"><Icon name="heart" className="w-3.5 h-3.5 text-teal-400 mt-0.5 shrink-0"/>{x}</li>)}</ul></Card>
+        <div className="mt-4"><Disclaimer>Дневник помогает сверяться с собой. Это не оценка и не диагноз; записи хранятся локально в браузере.</Disclaimer></div>
+      </TabFrame>);
+    };
+
+    /* ========== ВКЛАДКА: РЕСУРСЫ ========== */
+    const FormatCard = ({ f, recommended }) => (<Card className={`p-4 flex flex-col ${f.main?'ring-1':''}`} >{recommended&&<div className="text-[9px] uppercase font-bold mb-1" style={{color:f.accent}}>Рекомендовано вам</div>}<div className="text-[10px] uppercase tracking-wider mb-1" style={{color:f.accent}}>{f.dur}</div><h3 className="font-display font-bold text-lg">{f.title}</h3><p className="text-[12px] opacity-70 mt-1 mb-3 leading-snug flex-1">{f.pitch}</p><div className="text-[10px] uppercase tracking-wider opacity-50 mb-1.5">На выходе</div><ul className="space-y-1 mb-3">{f.out.map((o,i)=>(<li key={i} className="flex gap-1.5 text-[12px]"><span style={{color:f.accent}}>✓</span>{o}</li>))}</ul><a href={`${BOT_URL}?start=${f.id}`} target="_blank" rel="noopener" className="text-center py-2 rounded-lg font-semibold text-[12px] text-night-900 hover:opacity-90 transition" style={{background:f.accent}}>Подробнее в боте</a></Card>);
+    const ResourcesTab = ({ result, openQuiz }) => { const recF = recommendFormat(result); return (<TabFrame title="Ресурсы · что вы получаете" icon="grid">
+      <SectionHeader title="Форматы работы" subtitle="Три уровня глубины"/>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">{FORMATS.map(f=><FormatCard key={f.id} f={f} recommended={recF===f.id}/>)}</div>
+      {!result&&<button onClick={openQuiz} className="mt-2 text-teal-300 text-[12px] font-semibold">Заполнить анкету, чтобы подобрать формат →</button>}
+      <SectionHeader title="Что вы получите"/>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">{WHAT_YOU_GET.map(([t,d,icon])=>(<Card key={t} className="p-3"><Icon name={icon} className="w-5 h-5 text-teal-300 mb-1.5"/><div className="font-display font-semibold text-[13px]">{t}</div><div className="text-[11px] opacity-60 leading-snug">{d}</div></Card>))}</div>
+      <SectionHeader title="Что входит в пакет Alive Roadmap" subtitle="12 артефактов · отчёт 20–40 страниц"/>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">{PACKAGE_ITEMS.map((it,i)=>(<div key={i} className="flex items-center gap-2 p-2.5 rounded-lg bg-white/5 text-[13px]"><span className="w-5 h-5 rounded-full bg-violet-500/20 text-violet-200 flex items-center justify-center text-[10px] font-bold shrink-0">{i+1}</span>{it}</div>))}</div>
+      <div className="flex flex-wrap gap-2 mt-3">{HORIZONS.map(h=><Chip key={h}>{h}</Chip>)}</div>
+      <SectionHeader title="Библиотека методик и прототипов" subtitle="Малые безопасные проверки"/>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">{PROTOTYPES.map(([t,d,icon])=>(<Card key={t} className="p-3"><Icon name={icon} className="w-5 h-5 text-amber-300 mb-1.5"/><div className="font-display font-semibold text-[13px]">{t}</div><div className="text-[11px] opacity-60 leading-snug">{d}</div></Card>))}</div>
+      <SectionHeader title="Чем это отличается от коучинга"/>
+      <Card className="p-4"><div className="space-y-2">{DIFFERENCES.map(([a,b],i)=>(<div key={i} className="flex gap-3 text-[13px]"><span className="opacity-50 w-40 shrink-0">{a}</span><span className="opacity-50">→</span><span>{b}</span></div>))}</div><p className="text-[13px] mt-3 font-display" style={{color:'#A78BFA'}}>«Дорожная карта» собирает целостную картину и переводит её в стратегию жизни, роли, дохода и действий.</p></Card>
+      <SectionHeader title="Цифровой контур" subtitle="Telegram-бот"/>
+      <Card className="p-4 flex flex-col sm:flex-row sm:items-center gap-4"><div className="flex-1"><div className="font-display font-bold text-base mb-1">Сопровождение в Telegram</div><p className="text-[12px] opacity-70 leading-snug">Диагностика, выдача материалов, напоминания о контрольных точках, статус и оплата — в одном боте.</p></div><a href={BOT_URL} target="_blank" rel="noopener" className="px-5 py-2.5 rounded-xl font-semibold text-white text-sm bg-gradient-to-r from-teal-500 to-violet-600 hover:opacity-90 whitespace-nowrap flex items-center gap-1.5"><Icon name="message" className="w-4 h-4"/>Открыть бота</a></Card>
+      <SectionHeader title="Этика и границы"/>
+      <div className="grid sm:grid-cols-2 gap-3"><Card className="p-4"><div className="text-[11px] uppercase tracking-wider text-teal-300 mb-2">Что можем обещать</div><ul className="space-y-1.5">{ETHICS.can.map((x,i)=><li key={i} className="flex gap-2 text-[12px]"><Icon name="check" className="w-3.5 h-3.5 text-teal-400 mt-0.5 shrink-0"/>{x}</li>)}</ul></Card><Card className="p-4"><div className="text-[11px] uppercase tracking-wider text-orange-300 mb-2">Чего не обещаем</div><ul className="space-y-1.5">{ETHICS.cannot.map((x,i)=><li key={i} className="flex gap-2 text-[12px]"><Icon name="close" className="w-3.5 h-3.5 text-orange-300 mt-0.5 shrink-0"/>{x}</li>)}</ul></Card></div>
+      <div className="mt-4"><Disclaimer>Это премиальная навигация, а не социальная услуга. Карта помогает выбирать, но не выбирает за вас.</Disclaimer></div>
+    </TabFrame>); };
+
+    /* ========== ВКЛАДКА: МЕНТОР ========== */
+    const Bubble = ({ m, onTopic, onCta }) => (m.role==='user'
+      ? (<div className="flex justify-end"><div className="max-w-[80%] px-3 py-2 rounded-2xl rounded-br-sm bg-gradient-to-r from-teal-500/80 to-violet-600/80 text-white text-[13px]">{m.text}</div></div>)
+      : (<div className="flex gap-2"><div className="w-7 h-7 rounded-full bg-gradient-to-br from-teal-500 to-violet-600 flex items-center justify-center shrink-0"><Icon name="compass" className="w-3.5 h-3.5"/></div><div className="max-w-[85%] space-y-2">{m.blocks.filter(Boolean).map((b,i)=>{
+          if(b.type==='text') return <div key={i} className="px-3 py-2 rounded-2xl rounded-tl-sm bg-white/8 text-[13px] leading-snug">{b.t}</div>;
+          if(b.type==='note') return <div key={i} className="px-3 py-2 rounded-xl bg-white/5 text-[12px] opacity-60 leading-snug">{b.t}</div>;
+          if(b.type==='list') return <div key={i} className="px-3 py-2 rounded-2xl bg-white/8 text-[13px]">{b.t&&<div className="opacity-70 mb-1">{b.t}</div>}<ul className="space-y-1">{b.items.map((x,j)=><li key={j} className="flex gap-1.5"><span className="opacity-40">•</span>{x}</li>)}</ul></div>;
+          if(b.type==='steps') return <div key={i} className="px-3 py-2 rounded-2xl bg-white/8 text-[13px]"><div className="font-semibold mb-1">{b.t}</div><ul className="space-y-1">{b.items.map((x,j)=><li key={j} className="flex gap-1.5"><span className="w-4 h-4 rounded-full border border-white/25 text-[9px] flex items-center justify-center shrink-0">{j+1}</span>{x}</li>)}</ul></div>;
+          if(b.type==='cta') return <button key={i} onClick={()=>onTopic(b.to)} className="px-3 py-2 rounded-xl bg-teal-500/15 text-teal-200 text-[12px] font-semibold">{b.t} →</button>;
+          return null;
+        })}</div></div>));
+    const MentorTab = ({ result, selected, openQuiz, setTab }) => {
+      const ctx = useMemo(()=>buildMentorContext(result, selected),[result,selected]);
+      const [messages,setMessages]=useState([]); const [input,setInput]=useState(''); const [typing,setTyping]=useState(false);
+      const endRef = useRef(null);
+      useEffect(()=>{ const greet = ctx.hasResult?[{type:'text',t:`Здравствуйте! Я ваш навигатор по карте. Ваша рекомендованная траектория — «${ctx.recTitle}».`},{type:'text',t:'Спросите что угодно или выберите тему ниже.'}]:[{type:'text',t:'Здравствуйте! Я навигатор по вашей дорожной карте.'},{type:'note',t:'Чтобы советы были персональными, сначала пройдите короткую анкету.'}]; setMessages([{role:'bot',blocks:greet}]); },[]);
+      useEffect(()=>{ if(endRef.current) endRef.current.scrollIntoView({behavior:'smooth'}); },[messages,typing]);
+      const reply = (blocksFn)=>{ setTyping(true); setTimeout(()=>{ setTyping(false); setMessages(m=>[...m,{role:'bot',blocks:blocksFn()}]); }, 600); };
+      const handleTopic = (id)=>{ if(id==='resources'){ setTab('resources'); return; } if(id==='__quiz'){ openQuiz(); return; } const t=TOPICS.find(x=>x.id===id); if(!t)return; setMessages(m=>[...m,{role:'user',text:t.label}]); reply(()=>t.build(ctx)); };
+      const onSend = ()=>{ if(!input.trim())return; const text=input.trim(); setInput(''); setMessages(m=>[...m,{role:'user',text}]); const t=matchTopic(text); reply(()=> t?t.build(ctx):[{type:'text',t:'Я навигатор по карте — помогу со стартом, выбором сценария, прототипами и сопротивлением. Попробуйте тему ниже.'}]); };
+      return (<div className="h-full lg:overflow-hidden"><div className="max-w-3xl mx-auto h-full flex flex-col px-4 md:px-6 py-4 pb-20 lg:pb-4">
+        <div className="flex items-center gap-2 mb-3 shrink-0"><Icon name="message" className="w-5 h-5 opacity-70"/><h1 className="font-display font-bold text-xl">Ментор · навигатор по карте</h1></div>
+        <Card className="flex-1 min-h-0 flex flex-col p-0 overflow-hidden">
+          <div className="flex-1 overflow-y-auto thin-scroll p-4 space-y-3">{messages.map((m,i)=><Bubble key={i} m={m} onTopic={handleTopic}/>)}{typing&&<div className="flex gap-1 pl-9"><span className="w-1.5 h-1.5 rounded-full bg-white/60 dot"/><span className="w-1.5 h-1.5 rounded-full bg-white/60 dot" style={{animationDelay:'.2s'}}/><span className="w-1.5 h-1.5 rounded-full bg-white/60 dot" style={{animationDelay:'.4s'}}/></div>}<div ref={endRef}/></div>
+          <div className="border-t border-white/8 p-3">
+            <div className="flex gap-1.5 flex-wrap mb-2">{(ctx.hasResult?TOPICS.filter(t=>t.quick):[{id:'__quiz',label:'Заполнить анкету'}]).map(t=>(<button key={t.id} onClick={()=>handleTopic(t.id)} className="px-2.5 py-1 rounded-full bg-white/8 hover:bg-white/14 text-[11px] transition">{t.label}</button>))}</div>
+            <div className="flex gap-2"><input value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>e.key==='Enter'&&onSend()} placeholder="Напишите вопрос…" className="flex-1 bg-white/5 rounded-lg px-3 py-2 text-[13px] outline-none border border-white/10 focus:border-teal-400/50"/><button onClick={onSend} className="px-3 rounded-lg bg-gradient-to-r from-teal-500 to-violet-600 text-white"><Icon name="send" className="w-4 h-4"/></button></div>
           </div>
-        </aside>
-      );
+        </Card>
+        <div className="shrink-0 mt-2 flex flex-col sm:flex-row sm:items-center gap-2 justify-between">
+          <Disclaimer>AI-ассистент-прототип. Не заменяет терапию и не ставит диагнозов; при кризисе обратитесь к специалисту.</Disclaimer>
+          <a href={BOT_URL} target="_blank" rel="noopener" className="text-[12px] font-semibold text-teal-300 whitespace-nowrap flex items-center gap-1.5"><Icon name="message" className="w-3.5 h-3.5"/>Продолжить в Telegram</a>
+        </div>
+      </div></div>);
     };
 
     /* ========== МОДАЛКА УЗЛА ========== */
-    const NodeModal = ({ data, onClose }) => {
+    const NodeModal = ({ data, onClose, onToggleStep }) => {
       if (!data) return null;
-      const s = data.scenario, pnr = data.kind===PNR_NODE, proto = data.kind===PROTO;
-      const done = data.status==='done', active = data.status==='active', up = data.status==='upcoming';
-      const accent = pnr ? PNR : s.accent;
-      return (
-        <div onClick={onClose} className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay" style={{ background:'rgba(7,11,20,0.72)', backdropFilter:'blur(8px)' }}>
-          <div onClick={e=>e.stopPropagation()} className="modal-content w-full max-w-md rounded-3xl p-6 relative bg-night-800 border border-white/10 text-white">
-            <button onClick={onClose} className="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10"><Icon name="close" className="w-4 h-4"/></button>
-            <div className="flex items-start gap-4 mb-4">
-              <div className="w-14 h-14 flex items-center justify-center shrink-0 text-white" style={{ background:`linear-gradient(135deg,${accent},${accent}dd)`, borderRadius: pnr?12:16, boxShadow:`0 8px 24px ${accent}55` }}><Icon name={pnr?'horizon':proto?'flask':data.kind==='role'?'compassRole':'star'} className="w-6 h-6"/></div>
-              <div className="flex-1 pt-1">
-                <div className="text-[10px] uppercase tracking-wider opacity-70 font-semibold" style={{ color:s.accent }}>{s.orbitName} · {data.horizon}</div>
-                <h3 className="font-display font-bold text-xl leading-tight">{data.label}</h3>
-                <div className="mt-1.5">
-                  {done && <span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-semibold">Пройдено</span>}
-                  {active && <span className="text-[11px] px-2 py-0.5 rounded-full font-semibold" style={{ background:`${accent}22`, color:accent }}>Текущий шаг</span>}
-                  {pnr && <span className="text-[11px] px-2 py-0.5 rounded-full font-semibold bg-orange-500/15 text-orange-300">Точка невозврата</span>}
-                  {proto && !pnr && <span className="text-[11px] px-2 py-0.5 rounded-full font-semibold bg-amber-500/15 text-amber-300">Прототип</span>}
-                </div>
-              </div>
-            </div>
-            <p className="text-sm opacity-80 leading-relaxed mb-4">{data.desc}</p>
-            {pnr && <div className="mb-4 p-3 rounded-xl bg-orange-500/10 border border-orange-500/20 text-[13px] text-orange-200 leading-relaxed">Горизонт событий: после этого решения старый сценарий уже не продолжить. Это не катастрофа, а момент пересборки.</div>}
-            <div className="mb-4">
-              <div className="text-[10px] uppercase tracking-wider opacity-60 font-semibold mb-2">Шаги</div>
-              <div className="space-y-2">{data.tasks.map((t,i)=>(<div key={i} className="flex items-center gap-3 p-2.5 rounded-xl bg-white/5"><div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${done?'bg-emerald-500 text-white':'border-2'}`} style={!done?{borderColor:accent}:{}}>{done && <Icon name="check" className="w-3 h-3" stroke={3}/>}</div><span className="text-sm">{t}</span></div>))}</div>
-            </div>
-            {active && <button className="w-full py-3 rounded-xl text-white font-semibold text-sm hover:opacity-90 transition" style={{ background:`linear-gradient(135deg,${accent},${accent}dd)` }}>Отметить шаг выполненным</button>}
-            {up && <div className="p-3 rounded-xl text-xs text-center bg-white/5 text-white/70">Откроется после прохождения предыдущих контрольных точек</div>}
-            {done && <button className="w-full py-3 rounded-xl font-semibold text-sm bg-white/5 hover:bg-white/10">Открыть разбор шага</button>}
-            <p className="text-[11px] opacity-45 mt-3 leading-relaxed text-center">Это рекомендация и опора для решения, а не гарантия. Выбор остаётся за вами.</p>
-          </div>
-        </div>
-      );
+      const s=data.scenario, pnr=data.kind===PNR_NODE, proto=data.kind===PROTO;
+      const done=data.status==='done', active=data.status==='active', up=data.status==='upcoming', accent=pnr?PNR:s.accent;
+      return (<div onClick={onClose} className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay" style={{background:'rgba(7,11,20,0.72)',backdropFilter:'blur(8px)'}}>
+        <div onClick={e=>e.stopPropagation()} className="modal-content w-full max-w-md rounded-3xl p-6 relative bg-night-800 border border-white/10 text-white">
+          <button onClick={onClose} className="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10"><Icon name="close" className="w-4 h-4"/></button>
+          <div className="flex items-start gap-4 mb-4"><div className="w-14 h-14 flex items-center justify-center shrink-0 text-white" style={{background:`linear-gradient(135deg,${accent},${accent}dd)`,borderRadius:pnr?12:16,boxShadow:`0 8px 24px ${accent}55`}}><Icon name={pnr?'horizon':proto?'flask':data.kind==='role'?'compassRole':'star'} className="w-6 h-6"/></div><div className="flex-1 pt-1"><div className="text-[10px] uppercase tracking-wider opacity-70 font-semibold" style={{color:s.accent}}>{s.orbitName} · {data.horizon}</div><h3 className="font-display font-bold text-xl leading-tight">{data.label}</h3><div className="mt-1.5">{done&&<span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-semibold">Пройдено</span>}{active&&<span className="text-[11px] px-2 py-0.5 rounded-full font-semibold" style={{background:`${accent}22`,color:accent}}>Текущий шаг</span>}{pnr&&<span className="text-[11px] px-2 py-0.5 rounded-full font-semibold bg-orange-500/15 text-orange-300">Точка невозврата</span>}{proto&&!pnr&&<span className="text-[11px] px-2 py-0.5 rounded-full font-semibold bg-amber-500/15 text-amber-300">Прототип</span>}</div></div></div>
+          <p className="text-sm opacity-80 leading-relaxed mb-4">{data.desc}</p>
+          {pnr&&<div className="mb-4 p-3 rounded-xl bg-orange-500/10 border border-orange-500/20 text-[13px] text-orange-200 leading-relaxed">Горизонт событий: после этого решения старый сценарий уже не продолжить. Это не катастрофа, а момент пересборки.</div>}
+          <div className="mb-4"><div className="text-[10px] uppercase tracking-wider opacity-60 font-semibold mb-2">Шаги</div><div className="space-y-2">{data.tasks.map((t,i)=>(<div key={i} className="flex items-center gap-3 p-2.5 rounded-xl bg-white/5"><div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${done?'bg-emerald-500 text-white':'border-2'}`} style={!done?{borderColor:accent}:{}}>{done&&<Icon name="check" className="w-3 h-3" stroke={3}/>}</div><span className="text-sm">{t}</span></div>))}</div></div>
+          <button onClick={()=>{ onToggleStep(data.sid,data.idx); onClose(); }} className="w-full py-3 rounded-xl text-white font-semibold text-sm hover:opacity-90 transition" style={{background:`linear-gradient(135deg,${accent},${accent}dd)`}}>{done?'Снять отметку':'Отметить шаг выполненным'}</button>
+          <p className="text-[11px] opacity-45 mt-3 leading-relaxed text-center">Это рекомендация и опора для решения, а не гарантия. Выбор остаётся за вами.</p>
+        </div></div>);
     };
 
     /* ========== АНКЕТА ========== */
     const Questionnaire = ({ onClose, onComplete }) => {
-      const total = QUESTIONS.length + 1;
-      const [step, setStep] = useState(0);
-      const [picks, setPicks] = useState(Array(QUESTIONS.length).fill(null));
-      const [values, setValues] = useState([]);
-      const isValues = step === QUESTIONS.length;
-      const canNext = isValues ? values.length > 0 : picks[step] != null;
-      const choose = (opt) => { const pp = picks.slice(); pp[step] = opt; setPicks(pp); setTimeout(()=>setStep(s=>Math.min(s+1, total-1)), 180); };
-      const toggleVal = (v) => setValues(vs => vs.includes(v) ? vs.filter(x=>x!==v) : (vs.length<3 ? [...vs,v] : vs));
-      return (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 modal-overlay" style={{ background:'rgba(7,11,20,0.8)', backdropFilter:'blur(10px)' }}>
-          <div className="modal-content w-full max-w-lg rounded-3xl p-6 md:p-7 relative bg-night-800 border border-white/10 text-white">
-            <button onClick={onClose} className="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10"><Icon name="close" className="w-4 h-4"/></button>
-            <div className="text-[10px] uppercase tracking-wider opacity-55 mb-1">Анкета · шаг {step+1} из {total}</div>
-            <div className="h-1.5 rounded-full bg-white/8 overflow-hidden mb-5"><div className="h-full rounded-full bg-gradient-to-r from-teal-400 to-violet-500" style={{ width:`${(step+1)/total*100}%`, transition:'width .3s' }}/></div>
-            {!isValues ? (
-              <>
-                <h3 className="font-display font-bold text-xl leading-tight mb-5">{QUESTIONS[step].q}</h3>
-                <div className="space-y-2.5">
-                  {QUESTIONS[step].opts.map((o,i) => { const sel = picks[step]===o; return (
-                    <button key={i} onClick={()=>choose(o)} className={`w-full text-left px-4 py-3 rounded-xl border transition flex items-center gap-3 ${sel?'border-teal-400 bg-teal-500/10':'border-white/10 hover:border-white/25 hover:bg-white/5'}`}>
-                      <span className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center ${sel?'border-teal-400 bg-teal-400 text-night-900':'border-white/30'}`}>{sel && <Icon name="check" className="w-3 h-3" stroke={3}/>}</span>
-                      <span className="text-sm">{o.label}</span>
-                    </button>
-                  );})}
-                </div>
-              </>
-            ) : (
-              <>
-                <h3 className="font-display font-bold text-xl leading-tight mb-1">Выберите до 3 ценностей-опор</h3>
-                <p className="text-[12px] opacity-60 mb-4">На что хотите опираться в движении ({values.length}/3).</p>
-                <div className="flex flex-wrap gap-2">
-                  {ALL_VALUES.map(v => { const sel = values.includes(v); return (
-                    <button key={v} onClick={()=>toggleVal(v)} className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm border transition ${sel?'border-teal-400 bg-teal-500/15 text-teal-200':'border-white/10 hover:border-white/25'}`}><Icon name={VALUE_ICONS[v]||'star'} className="w-3.5 h-3.5"/>{v}</button>
-                  );})}
-                </div>
-              </>
-            )}
-            <div className="flex items-center justify-between mt-6">
-              <button onClick={()=>step>0 ? setStep(step-1) : onClose()} className="flex items-center gap-1.5 text-sm opacity-70 hover:opacity-100 transition"><Icon name="chevronL" className="w-4 h-4"/>{step>0?'Назад':'Отмена'}</button>
-              {isValues
-                ? <button onClick={()=>canNext && onComplete(computeResult(picks, values))} disabled={!canNext} className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition ${canNext?'bg-gradient-to-r from-teal-500 to-violet-600 text-white hover:opacity-90':'bg-white/8 text-white/40'}`}>Построить путь</button>
-                : <button onClick={()=>canNext && setStep(step+1)} disabled={!canNext} className={`flex items-center gap-1.5 px-5 py-2.5 rounded-xl font-semibold text-sm transition ${canNext?'bg-white/10 hover:bg-white/16':'bg-white/5 text-white/40'}`}>Далее<Icon name="chevron" className="w-4 h-4"/></button>}
-            </div>
-          </div>
-        </div>
-      );
+      const total = QUESTIONS.length+1; const [step,setStep]=useState(0);
+      const [picks,setPicks]=useState(Array(QUESTIONS.length).fill(null)); const [values,setValues]=useState([]);
+      const isValues = step===QUESTIONS.length; const canNext = isValues?values.length>0:picks[step]!=null;
+      const choose=(opt)=>{ const pp=picks.slice(); pp[step]=opt; setPicks(pp); setTimeout(()=>setStep(s=>Math.min(s+1,total-1)),180); };
+      const toggleVal=(v)=>setValues(vs=>vs.includes(v)?vs.filter(x=>x!==v):(vs.length<3?[...vs,v]:vs));
+      return (<div className="fixed inset-0 z-[60] flex items-center justify-center p-4 modal-overlay" style={{background:'rgba(7,11,20,0.8)',backdropFilter:'blur(10px)'}}>
+        <div className="modal-content w-full max-w-lg rounded-3xl p-6 md:p-7 relative bg-night-800 border border-white/10 text-white">
+          <button onClick={onClose} className="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10"><Icon name="close" className="w-4 h-4"/></button>
+          <div className="text-[10px] uppercase tracking-wider opacity-55 mb-1">Анкета · шаг {step+1} из {total}</div>
+          <div className="h-1.5 rounded-full bg-white/8 overflow-hidden mb-5"><div className="h-full rounded-full bg-gradient-to-r from-teal-400 to-violet-500" style={{width:`${(step+1)/total*100}%`,transition:'width .3s'}}/></div>
+          {!isValues?(<><h3 className="font-display font-bold text-xl leading-tight mb-5">{QUESTIONS[step].q}</h3><div className="space-y-2.5">{QUESTIONS[step].opts.map((o,i)=>{const sel=picks[step]===o;return(<button key={i} onClick={()=>choose(o)} className={`w-full text-left px-4 py-3 rounded-xl border transition flex items-center gap-3 ${sel?'border-teal-400 bg-teal-500/10':'border-white/10 hover:border-white/25 hover:bg-white/5'}`}><span className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center ${sel?'border-teal-400 bg-teal-400 text-night-900':'border-white/30'}`}>{sel&&<Icon name="check" className="w-3 h-3" stroke={3}/>}</span><span className="text-sm">{o.label}</span></button>);})}</div></>)
+          :(<><h3 className="font-display font-bold text-xl leading-tight mb-1">Выберите до 3 ценностей-опор</h3><p className="text-[12px] opacity-60 mb-4">На что хотите опираться ({values.length}/3).</p><div className="flex flex-wrap gap-2">{ALL_VALUES.map(v=>{const sel=values.includes(v);return(<button key={v} onClick={()=>toggleVal(v)} className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm border transition ${sel?'border-teal-400 bg-teal-500/15 text-teal-200':'border-white/10 hover:border-white/25'}`}><Icon name={VALUE_ICONS[v]||'star'} className="w-3.5 h-3.5"/>{v}</button>);})}</div></>)}
+          <div className="flex items-center justify-between mt-6"><button onClick={()=>step>0?setStep(step-1):onClose()} className="flex items-center gap-1.5 text-sm opacity-70 hover:opacity-100 transition"><Icon name="chevronL" className="w-4 h-4"/>{step>0?'Назад':'Отмена'}</button>{isValues?<button onClick={()=>canNext&&onComplete(computeResult(picks,values))} disabled={!canNext} className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition ${canNext?'bg-gradient-to-r from-teal-500 to-violet-600 text-white hover:opacity-90':'bg-white/8 text-white/40'}`}>Построить путь</button>:<button onClick={()=>canNext&&setStep(step+1)} disabled={!canNext} className={`flex items-center gap-1.5 px-5 py-2.5 rounded-xl font-semibold text-sm transition ${canNext?'bg-white/10 hover:bg-white/16':'bg-white/5 text-white/40'}`}>Далее<Icon name="chevron" className="w-4 h-4"/></button>}</div>
+        </div></div>);
     };
 
     /* ========== APP ========== */
-    const STORE = 'lifedesign_result_v1';
+    const STORE='lifedesign_result_v1';
+    const TAB_COMP = { profile:ProfileTab, journal:JournalTab, resources:ResourcesTab, mentor:MentorTab };
     const App = () => {
-      const [result, setResult] = useState(null);
-      const [selected, setSelected] = useState('growth');
-      const [node, setNode] = useState(null);
-      const [quiz, setQuiz] = useState(false);
-      useEffect(() => {
-        try { const r = JSON.parse(localStorage.getItem(STORE) || 'null'); if (r) { setResult(r); setSelected(r.recommended); } else { setQuiz(true); } } catch (e) {}
-        const k = (e)=>{ if(e.key==='Escape'){ setNode(null); setQuiz(false); } };
-        window.addEventListener('keydown', k); return ()=>window.removeEventListener('keydown', k);
-      }, []);
-      const onComplete = (r) => { setResult(r); setSelected(r.recommended); setQuiz(false); try { localStorage.setItem(STORE, JSON.stringify(r)); } catch(e){} };
-      return (
-        <div className="min-h-screen lg:h-screen lg:overflow-hidden flex flex-col text-white grain bg-night-900">
-          <TopBar onQuiz={()=>setQuiz(true)}/>
-          <main className="flex-1 min-h-0 flex flex-col lg:flex-row gap-3 px-3 md:px-4 py-3 overflow-y-auto lg:overflow-hidden">
-            <LeftPanel result={result} onQuiz={()=>setQuiz(true)}/>
-            <div className="order-1 lg:order-2 flex-1 min-w-0 flex flex-col min-h-0"><RoadMap selected={selected} setSelected={setSelected} result={result} onNodeClick={setNode}/></div>
-            <RightPanel selected={selected} result={result}/>
-          </main>
-          <NodeModal data={node} onClose={()=>setNode(null)}/>
-          {quiz && <Questionnaire onClose={()=>setQuiz(false)} onComplete={onComplete}/>}
-        </div>
-      );
+      const [result,setResult]=useState(null); const [selected,setSelected]=useState('growth');
+      const [node,setNode]=useState(null); const [quiz,setQuiz]=useState(false);
+      const [tab,setTab]=useState('map'); const [doneSteps,setDoneSteps]=useState(()=>lsLoad('lifedesign_done_v1',{}));
+      useEffect(()=>{ try{const r=JSON.parse(localStorage.getItem(STORE)||'null'); if(r){setResult(r);setSelected(r.recommended);} else {setQuiz(true);}}catch(e){}
+        const h=(location.hash||'').replace('#',''); if(NAV.some(n=>n.id===h)) setTab(h);
+        const onHash=()=>{const x=(location.hash||'').replace('#',''); if(NAV.some(n=>n.id===x)) setTab(x);};
+        const onKey=(e)=>{ if(e.key==='Escape'){setNode(null);setQuiz(false);} };
+        window.addEventListener('hashchange',onHash); window.addEventListener('keydown',onKey);
+        return ()=>{ window.removeEventListener('hashchange',onHash); window.removeEventListener('keydown',onKey); }; },[]);
+      useEffect(()=>{ try{localStorage.setItem('lifedesign_done_v1',JSON.stringify(doneSteps));}catch(e){} },[doneSteps]);
+      const goTab=(t)=>{ setTab(t); try{history.replaceState(null,'','#'+t);}catch(e){} };
+      const openQuiz=()=>setQuiz(true);
+      const toggleStep=(sid,i)=>setDoneSteps(d=>({...d,[sid+'-'+i]:!d[sid+'-'+i]}));
+      const onComplete=(r)=>{ setResult(r); setSelected(r.recommended); setQuiz(false); try{localStorage.setItem(STORE,JSON.stringify(r));}catch(e){} };
+      const shared={ result, selected, setSelected, openQuiz, setTab:goTab, doneSteps, toggleStep, onNodeClick:setNode };
+      const ActiveTab = TAB_COMP[tab];
+      return (<div className="min-h-screen lg:h-screen lg:overflow-hidden flex flex-col text-white grain bg-night-900">
+        <TopBar tab={tab} onTab={goTab} onQuiz={openQuiz}/>
+        <main className="flex-1 min-h-0 overflow-hidden">{tab==='map'?<MapTab {...shared}/>:<ActiveTab {...shared}/>}</main>
+        <MobileTabBar tab={tab} onTab={goTab}/>
+        <NodeModal data={node} onClose={()=>setNode(null)} onToggleStep={toggleStep}/>
+        {quiz&&<Questionnaire onClose={()=>setQuiz(false)} onComplete={onComplete}/>}
+      </div>);
     };
     ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
   </script>
