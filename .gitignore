@@ -1,0 +1,17 @@
+.env
+.env.local
+.env.*.local
+node_modules/
+.DS_Store
+*.log
+dist/
+build/
+.vscode/
+.idea/
+
+# Публикуем только сайт (web/). Бизнес-документы и внутренние инструменты — НЕ публикуем.
+mainDocs/
+tools/
+build_docx.py
+*.docx
+АРХИТЕКТУРА_СИСТЕМЫ.md

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Дорожная карта будущего — персональная навигация на 2–3 года</title>
+  <meta name="description" content="Не консультация, а персональная карта вашей жизни, роли, дохода и среды на 2–3 года. Диагностика перехода, Alive Roadmap (10 недель) и Premium-сопровождение." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: {
+        fontFamily: { sans: ['Inter','system-ui','sans-serif'], display: ['Manrope','Inter','sans-serif'] },
+        colors: { night: { 900:'#060912', 800:'#0A0F1E', 700:'#111829', 600:'#19223A' } },
+      }},
+    };
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family:'Inter',sans-serif; background:#060912; color:#E5E7EB; }
+    .font-display { font-family:'Manrope',sans-serif; }
+    .space-bg {
+      background:
+        radial-gradient(ellipse at 50% -10%, rgba(124,58,237,0.18), transparent 55%),
+        radial-gradient(ellipse at 12% 8%, rgba(45,212,191,0.07), transparent 45%),
+        radial-gradient(ellipse at 88% 14%, rgba(251,191,36,0.06), transparent 45%),
+        #060912;
+    }
+    .glass { background: rgba(17,24,41,0.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border:1px solid rgba(255,255,255,0.07); }
+    .glass-strong { background: rgba(17,24,41,0.78); backdrop-filter: blur(16px); border:1px solid rgba(255,255,255,0.10); }
+    .grain { background-image: radial-gradient(rgba(255,255,255,0.012) 1px, transparent 1px); background-size:3px 3px; }
+    ::-webkit-scrollbar{width:9px} ::-webkit-scrollbar-thumb{background:rgba(100,116,139,.3);border-radius:5px}
+    @keyframes floaty { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    /* reveal активен только при JS — без JS контент виден сразу (SEO/доступность) */
+    .js .reveal { opacity:0; transform: translateY(20px); transition: opacity .7s ease, transform .7s cubic-bezier(.16,1,.3,1); }
+    .js .reveal.in { opacity:1; transform:none; }
+    details > summary { list-style:none; cursor:pointer; } details > summary::-webkit-details-marker{display:none;}
+    details[open] .faq-chev { transform: rotate(180deg); }
+  </style>
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="space-bg grain">
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-night-900/70 border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500 to-violet-600 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+        </div>
+        <div>
+          <div class="font-display font-bold text-[15px] leading-none">Дорожная карта будущего</div>
+          <div class="text-[10px] uppercase tracking-wider opacity-50 mt-0.5">Life Design</div>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-7 text-sm opacity-80">
+        <a href="#value" class="hover:opacity-100 transition">Что вы получите</a>
+        <a href="#tiers" class="hover:opacity-100 transition">Форматы</a>
+        <a href="#how" class="hover:opacity-100 transition">Как проходит</a>
+        <a href="#diff" class="hover:opacity-100 transition">Отличие</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="./index.html" class="hidden sm:inline text-sm opacity-80 hover:opacity-100 transition">Посмотреть карту →</a>
+        <a href="https://t.me/dorozhnaya_karta_bot?start=lp" target="_blank" rel="noopener"
+           class="px-4 py-2 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-teal-500 to-violet-600 hover:opacity-90 transition shadow-[0_8px_24px_rgba(124,58,237,0.35)]">Диагностика</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" class="relative overflow-hidden">
+    <img src="./assets/map-spacetime.png" alt="" class="absolute inset-0 w-full h-full object-cover opacity-60" style="object-position:center 30%" />
+    <div class="absolute inset-0" style="background:linear-gradient(to bottom, rgba(6,9,18,0.55) 0%, rgba(6,9,18,0.25) 35%, rgba(6,9,18,0.85) 88%, #060912 100%)"></div>
+    <div class="relative max-w-6xl mx-auto px-5 pt-20 pb-28 md:pt-28 md:pb-40 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs uppercase tracking-wider text-teal-200 mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span> Премиальная персональная навигация
+      </div>
+      <h1 class="font-display font-extrabold text-4xl md:text-6xl leading-[1.05] max-w-4xl mx-auto">
+        Не консультация, а <span class="bg-gradient-to-r from-teal-300 via-violet-300 to-amber-300 bg-clip-text text-transparent">карта вашего будущего</span> на 2–3 года
+      </h1>
+      <p class="mt-6 text-lg md:text-xl opacity-80 max-w-2xl mx-auto leading-relaxed">
+        Ваше будущее — не прямая линия. Это пространство возможностей. Мы собираем вашу личность, ценности, роль, доход и среду в единую карту движения — и помогаем перейти из точки неопределённости к ясности и первым шагам.
+      </p>
+      <div class="mt-9 flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="https://t.me/dorozhnaya_karta_bot?start=lp" target="_blank" rel="noopener"
+           class="px-7 py-3.5 rounded-2xl font-semibold text-white bg-gradient-to-r from-teal-500 to-violet-600 hover:opacity-90 transition shadow-[0_10px_30px_rgba(124,58,237,0.4)]">
+          Начать с диагностики
+        </a>
+        <a href="./index.html"
+           class="px-7 py-3.5 rounded-2xl font-semibold glass-strong hover:bg-white/10 transition">
+          Посмотреть интерактивную карту
+        </a>
+      </div>
+      <p class="mt-5 text-xs opacity-50">Первичная диагностика — низкий порог входа. Дальше вы сами выбираете формат.</p>
+    </div>
+  </section>
+
+  <!-- ДО / ПОСЛЕ -->
+  <section class="max-w-5xl mx-auto px-5 -mt-16 relative z-10">
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="glass rounded-2xl p-6 reveal">
+        <div class="text-[11px] uppercase tracking-wider text-white/45 mb-3">До</div>
+        <ul class="space-y-2.5 text-[15px] opacity-85">
+          <li>· «Не понимаю, куда двигаться дальше»</li>
+          <li>· «Много мыслей, но нет структуры»</li>
+          <li>· «Есть опыт, но не знаю, как его монетизировать»</li>
+          <li>· «Боюсь ошибиться с решением»</li>
+        </ul>
+      </div>
+      <div class="glass rounded-2xl p-6 reveal" style="transition-delay:.08s">
+        <div class="text-[11px] uppercase tracking-wider text-teal-300 mb-3">После</div>
+        <ul class="space-y-2.5 text-[15px]">
+          <li>· Есть 2–3-летняя карта движения и план на 90 дней</li>
+          <li>· Цели, ресурсы, ограничения и сценарии — в понятной системе</li>
+          <li>· Видно, какую роль и доходную модель собрать из опыта</li>
+          <li>· Видны риски, альтернативы и критерии выбора</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ЧТО ВЫ ПОЛУЧИТЕ -->
+  <section id="value" class="max-w-6xl mx-auto px-5 py-24">
+    <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+      <h2 class="font-display font-bold text-3xl md:text-4xl">Что вы получите в результате</h2>
+      <p class="opacity-65 mt-3">Не отчёт, а персональная система ориентации в будущем.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- cards filled by JS for brevity -->
+      <div id="value-grid" class="contents"></div>
+    </div>
+  </section>
+
+  <!-- ТРИ ФОРМАТА -->
+  <section id="tiers" class="max-w-6xl mx-auto px-5 py-20">
+    <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+      <h2 class="font-display font-bold text-3xl md:text-4xl">Три формата движения</h2>
+      <p class="opacity-65 mt-3">От первого прояснения — до сборки карты и её внедрения в жизнь.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-5 items-stretch">
+
+      <!-- Диагностика -->
+      <div class="glass rounded-3xl p-7 flex flex-col reveal border-t-2" style="border-top-color:#2DD4BF">
+        <div class="text-[11px] uppercase tracking-wider mb-1" style="color:#2DD4BF">1 встреча · короткий вход</div>
+        <h3 class="font-display font-bold text-2xl">Диагностика перехода</h3>
+        <p class="opacity-70 text-sm mt-3 leading-relaxed">Для тех, кто чувствует «я застрял/застряла», но пока не понимает, что именно менять. За одну встречу определяем вашу точку перехода.</p>
+        <div class="text-[11px] uppercase tracking-wider opacity-50 mt-6 mb-3">На выходе</div>
+        <ul class="space-y-2 text-sm flex-1">
+          <li class="flex gap-2"><span style="color:#2DD4BF">✓</span> краткий разбор вашей ситуации</li>
+          <li class="flex gap-2"><span style="color:#2DD4BF">✓</span> формулировка настоящего запроса</li>
+          <li class="flex gap-2"><span style="color:#2DD4BF">✓</span> первичная карта ресурсов и ограничений</li>
+          <li class="flex gap-2"><span style="color:#2DD4BF">✓</span> гипотеза возможной траектории</li>
+          <li class="flex gap-2"><span style="color:#2DD4BF">✓</span> рекомендация формата работы</li>
+        </ul>
+        <a href="https://t.me/dorozhnaya_karta_bot?start=diagnostika" target="_blank" rel="noopener"
+           class="mt-7 text-center px-5 py-3 rounded-xl font-semibold text-night-900 transition hover:opacity-90" style="background:#2DD4BF">
+          Записаться на диагностику
+        </a>
+      </div>
+
+      <!-- Alive Roadmap (основной) -->
+      <div class="rounded-3xl p-7 flex flex-col reveal relative glass-strong border-t-2 md:-mt-4 md:mb-0 shadow-[0_20px_60px_rgba(124,58,237,0.25)]" style="border-top-color:#A78BFA; transition-delay:.06s">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-white" style="background:linear-gradient(135deg,#A78BFA,#7C3AED)">Основной продукт</div>
+        <div class="text-[11px] uppercase tracking-wider mb-1" style="color:#A78BFA">10 недель глубокой сборки</div>
+        <h3 class="font-display font-bold text-2xl">Alive Roadmap</h3>
+        <p class="opacity-70 text-sm mt-3 leading-relaxed">Когда прежняя роль стала тесной, опыт просит новой формы, а будущее нужно не угадать, а спроектировать. 10 недель, чтобы собрать свою следующую главу.</p>
+        <div class="text-[11px] uppercase tracking-wider opacity-50 mt-6 mb-3">На выходе</div>
+        <ul class="space-y-2 text-sm flex-1">
+          <li class="flex gap-2"><span style="color:#A78BFA">✓</span> персональный аналитический отчёт</li>
+          <li class="flex gap-2"><span style="color:#A78BFA">✓</span> психологический портрет и карта идентичности</li>
+          <li class="flex gap-2"><span style="color:#A78BFA">✓</span> расшифровка социокультурного кода</li>
+          <li class="flex gap-2"><span style="color:#A78BFA">✓</span> новая роль, позиционирование и модель дохода</li>
+          <li class="flex gap-2"><span style="color:#A78BFA">✓</span> три сценария будущего и прототипы</li>
+          <li class="flex gap-2"><span style="color:#A78BFA">✓</span> дорожная карта на 2–3 года + контрольные точки</li>
+        </ul>
+        <a href="https://t.me/dorozhnaya_karta_bot?start=roadmap" target="_blank" rel="noopener"
+           class="mt-7 text-center px-5 py-3 rounded-xl font-semibold text-white transition hover:opacity-90" style="background:linear-gradient(135deg,#A78BFA,#7C3AED)">
+          Подобрать формат
+        </a>
+      </div>
+
+      <!-- Premium -->
+      <div class="glass rounded-3xl p-7 flex flex-col reveal border-t-2" style="border-top-color:#FBBF24; transition-delay:.12s">
+        <div class="text-[11px] uppercase tracking-wider mb-1" style="color:#FBBF24">3 месяца внедрения</div>
+        <h3 class="font-display font-bold text-2xl">Premium-сопровождение</h3>
+        <p class="opacity-70 text-sm mt-3 leading-relaxed">Для тех, кто хочет не только получить карту, но и начать жить в её направлении: переводим карту в реальные шаги, решения и новую роль.</p>
+        <div class="text-[11px] uppercase tracking-wider opacity-50 mt-6 mb-3">На выходе</div>
+        <ul class="space-y-2 text-sm flex-1">
+          <li class="flex gap-2"><span style="color:#FBBF24">✓</span> внедрение первых шагов карты</li>
+          <li class="flex gap-2"><span style="color:#FBBF24">✓</span> контрольные сессии и стратегическая сверка</li>
+          <li class="flex gap-2"><span style="color:#FBBF24">✓</span> коррекция маршрута под реальность</li>
+          <li class="flex gap-2"><span style="color:#FBBF24">✓</span> поддержка новой роли, работа с откатами</li>
+          <li class="flex gap-2"><span style="color:#FBBF24">✓</span> уточнённый план на 3–6 месяцев</li>
+        </ul>
+        <a href="https://t.me/dorozhnaya_karta_bot?start=premium" target="_blank" rel="noopener"
+           class="mt-7 text-center px-5 py-3 rounded-xl font-semibold text-night-900 transition hover:opacity-90" style="background:#FBBF24">
+          Узнать о сопровождении
+        </a>
+      </div>
+    </div>
+    <p class="text-center text-xs opacity-45 mt-6">Стоимость и точный формат подбираются после первичной диагностики, в Telegram-боте.</p>
+  </section>
+
+  <!-- КАК ПРОХОДИТ -->
+  <section id="how" class="max-w-6xl mx-auto px-5 py-20">
+    <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+      <h2 class="font-display font-bold text-3xl md:text-4xl">Как проходит работа</h2>
+      <p class="opacity-65 mt-3">Пять этапов от запроса до устойчивого движения.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div id="steps-grid" class="contents"></div>
+    </div>
+  </section>
+
+  <!-- ОТЛИЧИЕ ОТ КОУЧИНГА -->
+  <section id="diff" class="max-w-5xl mx-auto px-5 py-20">
+    <div class="glass rounded-3xl p-8 md:p-12 reveal">
+      <h2 class="font-display font-bold text-3xl md:text-4xl text-center">Чем это отличается от коучинга</h2>
+      <div class="grid md:grid-cols-3 gap-5 mt-10">
+        <div>
+          <div class="text-sm font-semibold opacity-60 mb-1">Коучинг</div>
+          <p class="text-sm opacity-75">Задаёт вопросы — вы сами ищете ответы.</p>
+        </div>
+        <div>
+          <div class="text-sm font-semibold opacity-60 mb-1">Тесты и консультации</div>
+          <p class="text-sm opacity-75">Описывают черты или дают совет по теме.</p>
+        </div>
+        <div>
+          <div class="text-sm font-semibold mb-1" style="color:#A78BFA">Дорожная карта будущего</div>
+          <p class="text-sm">Экспертная команда сама собирает целостную карту и переводит её в стратегию жизни, роли, дохода и действий.</p>
+        </div>
+      </div>
+      <p class="text-center text-lg md:text-xl font-display mt-10 opacity-90">«Ваша дорожная карта. Моя работа. Ваша опора.»</p>
+    </div>
+  </section>
+
+  <!-- FAQ / БАРЬЕРЫ -->
+  <section class="max-w-3xl mx-auto px-5 py-16">
+    <h2 class="font-display font-bold text-3xl text-center mb-8 reveal">Частые сомнения</h2>
+    <div id="faq" class="space-y-3"></div>
+  </section>
+
+  <!-- ЭТИКА -->
+  <section class="max-w-3xl mx-auto px-5 pb-10">
+    <div class="glass rounded-2xl p-6 text-sm opacity-75 leading-relaxed text-center reveal">
+      Мы не обещаем гарантированное будущее, не ставим диагнозы и не заменяем психотерапию, юридическую или медицинскую помощь.
+      Карта помогает принимать осознанные решения и строить реалистичную траекторию — но выбор остаётся за вами.
+    </div>
+  </section>
+
+  <!-- ФИНАЛЬНЫЙ CTA -->
+  <section class="max-w-4xl mx-auto px-5 py-20 text-center">
+    <h2 class="font-display font-extrabold text-3xl md:text-5xl leading-tight reveal">Начните с первой карты вашей текущей точки</h2>
+    <p class="opacity-70 mt-4 max-w-xl mx-auto reveal">Первичная диагностика покажет, где вы сейчас и какой формат движения подойдёт именно вам.</p>
+    <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center reveal">
+      <a href="https://t.me/dorozhnaya_karta_bot?start=cta" target="_blank" rel="noopener"
+         class="px-8 py-4 rounded-2xl font-semibold text-white bg-gradient-to-r from-teal-500 to-violet-600 hover:opacity-90 transition shadow-[0_12px_36px_rgba(124,58,237,0.4)]">
+        Начать в Telegram
+      </a>
+      <a href="./index.html" class="px-8 py-4 rounded-2xl font-semibold glass-strong hover:bg-white/10 transition">Сначала посмотреть карту</a>
+    </div>
+  </section>
+
+  <footer class="border-t border-white/5 py-8">
+    <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs opacity-50">
+      <div>Дорожная карта будущего · <span id="year"></span></div>
+      <div>Карта помогает выбирать, но не выбирает за вас. Это не прогноз и не диагноз.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Telegram-бот: замените username на реальный
+    const TG = 'https://t.me/dorozhnaya_karta_bot';
+
+    const VALUE = [
+      ['Ясность', 'Где вы сейчас, какая роль завершилась и что на самом деле стоит за желанием перемен.'],
+      ['Внутренняя опора', 'Ценности, ресурсы, сценарии и реакции, которые важно учитывать, чтобы путь был выдерживаемым.'],
+      ['Расшифровка кода', 'Какие семейные, культурные, денежные и статусные установки помогают, а какие ограничивают.'],
+      ['Новая роль', 'Образ себя на следующем этапе — без предательства себя.'],
+      ['Модель дохода', 'Как опыт и ценность для других перевести в продукт, услугу или карьерную модель.'],
+      ['Три сценария будущего', 'Несколько реалистичных вариантов, проверяемых маленькими безопасными шагами.'],
+      ['Карта на 2–3 года', 'Этапы, первые шаги, риски и контрольные точки в понятной последовательности.'],
+      ['Цифровая поддержка', 'Telegram-бот: диагностика, материалы, ваш этап и движение между сессиями.'],
+    ];
+    const STEPS = [
+      ['Вход', 'Анкета, запрос, карта контекста и текущей точки.'],
+      ['Аналитика', 'Ценности, идентичность, сценарии, ресурсы и ограничения.'],
+      ['Проектирование', 'Несколько линий будущего и выбор главной траектории.'],
+      ['Реализация', 'Модель дохода, позиционирование, первые шаги.'],
+      ['Сопровождение', 'Контрольные точки, корректировка, поддержка внедрения.'],
+    ];
+    const FAQ = [
+      ['Дорого?', 'Вы получаете практический результат: документы, сценарии, план и экономическую траекторию — а не разовый разговор. Начать можно с недорогой диагностики.'],
+      ['Я уже пробовал коучинг', 'Это другой жанр: не только вопросы, а экспертно собранная карта жизни, роли и дохода с готовой структурой и шагами.'],
+      ['Мой запрос слишком неясный', 'Это нормальная стартовая точка. Первая задача диагностики — превратить туман в понятные блоки.'],
+      ['Боюсь, что будет шаблон', 'Карта строится на ваших данных: ценностях, истории, ресурсах, среде, рынке и доходе. Шаблона нет.'],
+      ['Карта устареет', 'Встроена обновляемость: контрольные точки на 7 дней, 30 дней, 3–6 месяцев, 1 год и 2–3 года, плюс цифровое сопровождение.'],
+    ];
+
+    const vg = document.getElementById('value-grid');
+    VALUE.forEach(([t,d],i)=>{ const el=document.createElement('div');
+      el.className='glass rounded-2xl p-5 reveal'; el.style.transitionDelay=(i%4*0.05)+'s';
+      el.innerHTML='<div class="font-display font-semibold text-base mb-1.5">'+t+'</div><p class="text-sm opacity-70 leading-relaxed">'+d+'</p>';
+      vg.appendChild(el); });
+
+    const sg = document.getElementById('steps-grid');
+    STEPS.forEach(([t,d],i)=>{ const el=document.createElement('div');
+      el.className='glass rounded-2xl p-5 reveal'; el.style.transitionDelay=(i*0.05)+'s';
+      el.innerHTML='<div class="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500 to-violet-600 flex items-center justify-center font-bold text-sm mb-3">'+(i+1)+'</div><div class="font-display font-semibold mb-1">'+t+'</div><p class="text-xs opacity-65 leading-relaxed">'+d+'</p>';
+      sg.appendChild(el); });
+
+    const fq = document.getElementById('faq');
+    FAQ.forEach(([q,a])=>{ const el=document.createElement('details');
+      el.className='glass rounded-2xl px-5 py-4 reveal';
+      el.innerHTML='<summary class="flex items-center justify-between font-semibold"><span>'+q+'</span><svg class="faq-chev w-4 h-4 opacity-60 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary><p class="text-sm opacity-72 leading-relaxed mt-3">'+a+'</p>';
+      fq.appendChild(el); });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // нормализуем все ссылки бота на единый username (на случай замены TG)
+    document.querySelectorAll('a[href^="https://t.me/"]').forEach(a=>{
+      const u=new URL(a.getAttribute('href')); const start=u.searchParams.get('start');
+      a.href = TG + (start?('?start='+start):'');
+    });
+
+    // reveal-on-scroll
+    const io = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); }, { threshold:0.12 });
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>
