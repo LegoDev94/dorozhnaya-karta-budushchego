@@ -6,21 +6,25 @@
   <title>Дорожная карта будущего — Life Design</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = { darkMode:'class', theme:{ extend:{
-      fontFamily:{ sans:['Inter','system-ui','sans-serif'], display:['Manrope','Inter','sans-serif'] },
+      fontFamily:{ sans:['Inter','system-ui','sans-serif'], display:['Space Grotesk','Manrope','sans-serif'] },
       colors:{ night:{ 900:'#070B14', 800:'#0C1220', 700:'#131B2C', 600:'#1B2438' } },
       boxShadow:{ 'glow-teal':'0 0 22px rgba(45,212,191,0.40)', 'glow-violet':'0 0 22px rgba(167,139,250,0.45)', 'glow-amber':'0 0 24px rgba(251,191,36,0.45)' },
     }}};
   </script>
   <style>
-    html,body{font-family:'Inter',sans-serif;background:#070B14;color:#E5E7EB;margin:0}
-    .font-display{font-family:'Manrope',sans-serif}
-    .grain{background-image:radial-gradient(rgba(255,255,255,0.012) 1px,transparent 1px);background-size:3px 3px}
-    .glass{background:rgba(12,18,32,0.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.07)}
-    .glass-strong{background:rgba(12,18,32,0.9);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.10)}
+    html,body{font-family:'Inter',sans-serif;background:#04060C;color:#E7EAF0;margin:0}
+    .font-display{font-family:'Space Grotesk','Manrope',sans-serif;letter-spacing:-0.01em}
+    .grain{background-image:radial-gradient(rgba(255,255,255,0.013) 1px,transparent 1px);background-size:3px 3px}
+    .glass{background:linear-gradient(155deg,rgba(22,30,48,0.55),rgba(9,13,24,0.5));backdrop-filter:blur(18px) saturate(1.1);-webkit-backdrop-filter:blur(18px) saturate(1.1);border:1px solid rgba(255,255,255,0.08);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05),0 22px 48px -26px rgba(0,0,0,0.8)}
+    .glass-strong{background:linear-gradient(155deg,rgba(24,33,54,0.86),rgba(9,13,24,0.82));backdrop-filter:blur(22px) saturate(1.12);-webkit-backdrop-filter:blur(22px) saturate(1.12);border:1px solid rgba(255,255,255,0.12);box-shadow:inset 0 1px 0 rgba(255,255,255,0.06),0 26px 60px -28px rgba(0,0,0,0.85)}
+    .cine-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(60% 50% at 16% 8%,rgba(45,212,191,0.10),transparent 60%),radial-gradient(55% 48% at 88% 14%,rgba(167,139,250,0.13),transparent 60%),radial-gradient(80% 70% at 50% 116%,rgba(251,191,36,0.05),transparent 55%),linear-gradient(180deg,#04060C 0%,#070B16 55%,#04060C 100%)}
+    .cine-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(125% 95% at 50% -5%,transparent 55%,rgba(0,0,0,0.6) 100%)}
+    @keyframes auroraDrift{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-2.5%,1.5%,0) scale(1.06)}}
+    .cine-aurora{position:fixed;inset:-12%;z-index:0;pointer-events:none;opacity:.55;filter:blur(46px);background:radial-gradient(38% 34% at 22% 26%,rgba(45,212,191,0.16),transparent 62%),radial-gradient(44% 40% at 80% 20%,rgba(167,139,250,0.18),transparent 62%);animation:auroraDrift 20s ease-in-out infinite}
     ::-webkit-scrollbar{width:7px;height:7px}::-webkit-scrollbar-thumb{background:rgba(100,116,139,0.28);border-radius:4px}
     .thin-scroll::-webkit-scrollbar{width:6px}.thin-scroll::-webkit-scrollbar-thumb{background:rgba(100,116,139,0.22);border-radius:3px}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -957,10 +961,13 @@
       const onComplete=(r)=>{ setResult(r); setSelected(r.recommended); setQuiz(false); try{localStorage.setItem(STORE,JSON.stringify(r));}catch(e){} };
       const shared={ result, selected, setSelected, openQuiz, setTab:goTab, doneSteps, toggleStep, onNodeClick:setNode };
       const ActiveTab = TAB_COMP[tab];
-      return (<div className="min-h-screen lg:h-screen lg:overflow-hidden flex flex-col text-white grain bg-night-900">
-        <TopBar tab={tab} onTab={goTab} onQuiz={openQuiz}/>
-        <main className="flex-1 min-h-0 overflow-hidden"><div key={tab} className="h-full pop">{tab==='map'?<MapTab {...shared}/>:<ActiveTab {...shared}/>}</div></main>
-        <MobileTabBar tab={tab} onTab={goTab}/>
+      return (<div className="min-h-screen lg:h-screen lg:overflow-hidden relative text-white grain">
+        <div className="cine-bg"/><div className="cine-aurora"/>
+        <div className="relative z-10 min-h-screen lg:h-screen flex flex-col lg:overflow-hidden">
+          <TopBar tab={tab} onTab={goTab} onQuiz={openQuiz}/>
+          <main className="flex-1 min-h-0 overflow-hidden"><div key={tab} className="h-full pop">{tab==='map'?<MapTab {...shared}/>:<ActiveTab {...shared}/>}</div></main>
+          <MobileTabBar tab={tab} onTab={goTab}/>
+        </div>
         <NodeModal data={node} onClose={()=>setNode(null)} onToggleStep={toggleStep}/>
         {quiz&&<Questionnaire onClose={()=>setQuiz(false)} onComplete={onComplete}/>}
       </div>);
