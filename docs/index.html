@@ -167,7 +167,11 @@
       const recommended = ['breakthrough','growth','careful'].reduce((a,b)=> sc[b]>sc[a]?b:a, 'careful');
       const readiness = Math.min(94, Math.max(38, Math.round(45 + sc.growth*4 + sc.breakthrough*6 - sc.careful*2)));
       const spaces = { energy:Math.min(95,50+(sc.growth+sc.breakthrough)*3), focus:Math.min(92,52+sc.growth*3), skills:68, env:Math.max(40,60-sc.breakthrough*2), finance:Math.min(90,50+sc.growth*4) };
-      return { match, recommended, readiness, values:(values&&values.length?values:['Свобода','Развитие','Опора']), spaces, ts:Date.now() };
+      // Выдерживаемость: бережный путь выдерживаемее, пересборка — менее; готовность поднимает все.
+      const clampS=(v)=>Math.min(95,Math.max(35,Math.round(v)));
+      const sustainBy = { careful:clampS(86+(readiness-50)*0.15), growth:clampS(70+(readiness-50)*0.2), breakthrough:clampS(54+(readiness-50)*0.28) };
+      const sustain = sustainBy[recommended];
+      return { match, recommended, readiness, values:(values&&values.length?values:['Свобода','Развитие','Опора']), spaces, sustainBy, sustain, ts:Date.now() };
     }
 
     const bez = (p0,c1,c2,p3,t) => { const u=1-t,a=u*u*u,b=3*u*u*t,c=3*u*t*t,d=t*t*t; return { x:a*p0.x+b*c1.x+c*c2.x+d*p3.x, y:a*p0.y+b*c1.y+c*c2.y+d*p3.y }; };
@@ -593,19 +597,64 @@
 
     /* ========== АНКЕТА ========== */
     const Questionnaire = ({ onClose, onComplete }) => {
-      const total = QUESTIONS.length+1; const [step,setStep]=useState(0);
-      const [picks,setPicks]=useState(Array(QUESTIONS.length).fill(null)); const [values,setValues]=useState([]);
-      const isValues = step===QUESTIONS.length; const canNext = isValues?values.length>0:picks[step]!=null;
-      const choose=(opt)=>{ const pp=picks.slice(); pp[step]=opt; setPicks(pp); setTimeout(()=>setStep(s=>Math.min(s+1,total-1)),180); };
+      const [stage,setStage]=useState('intro'); // intro | q | values | reveal
+      const [step,setStep]=useState(0);
+      const [picks,setPicks]=useState(Array(QUESTIONS.length).fill(null));
+      const [values,setValues]=useState([]);
+      const [result,setResult]=useState(null);
+      const maxIdx = QUESTIONS.length+1; // input steps: 5 вопросов + ценности
+      const idx = stage==='q'?step+1 : stage==='values'?maxIdx : 0;
+      const progress = stage==='intro'?0 : stage==='reveal'?1 : idx/maxIdx;
+      const fog = stage==='reveal'?0 : Math.max(0.05, 0.8 - progress*0.8);
+      const choose=(opt)=>{ const pp=picks.slice(); pp[step]=opt; setPicks(pp); setTimeout(()=>{ if(step<QUESTIONS.length-1) setStep(s=>s+1); else setStage('values'); },180); };
       const toggleVal=(v)=>setValues(vs=>vs.includes(v)?vs.filter(x=>x!==v):(vs.length<3?[...vs,v]:vs));
-      return (<div className="fixed inset-0 z-[60] flex items-center justify-center p-4 modal-overlay" style={{background:'rgba(7,11,20,0.8)',backdropFilter:'blur(10px)'}}>
-        <div className="modal-content w-full max-w-lg rounded-3xl p-6 md:p-7 relative bg-night-800 border border-white/10 text-white">
-          <button onClick={onClose} className="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10"><Icon name="close" className="w-4 h-4"/></button>
-          <div className="text-[10px] uppercase tracking-wider opacity-55 mb-1">Анкета · шаг {step+1} из {total}</div>
-          <div className="h-1.5 rounded-full bg-white/8 overflow-hidden mb-5"><div className="h-full rounded-full bg-gradient-to-r from-teal-400 to-violet-500" style={{width:`${(step+1)/total*100}%`,transition:'width .3s'}}/></div>
-          {!isValues?(<><h3 className="font-display font-bold text-xl leading-tight mb-5">{QUESTIONS[step].q}</h3><div className="space-y-2.5">{QUESTIONS[step].opts.map((o,i)=>{const sel=picks[step]===o;return(<button key={i} onClick={()=>choose(o)} className={`w-full text-left px-4 py-3 rounded-xl border transition flex items-center gap-3 ${sel?'border-teal-400 bg-teal-500/10':'border-white/10 hover:border-white/25 hover:bg-white/5'}`}><span className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center ${sel?'border-teal-400 bg-teal-400 text-night-900':'border-white/30'}`}>{sel&&<Icon name="check" className="w-3 h-3" stroke={3}/>}</span><span className="text-sm">{o.label}</span></button>);})}</div></>)
-          :(<><h3 className="font-display font-bold text-xl leading-tight mb-1">Выберите до 3 ценностей-опор</h3><p className="text-[12px] opacity-60 mb-4">На что хотите опираться ({values.length}/3).</p><div className="flex flex-wrap gap-2">{ALL_VALUES.map(v=>{const sel=values.includes(v);return(<button key={v} onClick={()=>toggleVal(v)} className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm border transition ${sel?'border-teal-400 bg-teal-500/15 text-teal-200':'border-white/10 hover:border-white/25'}`}><Icon name={VALUE_ICONS[v]||'star'} className="w-3.5 h-3.5"/>{v}</button>);})}</div></>)}
-          <div className="flex items-center justify-between mt-6"><button onClick={()=>step>0?setStep(step-1):onClose()} className="flex items-center gap-1.5 text-sm opacity-70 hover:opacity-100 transition"><Icon name="chevronL" className="w-4 h-4"/>{step>0?'Назад':'Отмена'}</button>{isValues?<button onClick={()=>canNext&&onComplete(computeResult(picks,values))} disabled={!canNext} className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition ${canNext?'bg-gradient-to-r from-teal-500 to-violet-600 text-white hover:opacity-90':'bg-white/8 text-white/40'}`}>Построить путь</button>:<button onClick={()=>canNext&&setStep(step+1)} disabled={!canNext} className={`flex items-center gap-1.5 px-5 py-2.5 rounded-xl font-semibold text-sm transition ${canNext?'bg-white/10 hover:bg-white/16':'bg-white/5 text-white/40'}`}>Далее<Icon name="chevron" className="w-4 h-4"/></button>}</div>
+      const reveal=()=>{ setResult(computeResult(picks,values)); setStage('reveal'); };
+      const back=()=>{ if(stage==='q'){ if(step>0) setStep(step-1); else setStage('intro'); } else if(stage==='values'){ setStage('q'); setStep(QUESTIONS.length-1); } };
+      const rec = result?byId(result.recommended):null;
+      return (<div className="fixed inset-0 z-[60] flex items-center justify-center p-4 modal-overlay" style={{background:'rgba(7,11,20,0.82)',backdropFilter:'blur(12px)'}}>
+        <div className="modal-content w-full max-w-lg rounded-3xl p-6 md:p-7 relative bg-night-800 border border-white/10 text-white overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none" style={{background:'radial-gradient(circle at 50% 24%, rgba(148,163,184,0.24), rgba(148,163,184,0.05) 46%, transparent 72%)',opacity:fog,transition:'opacity .7s ease'}}/>
+          <button onClick={onClose} className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10"><Icon name="close" className="w-4 h-4"/></button>
+          <div className="relative">
+            {stage!=='intro'&&(<><div className="text-[10px] uppercase tracking-wider opacity-55 mb-1">{stage==='reveal'?'Туман рассеялся':`Анкета · ${idx} из ${maxIdx}`}</div>
+              <div className="h-1.5 rounded-full bg-white/8 overflow-hidden mb-5"><div className="h-full rounded-full bg-gradient-to-r from-teal-400 to-violet-500" style={{width:`${progress*100}%`,transition:'width .4s'}}/></div></>)}
+
+            {stage==='intro'&&(<div className="text-center py-3">
+              <div className="text-[11px] uppercase tracking-[0.25em] opacity-50 mb-3">Дорожная карта будущего</div>
+              <h3 className="font-display font-bold text-2xl md:text-3xl leading-tight mb-3">Выход из тумана</h3>
+              <p className="text-sm opacity-70 max-w-sm mx-auto mb-1">Будущее — не прямая линия, а пространство возможностей.</p>
+              <p className="text-sm opacity-70 max-w-sm mx-auto mb-6">Ответьте на несколько вопросов — туман рассеется, и проступит ваша траектория.</p>
+              <div className="flex flex-col gap-2 max-w-xs mx-auto mb-7">{['Что завершилось?','Что болит?','Что зовёт дальше?'].map((t,i)=>(<div key={i} className="text-[13px] px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 opacity-85">{t}</div>))}</div>
+              <button onClick={()=>setStage('q')} className="px-6 py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-teal-500 to-violet-600 text-white hover:opacity-90 transition">Начать →</button>
+              <p className="text-[10px] opacity-40 mt-4">Это карта-ориентир, а не прогноз и не диагноз.</p>
+            </div>)}
+
+            {stage==='q'&&(<><h3 className="font-display font-bold text-xl leading-tight mb-5">{QUESTIONS[step].q}</h3><div className="space-y-2.5">{QUESTIONS[step].opts.map((o,i)=>{const sel=picks[step]===o;return(<button key={i} onClick={()=>choose(o)} className={`w-full text-left px-4 py-3 rounded-xl border transition flex items-center gap-3 ${sel?'border-teal-400 bg-teal-500/10':'border-white/10 hover:border-white/25 hover:bg-white/5'}`}><span className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center ${sel?'border-teal-400 bg-teal-400 text-night-900':'border-white/30'}`}>{sel&&<Icon name="check" className="w-3 h-3" stroke={3}/>}</span><span className="text-sm">{o.label}</span></button>);})}</div></>)}
+
+            {stage==='values'&&(<><h3 className="font-display font-bold text-xl leading-tight mb-1">Выберите до 3 ценностей-опор</h3><p className="text-[12px] opacity-60 mb-4">На что хотите опираться ({values.length}/3).</p><div className="flex flex-wrap gap-2">{ALL_VALUES.map(v=>{const sel=values.includes(v);return(<button key={v} onClick={()=>toggleVal(v)} className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm border transition ${sel?'border-teal-400 bg-teal-500/15 text-teal-200':'border-white/10 hover:border-white/25'}`}><Icon name={VALUE_ICONS[v]||'star'} className="w-3.5 h-3.5"/>{v}</button>);})}</div></>)}
+
+            {stage==='reveal'&&rec&&(<div className="text-center intro-up">
+              <h3 className="font-display font-bold text-xl mb-1">Проступила ваша траектория</h3>
+              <p className="text-[12px] opacity-60 mb-5">Рекомендованная орбита по вашим ответам — ориентир, который можно скорректировать.</p>
+              <div className="rounded-2xl p-5 mb-4 border" style={{borderColor:rec.accent,background:`${rec.accent}14`,boxShadow:`0 0 32px ${rec.accent}40`}}>
+                <div className="text-[10px] uppercase tracking-wider mb-1" style={{color:rec.accent}}>{rec.orbitName}</div>
+                <div className="font-display font-bold text-2xl mb-1" style={{color:rec.accent}}>{rec.title}</div>
+                <div className="text-[12px] opacity-70 mb-3">{rec.tagline}</div>
+                <div className="text-3xl font-bold leading-none" style={{color:rec.accent}}>{result.match[rec.id]}%</div>
+                <div className="text-[10px] uppercase tracking-wider opacity-50 mt-1">соответствие</div>
+              </div>
+              <div className="grid grid-cols-2 gap-3 mb-5">
+                <div className="rounded-xl p-3 bg-white/5 border border-white/10 flex flex-col items-center justify-center"><Gauge value={result.readiness} label="Готовность"/></div>
+                <div className="rounded-xl p-3 bg-white/5 border border-white/10 flex flex-col justify-center text-left"><div className="text-[10px] uppercase tracking-wider opacity-50 mb-1">Выдерживаемость</div><div className="text-2xl font-bold mb-1.5" style={{color:rec.accent}}>{result.sustain}</div><div className="h-1.5 rounded-full bg-white/8 overflow-hidden"><div className="h-full rounded-full" style={{width:`${result.sustain}%`,background:rec.accent}}/></div><div className="text-[10px] opacity-50 mt-1.5 leading-tight">насколько путь выдерживаем для вас</div></div>
+              </div>
+              <button onClick={()=>onComplete(result)} className="w-full px-6 py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-teal-500 to-violet-600 text-white hover:opacity-90 transition">Перейти на карту →</button>
+            </div>)}
+
+            {(stage==='q'||stage==='values')&&(<div className="flex items-center justify-between mt-6">
+              <button onClick={back} className="flex items-center gap-1.5 text-sm opacity-70 hover:opacity-100 transition"><Icon name="chevronL" className="w-4 h-4"/>Назад</button>
+              {stage==='values'?<button onClick={()=>values.length>0&&reveal()} disabled={values.length===0} className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition ${values.length>0?'bg-gradient-to-r from-teal-500 to-violet-600 text-white hover:opacity-90':'bg-white/8 text-white/40'}`}>Рассеять туман →</button>:<span className="text-[11px] opacity-40">выберите вариант</span>}
+            </div>)}
+          </div>
         </div></div>);
     };
 
