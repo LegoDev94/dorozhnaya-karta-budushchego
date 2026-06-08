@@ -226,6 +226,7 @@
       ['values','Ценности и смыслы','heart'],['socioCode','Социокультурный код','globe'],['proCapital','Профессиональный капитал','star'],
       ['role','Новая роль и позиционирование','compassRole'],['income','Модель дохода','money'],['resources','Ресурсы и сильные стороны','anchor'],
       ['risks','Риски и сопротивление','shield'],['scenarios','Три сценария будущего','trending'],['skills','Skill-карта','sparkle'],
+      ['environment','Карта среды','globe'],
     ];
     function buildProfile(result) {
       const rec = result ? result.recommended : 'growth';
@@ -480,6 +481,50 @@
         </div>
         <div className="grid sm:grid-cols-2 gap-3 mt-4"><MoneyCeiling/><Subjectness accent={accent}/></div>
       </div>); };
+    // Карта среды — гравитационный граф окружения (Блок 6 социологии): кто тянет вперёд, кто возвращает назад.
+    const ENV_ZONES = [
+      { id:'support', name:'Опора', color:'#2DD4BF', desc:'Поддерживают, дают устойчивость' },
+      { id:'growth', name:'Рост', color:'#A78BFA', desc:'Тянут вверх, задают планку' },
+      { id:'risk', name:'Риск', color:'#FB7185', desc:'Истощают и обесценивают' },
+      { id:'old', name:'Старая роль', color:'#FB923C', desc:'Возвращают в прежний сценарий' },
+    ];
+    const ENV_TARGET = { id:'target', name:'Среда, в которую войти', color:'#5EEAD4', desc:'Где ваш следующий уровень — норма' };
+    const ENV_NODES = [
+      { zone:'target', label:'Среда твоего уровня', x:51, y:10 },
+      { zone:'growth', label:'Проф. сообщество', x:30, y:25 },
+      { zone:'growth', label:'Сильные коллеги', x:72, y:23 },
+      { zone:'support', label:'Наставник', x:25, y:49 },
+      { zone:'support', label:'Близкий круг', x:42, y:58 },
+      { zone:'risk', label:'Обесценивающие', x:82, y:53 },
+      { zone:'old', label:'Старая команда', x:34, y:73 },
+      { zone:'old', label:'Привычный круг', x:64, y:75 },
+    ];
+    const ENV_YOU = { x:53, y:45 };
+    const envColor = (z) => z==='target'?ENV_TARGET.color:(ENV_ZONES.find(e=>e.id===z)||{}).color;
+    const EnvironmentMap = () => {
+      const [hl,setHl]=useState(null); const dimZ=(z)=>hl&&hl!==z;
+      return (<div>
+        <p className="text-[11px] opacity-55 mb-3">Гравитация среды: одни тянут вперёд, другие возвращают в старую роль. Нажмите зону, чтобы выделить.</p>
+        <div className="relative w-full rounded-2xl bg-white/5 border border-white/10 overflow-hidden" style={{aspectRatio:'100/78'}}>
+          <svg viewBox="0 0 100 78" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
+            <text x="3" y="6.5" fontSize="2.8" fill="rgba(255,255,255,0.32)" letterSpacing="0.4">БУДУЩЕЕ ↑</text>
+            <text x="3" y="75.5" fontSize="2.8" fill="rgba(255,255,255,0.26)" letterSpacing="0.4">ПРОШЛОЕ ↓</text>
+            {ENV_NODES.map((n,i)=>{const back=n.zone==='old'||n.zone==='risk';const col=envColor(n.zone);const d=dimZ(n.zone);return (<line key={i} x1={ENV_YOU.x} y1={ENV_YOU.y} x2={n.x} y2={n.y} stroke={col} strokeWidth={back?0.4:0.6} strokeOpacity={d?0.07:(back?0.3:0.5)} strokeDasharray={back?'1.2 1':'none'} style={{transition:'stroke-opacity .25s'}}/>);})}
+            {ENV_NODES.map((n,i)=>{const col=envColor(n.zone);const d=dimZ(n.zone);const tg=n.zone==='target';const anchor=n.x>62?'end':n.x<40?'start':'middle';const lx=n.x>62?n.x-3.6:n.x<40?n.x+3.6:n.x;const ly=n.y<14?n.y-3.4:n.y+1;return (<g key={i} onClick={()=>setHl(hl===n.zone?null:n.zone)} style={{cursor:'pointer',opacity:d?0.25:1,transition:'opacity .25s'}}>
+              {tg&&<circle cx={n.x} cy={n.y} r="4.8" fill="none" stroke={col} strokeWidth="0.4" strokeDasharray="1 1" className="aura-pulse"/>}
+              <circle cx={n.x} cy={n.y} r={tg?2.9:2.2} fill={col} className={tg?'aura-pulse':''} style={{filter:`drop-shadow(0 0 2px ${col})`}}/>
+              <text x={lx} y={ly} textAnchor={anchor} fontSize="2.9" fill={d?'rgba(255,255,255,0.45)':'#fff'} style={{textShadow:'0 1px 3px #000'}}>{n.label}</text>
+            </g>);})}
+            <circle cx={ENV_YOU.x} cy={ENV_YOU.y} r="3.6" fill="#fff"/><circle cx={ENV_YOU.x} cy={ENV_YOU.y} r="3.6" fill="none" stroke="#A78BFA" strokeWidth="0.7"/>
+            <text x={ENV_YOU.x} y={ENV_YOU.y+0.95} textAnchor="middle" fontSize="2.7" fontWeight="700" fill="#0B0F1A">Вы</text>
+          </svg>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-3">
+          {[...ENV_ZONES, ENV_TARGET].map(z=>(<button key={z.id} onClick={()=>setHl(hl===z.id?null:z.id)} className={`text-left p-2.5 rounded-xl border transition ${hl===z.id?'border-white/30':'border-white/10'} ${hl&&hl!==z.id?'opacity-50':''}`} style={{background:`${z.color}12`}}>
+            <div className="flex items-center gap-1.5 mb-0.5"><span className="w-2.5 h-2.5 rounded-full shrink-0" style={{background:z.color}}/><span className="text-[12px] font-semibold" style={{color:z.color}}>{z.name}</span></div>
+            <div className="text-[10px] opacity-60 leading-tight">{z.desc}</div></button>))}
+        </div>
+      </div>); };
     const ProfileSection = ({ id, n, icon, title, accent, children }) => (<Card className="p-4" id={id}><div className="flex items-center gap-2 mb-3"><span className="w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold" style={{background:`${accent}22`,color:accent}}>{n}</span><Icon name={icon} className="w-4 h-4 opacity-60"/><h2 className="font-display font-bold text-base">{title}</h2></div>{children}</Card>);
     const ProfileNav = ({ activeId, onJump, readiness, accent }) => (<aside className="w-full lg:w-56 shrink-0 order-1 lg:min-h-0 lg:overflow-y-auto thin-scroll"><Card className="p-3 lg:sticky lg:top-0"><div className="hidden lg:flex justify-center mb-3"><Gauge value={readiness} label="Готовность к переходу"/></div><div className="flex lg:flex-col gap-1 overflow-x-auto thin-scroll">{PROFILE_SECTIONS.map(([sid,title,icon],i)=>(<button key={sid} onClick={()=>onJump(sid)} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[12px] whitespace-nowrap transition ${activeId===sid?'bg-white/10 text-white':'opacity-60 hover:opacity-90'}`}><span className="w-4 text-[10px] opacity-50">{i+1}</span><Icon name={icon} className="w-3.5 h-3.5"/><span className="hidden lg:inline">{title}</span></button>))}</div></Card></aside>);
     const RoleFormula = ({ accent, role, values }) => (<div className="space-y-1.5">{[['Кому полезна','экспертам и руководителям в точке перехода'],['Какую проблему решаю','помогаю собрать траекторию роли и дохода'],['Через что ценность',`опыт + ${values.join(', ').toLowerCase()}`],['Почему доверие','15 лет практики и пройденные кризисы']].map((r,i)=>(<div key={i} className="flex gap-2 text-[13px]"><span className="opacity-50 w-40 shrink-0">{r[0]}:</span><span>{r[1]}</span></div>))}<div className="mt-2 text-[13px] font-semibold" style={{color:accent}}>{role}</div></div>);
@@ -504,6 +549,7 @@
           <ProfileSection id="risks" n={10} icon="shield" title="Риски и сопротивление" accent={data.accent}><ul className="space-y-1.5">{data.risks.map((x,i)=><li key={i} className="flex gap-2 text-[13px]"><Icon name="horizon" className="w-3.5 h-3.5 text-orange-300 mt-0.5 shrink-0"/>{x}</li>)}</ul><p className="text-[11px] opacity-45 mt-2">{data.readiness<55?'Готовность умеренная — бережный темп предпочтителен.':'Готовность достаточная для активного движения.'}</p></ProfileSection>
           <ProfileSection id="scenarios" n={11} icon="trending" title="Три сценария будущего" accent={data.accent}><div className="grid sm:grid-cols-3 gap-2">{sc.map(s=>(<button key={s.id} onClick={()=>{setSelected(s.id);setTab('map');}} className="text-left p-3 rounded-xl border transition hover:scale-[1.02]" style={{borderColor:`${s.accent}55`,background:`${s.accent}12`}}>{data.rec===s.id&&<div className="text-[8px] uppercase font-bold mb-1" style={{color:s.accent}}>Рекомендовано</div>}<div className="font-display font-bold text-sm" style={{color:s.accent}}>{s.title}</div><div className="text-[10px] opacity-65 leading-tight mb-1">{s.tagline}</div><div className="text-[11px] font-semibold" style={{color:s.accent}}>{data.match[s.id]}%</div></button>))}</div></ProfileSection>
           <ProfileSection id="skills" n={12} icon="sparkle" title="Skill-карта" accent={data.accent}><div className="grid sm:grid-cols-2 gap-2">{data.skills.map((sk,i)=>(<div key={i} className="flex gap-2 p-2 rounded-lg bg-white/5"><span className="text-[10px] opacity-50 w-4 shrink-0">{i+1}</span><div><div className="text-[12px] font-medium">{sk[0]}</div><div className="text-[11px] opacity-60 leading-tight">{sk[1]}</div></div></div>))}</div></ProfileSection>
+          <ProfileSection id="environment" n={13} icon="globe" title="Карта среды · гравитация окружения" accent={data.accent}><EnvironmentMap/></ProfileSection>
           <Disclaimer>Отчёт — это гипотезы и опоры, а не диагноз и не прогноз. Данные хранятся локально в вашем браузере.</Disclaimer>
         </div>
       </div>);
