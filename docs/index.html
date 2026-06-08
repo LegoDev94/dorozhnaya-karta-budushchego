@@ -43,7 +43,7 @@
     .lift:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,0.35)}
     .stagger>*{animation:introUp .55s cubic-bezier(.16,1,.3,1) both}
     .stagger>*:nth-child(1){animation-delay:.04s}.stagger>*:nth-child(2){animation-delay:.10s}.stagger>*:nth-child(3){animation-delay:.16s}.stagger>*:nth-child(4){animation-delay:.22s}.stagger>*:nth-child(5){animation-delay:.28s}.stagger>*:nth-child(6){animation-delay:.34s}.stagger>*:nth-child(7){animation-delay:.40s}.stagger>*:nth-child(8){animation-delay:.46s}.stagger>*:nth-child(n+9){animation-delay:.5s}
-    @keyframes popIn{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}.pop{animation:popIn .4s cubic-bezier(.16,1,.3,1) both}
+    @keyframes popIn{from{opacity:0;transform:translateY(10px) scale(.985);filter:blur(6px)}to{opacity:1;transform:none;filter:blur(0)}}.pop{animation:popIn .5s cubic-bezier(.16,1,.3,1) both}
     button,a{-webkit-tap-highlight-color:transparent}
     @media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
   </style>
@@ -404,7 +404,7 @@
     /* ========== БАЗОВЫЙ UI ========== */
     const Card = ({ children, className='', id, style }) => (<div id={id} style={style} className={`rounded-2xl glass lift ${className}`}>{children}</div>);
     const CardTitle = ({ children, icon }) => (<div className="flex items-center gap-2 mb-3"><Icon name={icon} className="w-3.5 h-3.5 opacity-50"/><div className="font-display font-semibold text-[11px] uppercase tracking-wider opacity-70">{children}</div></div>);
-    const SectionHeader = ({ title, subtitle, icon }) => (<div className="mt-6 mb-3 flex items-center gap-2">{icon&&<Icon name={icon} className="w-4 h-4 opacity-60"/>}<div><h2 className="font-display font-bold text-lg leading-tight">{title}</h2>{subtitle&&<p className="text-[12px] opacity-55">{subtitle}</p>}</div></div>);
+    const SectionHeader = ({ title, subtitle, icon }) => (<div className="mt-8 mb-3.5 flex items-center gap-2.5"><span className="w-1 h-7 rounded-full bg-gradient-to-b from-teal-400 to-violet-500 shrink-0"/>{icon&&<Icon name={icon} className="w-4 h-4 opacity-55"/>}<div><h2 className="font-display font-bold text-xl md:text-2xl leading-none">{title}</h2>{subtitle&&<p className="text-[12px] opacity-55 mt-1">{subtitle}</p>}</div></div>);
     const Chip = ({ children, color }) => (<span className="text-[11px] px-2.5 py-1 rounded-full bg-white/8" style={color?{color}:{}}>{children}</span>);
     const Disclaimer = ({ children }) => (<p className="text-[11px] opacity-45 leading-relaxed">{children}</p>);
     const Gauge = ({ value, size=96, stroke=8, label='Готовность' }) => {
@@ -414,7 +414,7 @@
         <div className="absolute inset-0 flex flex-col items-center justify-center"><div className="font-display font-bold text-xl">{value}%</div><div className="text-[9px] uppercase tracking-wider opacity-55 text-center leading-tight px-2">{label}</div></div></div>);
     };
     const Bar = ({ value, label, icon }) => (<div className="flex items-center gap-2.5"><Icon name={icon} className="w-3.5 h-3.5 opacity-60 shrink-0"/><div className="flex-1"><div className="flex justify-between mb-1"><span className="text-[12px]">{label}</span><span className="text-[12px] font-semibold tabular-nums opacity-80">{value}%</span></div><div className="h-1.5 rounded-full overflow-hidden bg-white/8"><div className="h-full rounded-full bg-gradient-to-r from-teal-400 to-violet-500" style={{width:`${value}%`,transition:'width 1s ease'}}/></div></div></div>);
-    const TabFrame = ({ title, icon, children }) => (<div className="h-full lg:overflow-y-auto thin-scroll"><div className="max-w-5xl mx-auto px-4 md:px-6 py-4 pb-24 lg:pb-8 intro-up"><div className="flex items-center gap-2 mb-4"><Icon name={icon} className="w-5 h-5 opacity-70"/><h1 className="font-display font-bold text-xl">{title}</h1></div>{children}</div></div>);
+    const TabFrame = ({ title, icon, children }) => (<div className="h-full lg:overflow-y-auto thin-scroll"><div className="max-w-5xl mx-auto px-4 md:px-6 py-5 pb-24 lg:pb-10 intro-up"><div className="flex items-center gap-3 mb-6"><div className="w-11 h-11 rounded-2xl flex items-center justify-center glass shrink-0"><Icon name={icon} className="w-5 h-5 opacity-85"/></div><h1 className="font-display font-bold text-2xl md:text-[30px] leading-none">{title}</h1></div>{children}</div></div>);
     const EmptyState = ({ onQuiz, hint }) => (<Card className="p-8 text-center max-w-md mx-auto mt-8"><Icon name="compass" className="w-10 h-10 mx-auto opacity-60 mb-3"/><h3 className="font-display font-bold text-lg mb-1">Сначала постройте свой путь</h3><p className="text-[13px] opacity-65 mb-5">{hint||'Заполните короткую анкету — и вкладка наполнится под вашу траекторию.'}</p><button onClick={onQuiz} className="px-5 py-2.5 rounded-xl text-white font-semibold text-sm bg-gradient-to-r from-teal-500 to-violet-600 hover:opacity-90">Заполнить анкету</button></Card>);
 
     /* ========== ОБОЛОЧКА: TopBar / MobileTabBar ========== */
