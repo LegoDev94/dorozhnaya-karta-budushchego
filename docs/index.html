@@ -35,6 +35,13 @@
     .hub-scale{transform:translate(-50%,-50%) scale(1)}
     @media(max-width:1280px){.hub-scale{transform:translate(-50%,-50%) scale(.85)}}
     @media(max-width:640px){.hub-scale{transform:translate(-50%,-50%) scale(.62)}}
+    .lift{transition:transform .22s cubic-bezier(.16,1,.3,1),box-shadow .22s,border-color .22s}
+    .lift:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,0.35)}
+    .stagger>*{animation:introUp .55s cubic-bezier(.16,1,.3,1) both}
+    .stagger>*:nth-child(1){animation-delay:.04s}.stagger>*:nth-child(2){animation-delay:.10s}.stagger>*:nth-child(3){animation-delay:.16s}.stagger>*:nth-child(4){animation-delay:.22s}.stagger>*:nth-child(5){animation-delay:.28s}.stagger>*:nth-child(6){animation-delay:.34s}.stagger>*:nth-child(7){animation-delay:.40s}.stagger>*:nth-child(8){animation-delay:.46s}.stagger>*:nth-child(n+9){animation-delay:.5s}
+    @keyframes popIn{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}.pop{animation:popIn .4s cubic-bezier(.16,1,.3,1) both}
+    button,a{-webkit-tap-highlight-color:transparent}
+    @media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
   </style>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -324,7 +331,7 @@
     };
 
     /* ========== БАЗОВЫЙ UI ========== */
-    const Card = ({ children, className='', id }) => (<div id={id} className={`rounded-2xl glass ${className}`}>{children}</div>);
+    const Card = ({ children, className='', id }) => (<div id={id} className={`rounded-2xl glass lift ${className}`}>{children}</div>);
     const CardTitle = ({ children, icon }) => (<div className="flex items-center gap-2 mb-3"><Icon name={icon} className="w-3.5 h-3.5 opacity-50"/><div className="font-display font-semibold text-[11px] uppercase tracking-wider opacity-70">{children}</div></div>);
     const SectionHeader = ({ title, subtitle, icon }) => (<div className="mt-6 mb-3 flex items-center gap-2">{icon&&<Icon name={icon} className="w-4 h-4 opacity-60"/>}<div><h2 className="font-display font-bold text-lg leading-tight">{title}</h2>{subtitle&&<p className="text-[12px] opacity-55">{subtitle}</p>}</div></div>);
     const Chip = ({ children, color }) => (<span className="text-[11px] px-2.5 py-1 rounded-full bg-white/8" style={color?{color}:{}}>{children}</span>);
@@ -360,7 +367,7 @@
       const vals = result?result.values:['Свобода','Развитие','Достоинство','Знания','Опора'];
       const readiness = result?result.readiness:48;
       const stability = result?Math.min(90,55+Math.round((100-result.match.breakthrough)/5)):72;
-      return (<aside className="w-full lg:w-64 shrink-0 order-2 lg:order-1 lg:min-h-0 lg:overflow-y-auto thin-scroll lg:pr-1"><div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+      return (<aside className="w-full lg:w-64 shrink-0 order-2 lg:order-1 lg:min-h-0 lg:overflow-y-auto thin-scroll lg:pr-1"><div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3 stagger">
         <Card className="p-4"><CardTitle icon="target">Ваш путь</CardTitle><div className="flex items-center gap-3 mb-3"><Gauge value={readiness} label="Прогресс пути"/><div className="text-[12px] opacity-75 leading-snug">{result?`Рекомендованная траектория: ${byId(result.recommended).title}.`:'Заполните анкету, чтобы построить персональную траекторию.'}</div></div><button onClick={onQuiz} className="w-full py-2 rounded-lg text-[12px] font-semibold text-white bg-gradient-to-r from-teal-500 to-violet-600 hover:opacity-90 transition flex items-center justify-center gap-1.5"><Icon name="clipboard" className="w-3.5 h-3.5"/>{result?'Обновить путь':'Заполнить анкету'}</button></Card>
         <Card className="p-4"><CardTitle icon="focus">Текущий статус</CardTitle><div className="space-y-2.5">{LIFE_SPACES.map(m=><Bar key={m.key} label={m.label} icon={m.icon} value={sp[m.key]}/>)}</div></Card>
         <Card className="p-4"><CardTitle icon="heart">Ценности</CardTitle><div className="flex flex-wrap gap-2">{vals.map(v=>(<span key={v} className="flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-lg bg-teal-500/12 text-teal-200"><Icon name={VALUE_ICONS[v]||'star'} className="w-3 h-3"/>{v}</span>))}</div></Card>
@@ -417,7 +424,7 @@
       const active = nodes.find(n=>n.status==='active') || nodes[2];
       const done = nodes.filter(n=>n.status==='done');
       const rec = result?byId(result.recommended):null;
-      return (<aside className="w-full lg:w-72 shrink-0 order-3 lg:min-h-0 lg:overflow-y-auto thin-scroll lg:pl-1"><div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+      return (<aside className="w-full lg:w-72 shrink-0 order-3 lg:min-h-0 lg:overflow-y-auto thin-scroll lg:pl-1"><div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3 stagger">
         <Card className="p-4"><CardTitle icon="target">Текущий фокус</CardTitle><div className="text-[10px] uppercase tracking-wider mb-1" style={{color:s.accent}}>{s.orbitName} · {active.horizon}</div><div className="font-semibold text-[15px] mb-1">{active.label}</div><p className="text-[11px] opacity-65 leading-snug mb-3">{active.desc}</p><div className="space-y-1.5 mb-3">{active.tasks.map((t,i)=>(<div key={i} className="flex items-center gap-2 text-[12px]"><span className="w-4 h-4 rounded-full border-2 shrink-0" style={{borderColor:s.accent}}/>{t}</div>))}</div></Card>
         <Card className="p-4"><CardTitle icon="check">Недавнее</CardTitle><div className="space-y-2">{done.map((n,i)=>(<div key={i} className="flex items-center gap-2 text-[12px]"><span className="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0"><Icon name="check" className="w-2.5 h-2.5" stroke={3}/></span><span className="opacity-80">Пройдено: {n.label}</span></div>))}<div className="flex items-center gap-2 text-[12px] opacity-55"><span className="w-4 h-4 rounded-full border border-white/25 shrink-0"/>Заполнена диагностика</div></div></Card>
         <Card className="p-4"><CardTitle icon="trending">Инсайт траектории</CardTitle>{result?(<><div className="text-[11px] opacity-65 mb-1">Вы движетесь к</div><div className="font-display font-bold text-base mb-2" style={{color:rec.accent}}>{rec.title} · {rec.orbitName}</div><div className="flex justify-between text-[11px] mb-1"><span className="opacity-70">Соответствие</span><span className="font-semibold" style={{color:rec.accent}}>{result.match[result.recommended]}%</span></div><div className="h-2 rounded-full overflow-hidden bg-white/8 mb-3"><div className="h-full rounded-full" style={{width:`${result.match[result.recommended]}%`,background:`linear-gradient(to right,${rec.accent},#ffffff88)`}}/></div>{result.sustainBy&&(<><div className="flex justify-between text-[11px] mb-1"><span className="opacity-70">Выдерживаемость «{s.title}»</span><span className="font-semibold" style={{color:s.accent}}>{result.sustainBy[s.id]}</span></div><div className="h-2 rounded-full overflow-hidden bg-white/8 mb-3"><div className="h-full rounded-full" style={{width:`${result.sustainBy[s.id]}%`,background:s.accent,transition:'width .4s'}}/></div></>)}<p className="text-[11px] opacity-65 leading-snug">{rec.roleOutcome}. Подходит, {rec.fit}.</p></>):(<p className="text-[12px] opacity-65 leading-snug">Пройдите анкету — и здесь появится ваша рекомендованная траектория с оценкой соответствия.</p>)}</Card>
@@ -602,7 +609,7 @@
       const sc = [...SCENARIOS].sort((a,b)=>data.match[b.id]-data.match[a.id]);
       return (<div className="h-full flex flex-col lg:flex-row gap-3 px-3 md:px-4 py-3 pb-20 lg:pb-3 overflow-y-auto lg:overflow-hidden">
         <ProfileNav activeId={activeId} onJump={jump} readiness={data.readiness} accent={data.accent}/>
-        <div className="order-2 flex-1 min-w-0 lg:overflow-y-auto thin-scroll space-y-3 lg:pr-1">
+        <div className="order-2 flex-1 min-w-0 lg:overflow-y-auto thin-scroll space-y-3 lg:pr-1 stagger">
           {!result && <Card className="p-3 text-center"><span className="text-[12px] opacity-75">Это образец отчёта. </span><button onClick={openQuiz} className="text-teal-300 text-[12px] font-semibold">Заполните анкету, чтобы персонализировать →</button></Card>}
           <ProfileSection id="transition" n={1} icon="compass" title="Точка перехода" accent={data.accent}><p className="text-[13px] opacity-80 leading-relaxed">{data.transition}</p></ProfileSection>
           <ProfileSection id="portrait" n={2} icon="brain" title="Психологический портрет" accent={data.accent}><p className="text-[13px] opacity-80 mb-2">{data.portrait.decisionStyle}</p><div className="grid sm:grid-cols-2 gap-3"><div><div className="text-[10px] uppercase tracking-wider opacity-50 mb-1">Сильные стороны</div><div className="flex flex-wrap gap-1.5">{data.portrait.strengths.map(x=><Chip key={x}>{x}</Chip>)}</div></div><div><div className="text-[10px] uppercase tracking-wider opacity-50 mb-1">Зоны внимания</div><div className="flex flex-wrap gap-1.5">{data.portrait.vulnerabilities.map(x=><span key={x} className="text-[11px] px-2.5 py-1 rounded-full bg-orange-500/12 text-orange-200">{x}</span>)}</div></div></div></ProfileSection>
@@ -849,7 +856,7 @@
       const ActiveTab = TAB_COMP[tab];
       return (<div className="min-h-screen lg:h-screen lg:overflow-hidden flex flex-col text-white grain bg-night-900">
         <TopBar tab={tab} onTab={goTab} onQuiz={openQuiz}/>
-        <main className="flex-1 min-h-0 overflow-hidden">{tab==='map'?<MapTab {...shared}/>:<ActiveTab {...shared}/>}</main>
+        <main className="flex-1 min-h-0 overflow-hidden"><div key={tab} className="h-full pop">{tab==='map'?<MapTab {...shared}/>:<ActiveTab {...shared}/>}</div></main>
         <MobileTabBar tab={tab} onTab={goTab}/>
         <NodeModal data={node} onClose={()=>setNode(null)} onToggleStep={toggleStep}/>
         {quiz&&<Questionnaire onClose={()=>setQuiz(false)} onComplete={onComplete}/>}
