@@ -144,41 +144,107 @@
     const VALUE_ICONS = {'Свобода':'compass','Развитие':'trending','Достоинство':'star','Влияние':'sparkle','Творчество':'sparkle','Опора':'anchor','Семья':'heart','Знания':'book','Служение':'heart'};
     const ALL_VALUES = ['Свобода','Развитие','Достоинство','Влияние','Творчество','Опора','Семья','Знания','Служение'];
 
-    const QUESTIONS = [
-      { id:'state', q:'Что точнее про вашу ситуацию сейчас?', opts:[
-        {label:'Всё в целом работает — хочу аккуратно усилить', s:{careful:2,growth:1,breakthrough:0}},
-        {label:'Прежняя роль стала тесной — хочу расти', s:{careful:0,growth:2,breakthrough:1}},
-        {label:'Старая модель исчерпана — нужна пересборка', s:{careful:0,growth:1,breakthrough:2}}]},
-      { id:'risk', q:'Готовность к риску и переменам?', opts:[
-        {label:'Низкая — важна устойчивость', s:{careful:2,growth:0,breakthrough:0}},
-        {label:'Средняя — готов(а) к расчётному риску', s:{careful:0,growth:2,breakthrough:1}},
-        {label:'Высокая — готов(а) к смелым шагам', s:{careful:0,growth:1,breakthrough:2}}]},
-      { id:'energy', q:'Сколько у вас сейчас энергии и ресурса?', opts:[
-        {label:'Мало — берегу силы', s:{careful:2,growth:0,breakthrough:0}},
-        {label:'Достаточно для рывка', s:{careful:0,growth:2,breakthrough:1}},
-        {label:'Много — хочу масштаба', s:{careful:0,growth:1,breakthrough:2}}]},
-      { id:'income', q:'Что важнее в деньгах на 2–3 года?', opts:[
-        {label:'Стабильность дохода', s:{careful:2,growth:0,breakthrough:0}},
-        {label:'Заметный рост дохода', s:{careful:0,growth:2,breakthrough:0}},
-        {label:'Новая модель дохода', s:{careful:0,growth:0,breakthrough:2}}]},
-      { id:'horizon', q:'Каким видите себя через 2–3 года?', opts:[
-        {label:'Признанный эксперт в своём деле', s:{careful:2,growth:1,breakthrough:0}},
-        {label:'Предприниматель / руководитель', s:{careful:0,growth:2,breakthrough:1}},
-        {label:'В новой нише и новой роли', s:{careful:0,growth:0,breakthrough:2}}]},
+    // ЕДИНАЯ АНОНИМНАЯ АНКЕТА (39 вопросов, 9 блоков). type: single|multi|scale|open. max — лимит выбора.
+    const ANKETA = [
+      { id:'b1', title:'Точка А', sub:'Без персональных данных', qs:[
+        { id:'age', type:'single', q:'Возрастной диапазон', opts:['До 25','25–34','35–44','45–54','55–64','65+','Не хочу отвечать'] },
+        { id:'geo', type:'single', q:'Где вы сейчас живёте?', opts:['Москва / Санкт-Петербург','Крупный город','Средний город','Малый город / посёлок','Сельская территория','За пределами России','Часто меняю место','Не хочу отвечать'] },
+        { id:'edu', type:'multi', q:'Образование и текущая социальная роль', opts:['Среднее / спец.','Высшее','Несколько образований','Учёная степень','Работаю в найме','Руководящая позиция','Свой бизнес','Фриланс / проекты','Консультации / экспертиза','Творческая деятельность','Временно не работаю','В переходе между направлениями'] },
+        { id:'family', type:'multi', q:'Семейный и бытовой контекст', opts:['Значимые семейные обязанности','Дети / иждивенцы','Партнёр / семья','Живу один / одна','Много ответственности за близких','Обстоятельства ограничивают решения','Семья скорее поддерживает','Не хочу отвечать'] },
+        { id:'incomeNow', type:'single', q:'Текущий уровень дохода', opts:['до 1000 USD','1000–2000','2000–4000','4000–7000','7000+','Не хочу отвечать'] },
+        { id:'incomeWant', type:'single', q:'Желаемый доход через 2–3 года', opts:['2000–4000 USD','4000–6000','6000–9000','9000+','Пока не понимаю'] },
+      ]},
+      { id:'b2', title:'Социокультурный код', sub:'Что ведёт и что освобождаем', qs:[
+        { id:'envFormed', type:'multi', q:'В какой среде вы формировались?', opts:['Небольшой город: устойчивость, труд','Большой город: конкуренция, статус','Сильная трудовая этика','Интеллигентная / образованная среда','Предпринимательская среда','Мало поддержки — всё сам(а)','Забота, но мало свободы выбора','Долг, служение, польза','Выживание и безопасность','Связи, статус, признание','Среда без права на ошибку','Желания часто откладывались'] },
+        { id:'inherited', type:'multi', q:'Какие установки вы унаследовали?', opts:['Деньги достаются тяжело','Большие деньги опасны/стыдно','Главное — стабильность','Не высовывайся','Надо быть полезным(ой)','Сначала долг, потом желания','Успех требует жертвы','Нужна «нормальная» профессия','Семью нельзя разочаровывать','Сильные справляются сами','Я могу быть автором своей жизни','Сначала надо заслужить своё'] },
+        { id:'successMeant', type:'multi', q:'Что в вашей среде считалось успехом?', opts:['Стабильная работа','Хорошее образование','Высокая должность','Свой бизнес','Семья и дети','Деньги и имущество','Уважение людей','Служение и польза','Свобода и независимость','Творческая реализация','Публичное признание','Выход в большую среду'] },
+        { id:'codeThemes', type:'multi', max:5, q:'Какие темы в вашем коде особенно сильны?', opts:['Долг','Стабильность','Труд','Терпение','Образование','Статус','Деньги','Скромность','Свобода','Безопасность','Служение','Семья','Самостоятельность','Ответственность за других','Право быть автором своей жизни'] },
+        { id:'innerPhrase', type:'open', q:'Какая внутренняя или семейная фраза звучит у вас внутри?', ph:'Одна фраза, без личных деталей' },
+        { id:'codeResource', type:'multi', max:5, q:'Что в вашем коде — ресурс?', opts:['Трудолюбие','Ответственность','Образование','Дисциплина','Выносливость','Забота о близких','Уважение к знаниям','Чувство достоинства','Опыт преодоления','Способность помогать','Умение держать слово','Глубина мышления','Способность учиться','Самостоятельность'] },
+        { id:'codeLimit', type:'multi', max:5, q:'Что сейчас может ограничивать? (мягко переведём в рост)', opts:['Привычка всё тянуть на себе','Откладывание себя','Высокая планка к себе','Сдержанность в публичности','Привычка терпеть','Зависимость от мнения близких','Бережность к стабильности','Скромность в цене','Выбор «правильно», а не по-своему','Недоверие к своим желаниям'] },
+        { id:'keepDrop', type:'open', q:'Что важно сохранить, а что — не тащить дальше?', ph:'1–2 строки про ресурс и про ограничение' },
+      ]},
+      { id:'b3', title:'Точка перехода', sub:'Где вы сейчас', qs:[
+        { id:'situation', type:'multi', max:2, q:'Какая фраза точнее описывает ситуацию?', opts:['Внешне нормально, но внутри пусто/усталость','Вырос(ла) из прежней роли','Хочу сменить профессию/нишу/доход','Хочу больше дохода и признания','Стою перед важным выбором','В кризисе, нужно собрать себя заново','Чувствую потенциал, но не знаю как','Хочу новую траекторию жизни'] },
+        { id:'trigger', type:'multi', max:3, q:'Что стало поводом задуматься именно сейчас?', opts:['Возрастной рубеж (35+/40+/45+/50+)','Усталость от прежней роли','Конкретное событие','Желание нового уровня дохода','Потеря смысла при стабильности','Чужой вдохновляющий пример','«Пора, дальше так нельзя»','Старая стратегия не работает'] },
+        { id:'noMore', type:'open', q:'Опишите вашу точку «так больше не хочу»', ph:'2–4 предложения, без персональных данных' },
+      ]},
+      { id:'b4', title:'Роль и капитал', sub:'Ваша будущая полезность', qs:[
+        { id:'tightRole', type:'multi', max:3, q:'Какая роль стала тесной?', opts:['Исполнитель','Тот, кто всё тянет на себе','Удобный для всех','Эксперт, который хочет масштаба','Роль, где мало места для себя','Уставший от прежней ответственности','Сильный, кто не просит поддержки','Большой опыт без новой формы'] },
+        { id:'proCapital', type:'multi', q:'Какой профессиональный капитал уже есть?', opts:['Высшее образование','Экспертность в профессии','Управленческий опыт','Наставничество / консультирование','Предпринимательский опыт','Публичность / блог / бренд','Продажи / переговоры','Цифровые навыки','Международный опыт','Сильная репутация','Опыт преодоления кризисов','Умение структурировать хаос','Умение поддерживать людей'] },
+        { id:'whatClearer', type:'open', q:'Что вы умеете так, что другим становится яснее/легче/сильнее?', ph:'Важно для будущей роли и модели дохода' },
+        { id:'usefulTo', type:'multi', q:'Кому может быть полезен ваш опыт?', opts:['Людям в профессиональном переходе','Предпринимателям / экспертам','Руководителям','Молодёжи / студентам','Людям 35+','Командам / организациям','Людям в кризисе смысла','Тем, кому нужна структура','Пока не понимаю'] },
+      ]},
+      { id:'b5', title:'Деньги и рост', sub:'Экономическая траектория', qs:[
+        { id:'moneyAttitude', type:'multi', q:'Как вы относитесь к деньгам и росту дохода?', opts:['Хочу больше, но не понимаю на чём','Сложно брать деньги за экспертность','Сложно назначать высокую цену','Высокий доход желанен, но напряжён','Готов(а) расти, нужна модель','Деньги = свобода и выбор','Сейчас важнее смысл и опора','Есть доход, но хочу другого уровня','Хочу доход по опыту и статусу'] },
+        { id:'moneyStop', type:'multi', q:'Что может останавливать в росте дохода/статуса/публичности?', opts:['Оценка окружающих','Зависть','Потеря стабильности','Публичная ошибка','Назначение цены','Продажа себя','Ответственность','Непонимание близких','Слишком много работы','Ничего особенно не останавливает'] },
+      ]},
+      { id:'b6', title:'Среда и поддержка', sub:'Социальный капитал', qs:[
+        { id:'envNow', type:'multi', max:3, q:'Какая среда сейчас сильнее влияет на вас?', opts:['Семья и близкие','Профессиональное окружение','Те, кто ждёт прежнего поведения','Среда, где я меньше, чем могу быть','Вдохновляющая, но пока не «своя»','Предприним./эксперт./междунар.','Я почти один(а) в изменениях'] },
+        { id:'envNeed', type:'multi', max:3, q:'Какая среда нужна для будущей роли?', opts:['Экспертная','Предпринимательская','Интеллектуальная','Международная','Среда наставников','Среда клиентов / партнёров','Прошедшие похожий переход','Спокойная поддерживающая','Пока не понимаю'] },
+      ]},
+      { id:'b7', title:'Ресурс и готовность', sub:'Темп вашего маршрута', qs:[
+        { id:'state', type:'scale', q:'Оцените ваше состояние сейчас (1 — низко, 5 — высоко)', items:['Энергия','Ясность','Внутренняя опора','Готовность действовать','Тревога / напряжение','Усталость / истощение'] },
+        { id:'needNow', type:'multi', max:2, q:'Что вам сейчас нужнее?', opts:['Рывок и дисциплина','Структура и пошаговость','Мягкая поддержка','Восстановление ресурса','Честная диагностика','Сопровождение внедрения','Пока не знаю'] },
+        { id:'blockers', type:'multi', max:3, q:'Что больше всего мешает двигаться?', opts:['Нет ясности','Нет энергии','Нет времени','Нет денег на развитие','Нет поддержки','Внутреннее сопротивление','Непонимание рынка','Неумение себя презентовать','Слишком много вариантов','Не хватает дисциплины','Не понимаю, что главное','Бережность к стабильности'] },
+        { id:'tried', type:'multi', q:'Что уже пробовали?', opts:['Коучинг','Психолог / терапия','Карьерные консультации','Бизнес-консультации','Обучение / курсы','Самостоятельное планирование','Разговоры с близкими / наставниками','Смена работы / страны / окружения','Ничего системного пока'] },
+        { id:'whyFailed', type:'multi', q:'Почему прежние попытки не дали результата?', opts:['Было вдохновение, но не было системы','Много анализа, мало действий','Действия без понимания себя','Слишком общие советы','Не было работы с деньгами/реальностью','Не было глубины','Не было поддержки на внедрении','Быстро терял(а) фокус'] },
+      ]},
+      { id:'b8', title:'Приоритеты и формат', sub:'Куда направить фокус', qs:[
+        { id:'rebuild', type:'multi', max:3, q:'Какие темы требуют пересборки сильнее всего?', opts:['Профессия и реализация','Деньги и доход','Личная идентичность','Отношения и окружение','Тело, энергия, ресурс','Смысл, ценности, опора','Статус, публичность','Свобода, новый образ жизни','Личный бренд / продукт','Баланс семья—работа—я'] },
+        { id:'scenario', type:'single', q:'Какой сценарий будущего вам сейчас ближе?', opts:['Осторожный: сохранить основу, двигаться постепенно','Ростовой: усилить роль, доход, позиционирование','Трансформационный: серьёзно изменить профессию/жизнь','Восстановительный: сначала вернуть ресурс, потом стратегия','Пока не понимаю — хочу увидеть варианты'] },
+        { id:'valuableResult', type:'multi', max:3, q:'Какой результат через 2–3 месяца был бы ценным?', opts:['Понять, куда двигаться','Собрать новую роль','Соединить смысл, деньги, реализацию','Найти подходящий источник дохода','Получить опору и спокойствие','Увидеть первые шаги и контрольные точки','Понять, какую среду усилить','Перестать метаться между сценариями'] },
+        { id:'helpFormat', type:'single', q:'Какая форма помощи была бы ценнее всего?', opts:['Диагностическая встреча «Точка перехода»','Полная «Дорожная карта» на 2–3 года','Сопровождение с внедрением','Разбор роли, дохода, позиционирования','Глубинная работа с ценностями и сценариями','Сначала первичный разбор','Мягкий подготовительный этап'] },
+      ]},
+      { id:'b9', title:'Главный узел', sub:'Соберём вывод', qs:[
+        { id:'keepHave', type:'multi', max:5, q:'Имею и хочу сохранить', opts:['Семья / близкие','Опыт / профессию','Доход / стабильность','Свободу / самостоятельность','Здоровье / ресурс','Репутацию / статус','Образование / знания','Ценностную опору','Социальные связи','Способность помогать'] },
+        { id:'dropHave', type:'multi', max:5, q:'Имею, но не хочу тащить дальше', opts:['Перегруз','Усталость','Чужие ожидания','Низкий доход','Старую роль','Хаос / неопределённость','Высокую планку к себе','Зависимость от мнения среды','Откладывание себя','Жизнь без ясного маршрута'] },
+        { id:'createWant', type:'multi', max:5, q:'Не имею, но хочу создать', opts:['Ясность','Новую роль','Рост дохода','Личный бренд / продукт','Новую среду','Внутреннюю опору','План на 2–3 года','Контрольные точки','Свободу выбора','Смысл и реализацию'] },
+        { id:'avoidFuture', type:'multi', max:5, q:'Чего не хочу в будущем', opts:['Потери стабильности','Одиночества','Публичного провала','Зависимости от чужого мнения','Выгорания','Жизни без смысла','Обнуления прошлого опыта','Резкого хаотичного перехода','Потери связи с близкими','Финансовой небезопасности'] },
+        { id:'mainKnot', type:'single', q:'Один главный узел — что сильнее всего влияет сейчас?', opts:['Нет ясности, куда двигаться','Старая роль стала тесной','Не хватает дохода / модели денег','Сильная усталость, низкий ресурс','Бережность к стабильности','Семейные / культурные установки','Нет среды и поддержки','Много опыта, но нет новой формы','Не могу выбрать между сценариями'] },
+        { id:'finalFormula', type:'open', q:'Финальная формула', ph:'Сейчас мой переход не про ___, а про ___. Важно сохранить ___, отпустить ___ и проверить ___' },
+      ]},
     ];
-    function computeResult(picks, values) {
-      const sc = {careful:0,growth:0,breakthrough:0};
-      picks.forEach(p => { if (p) for (const k in p.s) sc[k]+=p.s[k]; });
-      const total = (sc.careful+sc.growth+sc.breakthrough)||1;
+    const SCEN_MAP = { 'Осторожный: сохранить основу, двигаться постепенно':'careful', 'Ростовой: усилить роль, доход, позиционирование':'growth', 'Трансформационный: серьёзно изменить профессию/жизнь':'breakthrough', 'Восстановительный: сначала вернуть ресурс, потом стратегия':'careful' };
+    function computeResult(answers) {
+      const a = answers || {};
+      const arr = (id)=>Array.isArray(a[id])?a[id]:[];
+      const sc = { careful:1, growth:1, breakthrough:1 };
+      const scen = a.scenario;
+      if (scen && SCEN_MAP[scen]) sc[SCEN_MAP[scen]] += 4;
+      const sit = arr('situation');
+      if (sit.some(s=>/выросла? из прежней роли/i.test(s))) sc.growth+=2;
+      if (sit.some(s=>/сменить профессию/i.test(s)||/новую траекторию/i.test(s))) sc.breakthrough+=2;
+      if (sit.some(s=>/больше дохода/i.test(s))) sc.growth+=2;
+      if (sit.some(s=>/кризисе/i.test(s)||/внутри пусто/i.test(s))) sc.careful+=2;
+      const need = arr('needNow');
+      const restorative = scen && /Восстановительный/i.test(scen) || need.some(n=>/Восстановление ресурса|Мягкая поддержка/i.test(n));
+      if (restorative) sc.careful+=2;
+      arr('rebuild').forEach(r=>{ if(/идентичность|свобода|образ жизни|бренд/i.test(r)) sc.breakthrough+=0.6; if(/доход|статус|реализац/i.test(r)) sc.growth+=0.6; });
+      const total = sc.careful+sc.growth+sc.breakthrough;
       const match = { careful:Math.round(sc.careful/total*100), growth:Math.round(sc.growth/total*100), breakthrough:Math.round(sc.breakthrough/total*100) };
-      const recommended = ['breakthrough','growth','careful'].reduce((a,b)=> sc[b]>sc[a]?b:a, 'careful');
-      const readiness = Math.min(94, Math.max(38, Math.round(45 + sc.growth*4 + sc.breakthrough*6 - sc.careful*2)));
-      const spaces = { energy:Math.min(95,50+(sc.growth+sc.breakthrough)*3), focus:Math.min(92,52+sc.growth*3), skills:68, env:Math.max(40,60-sc.breakthrough*2), finance:Math.min(90,50+sc.growth*4) };
-      // Выдерживаемость: бережный путь выдерживаемее, пересборка — менее; готовность поднимает все.
-      const clampS=(v)=>Math.min(95,Math.max(35,Math.round(v)));
+      const recommended = ['breakthrough','growth','careful'].reduce((x,y)=> sc[y]>sc[x]?y:x, 'careful');
+      // Готовность по шкале состояния (Q25)
+      const st = a.state || {};
+      const v = (k,d)=> typeof st[k]==='number'?st[k]:d;
+      const pos = (v('Энергия',3)+v('Ясность',3)+v('Внутренняя опора',3)+v('Готовность действовать',3))/4;
+      const neg = (v('Тревога / напряжение',3)+v('Усталость / истощение',3))/2;
+      let readiness = Math.round((pos-1)/4*100 - (neg-1)/4*38);
+      if (restorative) readiness = Math.min(readiness, 52);
+      readiness = Math.min(95, Math.max(28, readiness));
+      const clampS=(x)=>Math.min(96,Math.max(34,Math.round(x)));
       const sustainBy = { careful:clampS(86+(readiness-50)*0.15), growth:clampS(70+(readiness-50)*0.2), breakthrough:clampS(54+(readiness-50)*0.28) };
-      const sustain = sustainBy[recommended];
-      return { match, recommended, readiness, values:(values&&values.length?values:['Свобода','Развитие','Опора']), spaces, sustainBy, sustain, ts:Date.now() };
+      const valSrc = arr('keepHave').length?arr('keepHave'):(arr('codeThemes').length?arr('codeThemes'):['Опора','Развитие','Свобода']);
+      const values = valSrc.slice(0,3);
+      const spaces = {
+        energy: Math.round(v('Энергия',3)/5*100),
+        focus: Math.round(v('Ясность',3)/5*100),
+        skills: Math.min(95, 45+arr('proCapital').length*5),
+        env: Math.min(92, 40+arr('envNeed').length*6),
+        finance: Math.min(92, 45+arr('moneyAttitude').filter(x=>/готов|свобода|уровня|опыту/i.test(x)).length*10),
+      };
+      return { match, recommended, readiness, values, spaces, sustainBy, sustain:sustainBy[recommended], restorative:!!restorative,
+        socioResource:arr('codeResource'), socioLimit:arr('codeLimit'), mainKnot:a.mainKnot||null, finalFormula:a.finalFormula||'', helpFormat:a.helpFormat||null, ts:Date.now() };
     }
 
     const bez = (p0,c1,c2,p3,t) => { const u=1-t,a=u*u*u,b=3*u*u*t,c=3*u*t*t,d=t*t*t; return { x:a*p0.x+b*c1.x+c*c2.x+d*p3.x, y:a*p0.y+b*c1.y+c*c2.y+d*p3.y }; };
@@ -793,65 +859,78 @@
     };
 
     /* ========== АНКЕТА ========== */
+    const QField = ({ q, value, onChange }) => {
+      if (q.type==='single') return (<div className="space-y-1.5">{q.opts.map((o,i)=>{const sel=value===o;return(<button key={i} onClick={()=>onChange(sel?null:o)} className={`w-full text-left px-3.5 py-2.5 rounded-xl border transition flex items-center gap-3 ${sel?'border-teal-400 bg-teal-500/10':'border-white/10 hover:border-white/25 hover:bg-white/5'}`}><span className={`w-4 h-4 rounded-full border-2 shrink-0 flex items-center justify-center ${sel?'border-teal-400 bg-teal-400':'border-white/30'}`}>{sel&&<span className="w-1.5 h-1.5 rounded-full bg-night-900"/>}</span><span className="text-[13px]">{o}</span></button>);})}</div>);
+      if (q.type==='multi'){ const v=Array.isArray(value)?value:[]; const lim=q.max&&v.length>=q.max; const toggle=(o)=>{ if(v.includes(o)) onChange(v.filter(x=>x!==o)); else if(!lim) onChange([...v,o]); }; return (<div><div className="grid sm:grid-cols-2 gap-1.5">{q.opts.map((o,i)=>{const sel=v.includes(o);const dis=!sel&&lim;return(<button key={i} onClick={()=>toggle(o)} disabled={dis} className={`text-left px-3 py-2 rounded-lg border text-[12px] transition flex items-center gap-2 ${sel?'border-teal-400 bg-teal-500/12 text-teal-100':dis?'border-white/8 opacity-35':'border-white/10 hover:border-white/25'}`}><span className={`w-4 h-4 rounded shrink-0 flex items-center justify-center ${sel?'bg-teal-400 text-night-900':'border-2 border-white/30'}`}>{sel&&<Icon name="check" className="w-2.5 h-2.5" stroke={3}/>}</span>{o}</button>);})}</div>{q.max&&<div className="text-[10px] opacity-45 mt-1.5">{v.length}/{q.max}{lim?' — максимум':''}</div>}</div>); }
+      if (q.type==='scale'){ const v=value||{}; return (<div className="space-y-2">{q.items.map((it,i)=>(<div key={i} className="flex items-center justify-between gap-2"><span className="text-[12px] flex-1">{it}</span><div className="flex gap-1">{[1,2,3,4,5].map(n=>{const on=v[it]===n;return(<button key={n} onClick={()=>onChange({...v,[it]:on?undefined:n})} className={`w-7 h-7 rounded-lg text-[11px] font-semibold border transition ${on?'border-teal-400 bg-teal-400 text-night-900':'border-white/15 opacity-70 hover:opacity-100'}`}>{n}</button>);})}</div></div>))}</div>); }
+      return (<textarea value={value||''} onChange={e=>onChange(e.target.value)} placeholder={q.ph||''} rows={3} className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-[13px] placeholder-white/30 focus:border-teal-400/50 outline-none resize-none"/>);
+    };
+    const ONBOARD_SLIDES = [
+      { t:'Будущее — пространство возможностей', d:'Это не прогноз и не тест. Мы вместе соберём вашу персональную траекторию: смысл, роль, доход, среду и опору.', icon:'compass' },
+      { t:'Соберём карту по шагам', d:'Этапы, контрольные точки и практические действия. Вы видите прогресс и двигаетесь в своём темпе — как в игре с пользой.', icon:'map' },
+      { t:'Анонимно и бережно', d:'Без ФИО, телефона и контактов. 20–30 минут, любой вопрос можно пропустить. Мы про позитив и развитие.', icon:'shield' },
+    ];
     const Questionnaire = ({ onClose, onComplete }) => {
-      const [stage,setStage]=useState('intro'); // intro | q | values | reveal
-      const [step,setStep]=useState(0);
-      const [picks,setPicks]=useState(Array(QUESTIONS.length).fill(null));
-      const [values,setValues]=useState([]);
+      const [stage,setStage]=useState('intro'); // intro | anketa | reveal
+      const [slide,setSlide]=useState(0);
+      const [bi,setBi]=useState(0);
+      const [answers,setAnswers]=useState({});
       const [result,setResult]=useState(null);
-      const maxIdx = QUESTIONS.length+1; // input steps: 5 вопросов + ценности
-      const idx = stage==='q'?step+1 : stage==='values'?maxIdx : 0;
-      const progress = stage==='intro'?0 : stage==='reveal'?1 : idx/maxIdx;
-      const fog = stage==='reveal'?0 : Math.max(0.05, 0.8 - progress*0.8);
-      const choose=(opt)=>{ const pp=picks.slice(); pp[step]=opt; setPicks(pp); setTimeout(()=>{ if(step<QUESTIONS.length-1) setStep(s=>s+1); else setStage('values'); },180); };
-      const toggleVal=(v)=>setValues(vs=>vs.includes(v)?vs.filter(x=>x!==v):(vs.length<3?[...vs,v]:vs));
-      const reveal=()=>{ setResult(computeResult(picks,values)); setStage('reveal'); };
-      const back=()=>{ if(stage==='q'){ if(step>0) setStep(step-1); else setStage('intro'); } else if(stage==='values'){ setStage('q'); setStep(QUESTIONS.length-1); } };
+      const scrollRef = useRef(null);
+      const block = ANKETA[bi];
+      const progress = (bi+1)/ANKETA.length;
+      const set=(qid,val)=>setAnswers(p=>({...p,[qid]:val}));
+      const next=()=>{ if(bi<ANKETA.length-1){ setBi(bi+1); if(scrollRef.current) scrollRef.current.scrollTop=0; } else { setResult(computeResult(answers)); setStage('reveal'); } };
+      const back=()=>{ if(bi>0){ setBi(bi-1); if(scrollRef.current) scrollRef.current.scrollTop=0; } else setStage('intro'); };
       const rec = result?byId(result.recommended):null;
-      return (<div className="fixed inset-0 z-[60] flex items-center justify-center p-4 modal-overlay" style={{background:'rgba(7,11,20,0.82)',backdropFilter:'blur(12px)'}}>
-        <div className="modal-content w-full max-w-lg rounded-3xl p-6 md:p-7 relative bg-night-800 border border-white/10 text-white overflow-hidden">
-          <div className="absolute inset-0 pointer-events-none" style={{background:'radial-gradient(circle at 50% 24%, rgba(148,163,184,0.24), rgba(148,163,184,0.05) 46%, transparent 72%)',opacity:fog,transition:'opacity .7s ease'}}/>
-          <button onClick={onClose} className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10"><Icon name="close" className="w-4 h-4"/></button>
-          <div className="relative">
-            {stage!=='intro'&&(<><div className="text-[10px] uppercase tracking-wider opacity-55 mb-1">{stage==='reveal'?'Туман рассеялся':`Анкета · ${idx} из ${maxIdx}`}</div>
-              <div className="h-1.5 rounded-full bg-white/8 overflow-hidden mb-5"><div className="h-full rounded-full bg-gradient-to-r from-teal-400 to-violet-500" style={{width:`${progress*100}%`,transition:'width .4s'}}/></div></>)}
+      return (<div className="fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-4 modal-overlay" style={{background:'rgba(7,11,20,0.9)',backdropFilter:'blur(12px)'}}>
+        <div className="modal-content w-full max-w-xl max-h-[94vh] flex flex-col rounded-3xl relative bg-night-800 border border-white/10 text-white overflow-hidden">
+          <button onClick={onClose} className="absolute top-3.5 right-3.5 z-20 w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10"><Icon name="close" className="w-4 h-4"/></button>
 
-            {stage==='intro'&&(<div className="text-center py-3">
-              <div className="text-[11px] uppercase tracking-[0.25em] opacity-50 mb-3">Дорожная карта будущего</div>
-              <h3 className="font-display font-bold text-2xl md:text-3xl leading-tight mb-3">Выход из тумана</h3>
-              <p className="text-sm opacity-70 max-w-sm mx-auto mb-1">Будущее — не прямая линия, а пространство возможностей.</p>
-              <p className="text-sm opacity-70 max-w-sm mx-auto mb-6">Ответьте на несколько вопросов — туман рассеется, и проступит ваша траектория.</p>
-              <div className="flex flex-col gap-2 max-w-xs mx-auto mb-7">{['Что завершилось?','Что болит?','Что зовёт дальше?'].map((t,i)=>(<div key={i} className="text-[13px] px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 opacity-85">{t}</div>))}</div>
-              <button onClick={()=>setStage('q')} className="px-6 py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-teal-500 to-violet-600 text-white hover:opacity-90 transition">Начать →</button>
-              <p className="text-[10px] opacity-40 mt-4">Это карта-ориентир, а не прогноз и не диагноз.</p>
-            </div>)}
+          {stage==='intro'&&(<div className="p-6 sm:p-8 flex flex-col items-center text-center" key={slide}>
+            <div className="text-[11px] uppercase tracking-[0.25em] opacity-50 mb-5">Дорожная карта будущего</div>
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-500 to-violet-600 flex items-center justify-center mb-5 intro-up" style={{boxShadow:'0 0 30px rgba(167,139,250,0.4)'}}><Icon name={ONBOARD_SLIDES[slide].icon} className="w-8 h-8"/></div>
+            <h3 className="font-display font-bold text-2xl leading-tight mb-3 max-w-sm">{ONBOARD_SLIDES[slide].t}</h3>
+            <p className="text-sm opacity-70 max-w-sm mb-6 leading-relaxed">{ONBOARD_SLIDES[slide].d}</p>
+            <div className="flex gap-1.5 mb-6">{ONBOARD_SLIDES.map((_,i)=><span key={i} className="h-1.5 rounded-full transition-all" style={{width:i===slide?24:6,background:i===slide?'#2DD4BF':'rgba(255,255,255,0.2)'}}/>)}</div>
+            <div className="flex gap-2">{slide>0&&<button onClick={()=>setSlide(slide-1)} className="px-4 py-2.5 rounded-xl text-sm opacity-70 hover:opacity-100 transition">Назад</button>}<button onClick={()=>slide<ONBOARD_SLIDES.length-1?setSlide(slide+1):setStage('anketa')} className="px-6 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-teal-500 to-violet-600 text-white hover:opacity-90 transition">{slide<ONBOARD_SLIDES.length-1?'Далее →':'Начать анкету →'}</button></div>
+          </div>)}
 
-            {stage==='q'&&(<><h3 className="font-display font-bold text-xl leading-tight mb-5">{QUESTIONS[step].q}</h3><div className="space-y-2.5">{QUESTIONS[step].opts.map((o,i)=>{const sel=picks[step]===o;return(<button key={i} onClick={()=>choose(o)} className={`w-full text-left px-4 py-3 rounded-xl border transition flex items-center gap-3 ${sel?'border-teal-400 bg-teal-500/10':'border-white/10 hover:border-white/25 hover:bg-white/5'}`}><span className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center ${sel?'border-teal-400 bg-teal-400 text-night-900':'border-white/30'}`}>{sel&&<Icon name="check" className="w-3 h-3" stroke={3}/>}</span><span className="text-sm">{o.label}</span></button>);})}</div></>)}
-
-            {stage==='values'&&(<><h3 className="font-display font-bold text-xl leading-tight mb-1">Выберите до 3 ценностей-опор</h3><p className="text-[12px] opacity-60 mb-4">На что хотите опираться ({values.length}/3).</p><div className="flex flex-wrap gap-2">{ALL_VALUES.map(v=>{const sel=values.includes(v);return(<button key={v} onClick={()=>toggleVal(v)} className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm border transition ${sel?'border-teal-400 bg-teal-500/15 text-teal-200':'border-white/10 hover:border-white/25'}`}><Icon name={VALUE_ICONS[v]||'star'} className="w-3.5 h-3.5"/>{v}</button>);})}</div></>)}
-
-            {stage==='reveal'&&rec&&(<div className="text-center intro-up">
-              <h3 className="font-display font-bold text-xl mb-1">Проступила ваша траектория</h3>
-              <p className="text-[12px] opacity-60 mb-5">Рекомендованная орбита по вашим ответам — ориентир, который можно скорректировать.</p>
-              <div className="rounded-2xl p-5 mb-4 border" style={{borderColor:rec.accent,background:`${rec.accent}14`,boxShadow:`0 0 32px ${rec.accent}40`}}>
-                <div className="text-[10px] uppercase tracking-wider mb-1" style={{color:rec.accent}}>{rec.orbitName}</div>
-                <div className="font-display font-bold text-2xl mb-1" style={{color:rec.accent}}>{rec.title}</div>
-                <div className="text-[12px] opacity-70 mb-3">{rec.tagline}</div>
-                <div className="text-3xl font-bold leading-none" style={{color:rec.accent}}>{result.match[rec.id]}%</div>
-                <div className="text-[10px] uppercase tracking-wider opacity-50 mt-1">соответствие</div>
-              </div>
-              <div className="grid grid-cols-2 gap-3 mb-5">
-                <div className="rounded-xl p-3 bg-white/5 border border-white/10 flex flex-col items-center justify-center"><Gauge value={result.readiness} label="Готовность"/></div>
-                <div className="rounded-xl p-3 bg-white/5 border border-white/10 flex flex-col justify-center text-left"><div className="text-[10px] uppercase tracking-wider opacity-50 mb-1">Выдерживаемость</div><div className="text-2xl font-bold mb-1.5" style={{color:rec.accent}}>{result.sustain}</div><div className="h-1.5 rounded-full bg-white/8 overflow-hidden"><div className="h-full rounded-full" style={{width:`${result.sustain}%`,background:rec.accent}}/></div><div className="text-[10px] opacity-50 mt-1.5 leading-tight">насколько путь выдерживаем для вас</div></div>
-              </div>
-              <button onClick={()=>onComplete(result)} className="w-full px-6 py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-teal-500 to-violet-600 text-white hover:opacity-90 transition">Перейти на карту →</button>
-            </div>)}
-
-            {(stage==='q'||stage==='values')&&(<div className="flex items-center justify-between mt-6">
+          {stage==='anketa'&&(<>
+            <div className="p-5 sm:p-6 pb-3 shrink-0">
+              <div className="flex items-center justify-between text-[10px] uppercase tracking-wider opacity-55 mb-1 pr-9"><span>Блок {bi+1} из {ANKETA.length}</span><span>{Math.round(progress*100)}%</span></div>
+              <div className="h-1.5 rounded-full bg-white/8 overflow-hidden mb-3"><div className="h-full rounded-full bg-gradient-to-r from-teal-400 to-violet-500" style={{width:`${progress*100}%`,transition:'width .4s'}}/></div>
+              <h3 className="font-display font-bold text-lg leading-tight">{block.title}</h3>{block.sub&&<p className="text-[12px] opacity-55">{block.sub}</p>}
+            </div>
+            <div ref={scrollRef} className="flex-1 overflow-y-auto thin-scroll px-5 sm:px-6 space-y-5 pb-4" key={bi}>
+              {block.qs.map(q=>(<div key={q.id}><div className="text-[13px] font-semibold mb-2">{q.q}</div><QField q={q} value={answers[q.id]} onChange={(val)=>set(q.id,val)}/></div>))}
+              <p className="text-[10px] opacity-40 text-center pt-1">Любой вопрос можно пропустить. Анкета анонимна и не является диагнозом.</p>
+            </div>
+            <div className="p-4 sm:p-5 pt-3 shrink-0 flex items-center justify-between border-t border-white/8">
               <button onClick={back} className="flex items-center gap-1.5 text-sm opacity-70 hover:opacity-100 transition"><Icon name="chevronL" className="w-4 h-4"/>Назад</button>
-              {stage==='values'?<button onClick={()=>values.length>0&&reveal()} disabled={values.length===0} className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition ${values.length>0?'bg-gradient-to-r from-teal-500 to-violet-600 text-white hover:opacity-90':'bg-white/8 text-white/40'}`}>Рассеять туман →</button>:<span className="text-[11px] opacity-40">выберите вариант</span>}
-            </div>)}
-          </div>
+              <button onClick={next} className="px-5 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-teal-500 to-violet-600 text-white hover:opacity-90 transition flex items-center gap-1.5">{bi<ANKETA.length-1?'Далее':'Построить карту'}<Icon name="chevron" className="w-4 h-4"/></button>
+            </div>
+          </>)}
+
+          {stage==='reveal'&&rec&&(<div className="p-6 overflow-y-auto thin-scroll text-center intro-up">
+            <div className="text-[11px] uppercase tracking-wider mb-1" style={{color:rec.accent}}>Готово</div>
+            <h3 className="font-display font-bold text-xl mb-1">Ваша траектория собрана</h3>
+            <p className="text-[12px] opacity-60 mb-5">Рекомендованная орбита по вашим ответам — ориентир, который можно скорректировать.</p>
+            <div className="rounded-2xl p-5 mb-4 border" style={{borderColor:rec.accent,background:`${rec.accent}14`,boxShadow:`0 0 32px ${rec.accent}40`}}>
+              <div className="text-[10px] uppercase tracking-wider mb-1" style={{color:rec.accent}}>{rec.orbitName}</div>
+              <div className="font-display font-bold text-2xl mb-1" style={{color:rec.accent}}>{rec.title}</div>
+              <div className="text-[12px] opacity-70 mb-3">{rec.tagline}</div>
+              <div className="text-3xl font-bold leading-none" style={{color:rec.accent}}>{result.match[rec.id]}%</div>
+              <div className="text-[10px] uppercase tracking-wider opacity-50 mt-1">соответствие</div>
+            </div>
+            {result.restorative&&<div className="rounded-xl p-3 mb-4 bg-teal-500/10 border border-teal-500/25 text-[12px] text-teal-100 leading-snug">Сначала — бережное восстановление ресурса, затем стратегия. Двигаемся в комфортном темпе.</div>}
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="rounded-xl p-3 bg-white/5 border border-white/10 flex flex-col items-center justify-center"><Gauge value={result.readiness} label="Готовность"/></div>
+              <div className="rounded-xl p-3 bg-white/5 border border-white/10 flex flex-col justify-center text-left"><div className="text-[10px] uppercase tracking-wider opacity-50 mb-1">Выдерживаемость</div><div className="text-2xl font-bold mb-1.5" style={{color:rec.accent}}>{result.sustain}</div><div className="h-1.5 rounded-full bg-white/8 overflow-hidden"><div className="h-full rounded-full" style={{width:`${result.sustain}%`,background:rec.accent}}/></div><div className="text-[10px] opacity-50 mt-1.5 leading-tight">насколько путь выдерживаем</div></div>
+            </div>
+            {result.mainKnot&&<div className="text-left rounded-xl p-3 mb-4 bg-white/5 border border-white/10"><div className="text-[10px] uppercase tracking-wider opacity-50 mb-0.5">Главный фокус</div><div className="text-[13px]">{result.mainKnot}</div></div>}
+            <button onClick={()=>onComplete(result)} className="w-full px-6 py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-teal-500 to-violet-600 text-white hover:opacity-90 transition">Перейти на карту →</button>
+          </div>)}
         </div></div>);
     };
 
