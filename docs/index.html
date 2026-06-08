@@ -226,7 +226,7 @@
       ['values','Ценности и смыслы','heart'],['socioCode','Социокультурный код','globe'],['proCapital','Профессиональный капитал','star'],
       ['role','Новая роль и позиционирование','compassRole'],['income','Модель дохода','money'],['resources','Ресурсы и сильные стороны','anchor'],
       ['risks','Риски и сопротивление','shield'],['scenarios','Три сценария будущего','trending'],['skills','Skill-карта','sparkle'],
-      ['environment','Карта среды','globe'],
+      ['environment','Карта среды','globe'],['valuechain','Цепочка реализации','zap'],
     ];
     function buildProfile(result) {
       const rec = result ? result.recommended : 'growth';
@@ -235,7 +235,8 @@
       const readiness = result ? result.readiness : 48;
       const spaces = result ? result.spaces : {energy:64,focus:58,skills:70,env:52,finance:60};
       const match = result ? result.match : {careful:33,growth:34,breakthrough:33};
-      return { ...PROFILE_DATA, rec, accent, values, readiness, spaces, match };
+      const sustainBy = result && result.sustainBy ? result.sustainBy : {careful:86,growth:70,breakthrough:54};
+      return { ...PROFILE_DATA, rec, accent, values, readiness, spaces, match, sustainBy };
     }
 
     // Ресурсы — форматы, что вы получите, пакет, прототипы, отличие, этика
@@ -431,7 +432,24 @@
     );
 
     /* ========== ВКЛАДКА: ПРОФИЛЬ ========== */
-    const IdentityArc = ({ id }) => (<div className="flex items-center gap-2 flex-wrap">{[['Кем была',id.was,'opacity-60'],['Кто сейчас',id.now,'text-teal-300'],['Кем становлюсь',id.becoming,'text-violet-300']].map((p,i)=>(<React.Fragment key={i}><div className="px-3 py-2 rounded-xl bg-white/5 border border-white/10"><div className="text-[9px] uppercase tracking-wider opacity-45">{p[0]}</div><div className={`text-[13px] font-medium ${p[2]}`}>{p[1]}</div></div>{i<2&&<Icon name="arrowRight" className="w-4 h-4 opacity-40"/>}</React.Fragment>))}</div>);
+    const IdentityMorph = ({ id, accent }) => {
+      const [foc,setFoc]=useState(1);
+      const stages=[['Кем была',id.was,'#94A3B8'],['Кто сейчас',id.now,'#2DD4BF'],['Кем становлюсь',id.becoming,accent]];
+      return (<div>
+        <div className="flex items-stretch gap-1.5">
+          {stages.map((s,i)=>(<React.Fragment key={i}>
+            <button onClick={()=>setFoc(i)} className="flex-1 text-center transition-all duration-300" style={{transform:foc===i?'translateY(-2px) scale(1.03)':'none'}}>
+              <div className="rounded-xl border p-3 h-full" style={{borderColor:foc===i?s[2]:'rgba(255,255,255,0.1)',background:foc===i?`${s[2]}18`:'rgba(255,255,255,0.04)',boxShadow:foc===i?`0 0 20px ${s[2]}33`:'none'}}>
+                <div className="text-[9px] uppercase tracking-wider opacity-50 mb-1">{s[0]}</div>
+                <div className="text-[13px] font-medium leading-tight" style={{color:foc===i?s[2]:'rgba(255,255,255,0.85)'}}>{s[1]}</div>
+              </div></button>
+            {i<2&&<div className="flex items-center"><span style={{color:accent,opacity:0.5}}><Icon name="arrowRight" className="w-4 h-4"/></span></div>}
+          </React.Fragment>))}
+        </div>
+        <div className="mt-2 h-1 rounded-full overflow-hidden bg-white/8"><div className="h-full rounded-full" style={{width:`${(foc+1)/3*100}%`,background:`linear-gradient(to right, #94A3B8, #2DD4BF, ${accent})`,transition:'width .4s'}}/></div>
+        <p className="text-[11px] opacity-50 mt-2">Три роли существуют одновременно. Переход — не разрыв, а перенос опоры из завершённого в рождающееся.</p>
+      </div>);
+    };
     const DualBar = ({ label, value, color }) => (<div><div className="flex justify-between text-[10px] mb-0.5"><span className="opacity-60">{label}</span><span style={{color}}>{value}</span></div><div className="h-1.5 rounded-full bg-white/8 overflow-hidden"><div className="h-full rounded-full" style={{width:`${value}%`,background:color,transition:'width .5s cubic-bezier(.16,1,.3,1)'}}/></div></div>);
     const MoneyCeiling = () => { const m=MONEY_CEILING; const pins=[['normal','привычный','rgba(255,255,255,0.55)'],['allowed','разрешённый','#2DD4BF'],['desired','желаемый','#FBBF24']]; return (
       <div className="rounded-2xl p-4 bg-white/5 border border-white/10">
@@ -480,6 +498,55 @@
           </div>
         </div>
         <div className="grid sm:grid-cols-2 gap-3 mt-4"><MoneyCeiling/><Subjectness accent={accent}/></div>
+      </div>); };
+    // Выдерживаемость: матрица «желанность × психологическая выдерживаемость» (ключевой конструкт психологии основы).
+    const SustainMatrix = ({ match, sustainBy, rec }) => (
+      <div className="relative w-full rounded-xl bg-white/5 border border-white/10 overflow-hidden" style={{aspectRatio:'1'}}>
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <rect x="50" y="6" width="44" height="44" fill="rgba(45,212,191,0.07)"/>
+          <line x1="50" y1="6" x2="50" y2="94" stroke="rgba(255,255,255,0.08)" strokeWidth="0.3"/>
+          <line x1="6" y1="50" x2="94" y2="50" stroke="rgba(255,255,255,0.08)" strokeWidth="0.3"/>
+          {SCENARIOS.map(s=>{const x=10+(match[s.id]/100)*80;const y=90-(sustainBy[s.id]/100)*80;const isRec=rec===s.id;const an=x<26?'start':x>74?'end':'middle';const ly=y<13?y+5.6:y-4.2;return (<g key={s.id}>{isRec&&<circle cx={x} cy={y} r="5.2" fill="none" stroke={s.accent} strokeWidth="0.4" className="aura-pulse"/>}<circle cx={x} cy={y} r={isRec?3.4:2.6} fill={s.accent} style={{filter:`drop-shadow(0 0 2px ${s.accent})`}}/><text x={x} y={ly} textAnchor={an} fontSize="3.3" fontWeight={isRec?'700':'500'} fill="#fff" style={{textShadow:'0 1px 3px #000'}}>{s.title}</text></g>);})}
+        </svg>
+        <div className="absolute top-1.5 right-2 text-[8px] text-teal-300/75 text-right leading-tight">выдерживаемая<br/>мечта</div>
+        <div className="absolute bottom-7 right-2 text-[8px] text-orange-300/65 text-right leading-tight">желанно,<br/>но тяжело</div>
+        <div className="absolute top-1.5 left-2 text-[8px] text-white/40 leading-tight">легко,<br/>но не зовёт</div>
+        <div className="absolute bottom-1 left-1/2 -translate-x-1/2 text-[8px] text-white/45">желанность →</div>
+        <div className="absolute left-1 top-1/2 -translate-y-1/2 text-[8px] text-white/45" style={{writingMode:'vertical-rl',transform:'translateY(-50%) rotate(180deg)'}}>выдерживаемость →</div>
+      </div>);
+    const BodyCompass = ({ accent }) => {
+      const [felt,setFelt]=useState(null);
+      return (<div className="rounded-xl bg-white/5 border border-white/10 p-3.5">
+        <div className="text-[12px] font-semibold mb-1">Телесный компас «да / нет»</div>
+        <p className="text-[11px] opacity-60 mb-3">Представьте рекомендованный путь. Тело расширяется или сжимается? Это часть карты.</p>
+        <div className="flex gap-2">
+          <button onClick={()=>setFelt('yes')} className={`flex-1 py-2 rounded-lg text-[12px] border transition ${felt==='yes'?'border-teal-400 bg-teal-500/15 text-teal-200':'border-white/10 hover:border-white/25'}`}>Расширение · да</button>
+          <button onClick={()=>setFelt('no')} className={`flex-1 py-2 rounded-lg text-[12px] border transition ${felt==='no'?'border-orange-400 bg-orange-500/12 text-orange-200':'border-white/10 hover:border-white/25'}`}>Сжатие · стоп</button>
+        </div>
+        {felt&&<p className="text-[11px] opacity-70 mt-3 leading-snug">{felt==='yes'?'Телесное «да» — путь выдерживаем. Двигайтесь в своём темпе.':'Сжатие — это сигнал, а не запрет. Возможно, нужен более бережный темп или шаг поменьше.'}</p>}
+      </div>); };
+    // Цепочка реализации: смысл → роль → доход → действие (смысловой стержень основы).
+    const CHAIN = [
+      { id:'meaning', label:'Смысл', icon:'heart', color:'#2DD4BF' },
+      { id:'role', label:'Роль', icon:'compassRole', color:'#A78BFA' },
+      { id:'income', label:'Доход', icon:'money', color:'#FBBF24' },
+      { id:'action', label:'Действие', icon:'sparkle', color:'#FB923C' },
+    ];
+    const ValueChain = ({ data }) => {
+      const [act,setAct]=useState(0);
+      const content={ meaning:`Опора на ценности: ${data.values.join(', ')} — то, что нельзя предавать.`, role:`${byId(data.rec).roleOutcome} — роль, которую можно занять без предательства себя.`, income:`Гипотезы дохода: ${data.income.slice(0,2).join(', ')}. Проверяем малыми шагами, без обещаний по сумме.`, action:'Первый безопасный прототип на 7 дней — проверка гипотезы в реальности, а не в голове.' };
+      return (<div>
+        <div className="flex items-center gap-1">
+          {CHAIN.map((c,i)=>(<React.Fragment key={c.id}>
+            <button onClick={()=>setAct(i)} className="flex flex-col items-center gap-1 transition-transform" style={{transform:act===i?'scale(1.08)':'none'}}>
+              <span className="w-11 h-11 rounded-full flex items-center justify-center border-2 transition" style={{borderColor:act===i?c.color:'rgba(255,255,255,0.15)',background:act===i?`${c.color}22`:'rgba(255,255,255,0.04)',boxShadow:act===i?`0 0 16px ${c.color}55`:'none',color:act===i?c.color:'rgba(255,255,255,0.6)'}}><Icon name={c.icon} className="w-4 h-4"/></span>
+              <span className="text-[10px] font-medium" style={{color:act===i?c.color:'rgba(255,255,255,0.6)'}}>{c.label}</span>
+            </button>
+            {i<CHAIN.length-1&&<div className="flex-1 h-0.5 rounded-full self-start mt-[22px]" style={{background:i<act?`linear-gradient(to right,${CHAIN[i].color},${CHAIN[i+1].color})`:'rgba(255,255,255,0.12)',transition:'background .3s'}}/>}
+          </React.Fragment>))}
+        </div>
+        <div className="mt-3 p-3 rounded-xl bg-white/5 border border-white/10 text-[12px] opacity-80 leading-snug">{content[CHAIN[act].id]}</div>
+        <p className="text-[10px] opacity-45 mt-2">Ценности без действий остаются мечтой; действия без ценностей ведут к выгоранию. Связь звеньев — и есть траектория.</p>
       </div>); };
     // Карта среды — гравитационный граф окружения (Блок 6 социологии): кто тянет вперёд, кто возвращает назад.
     const ENV_ZONES = [
@@ -539,7 +606,7 @@
           {!result && <Card className="p-3 text-center"><span className="text-[12px] opacity-75">Это образец отчёта. </span><button onClick={openQuiz} className="text-teal-300 text-[12px] font-semibold">Заполните анкету, чтобы персонализировать →</button></Card>}
           <ProfileSection id="transition" n={1} icon="compass" title="Точка перехода" accent={data.accent}><p className="text-[13px] opacity-80 leading-relaxed">{data.transition}</p></ProfileSection>
           <ProfileSection id="portrait" n={2} icon="brain" title="Психологический портрет" accent={data.accent}><p className="text-[13px] opacity-80 mb-2">{data.portrait.decisionStyle}</p><div className="grid sm:grid-cols-2 gap-3"><div><div className="text-[10px] uppercase tracking-wider opacity-50 mb-1">Сильные стороны</div><div className="flex flex-wrap gap-1.5">{data.portrait.strengths.map(x=><Chip key={x}>{x}</Chip>)}</div></div><div><div className="text-[10px] uppercase tracking-wider opacity-50 mb-1">Зоны внимания</div><div className="flex flex-wrap gap-1.5">{data.portrait.vulnerabilities.map(x=><span key={x} className="text-[11px] px-2.5 py-1 rounded-full bg-orange-500/12 text-orange-200">{x}</span>)}</div></div></div></ProfileSection>
-          <ProfileSection id="identity" n={3} icon="user" title="Карта идентичности" accent={data.accent}><IdentityArc id={data.identity}/></ProfileSection>
+          <ProfileSection id="identity" n={3} icon="user" title="Карта идентичности · был → есть → становлюсь" accent={data.accent}><IdentityMorph id={data.identity} accent={data.accent}/></ProfileSection>
           <ProfileSection id="values" n={4} icon="heart" title="Ценности и смыслы" accent={data.accent}><div className="text-[11px] opacity-55 mb-2">Зрелые опоры (выбраны вами):</div><div className="flex flex-wrap gap-2 mb-3">{data.values.map(v=><span key={v} className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-lg bg-teal-500/15 text-teal-200"><Icon name={VALUE_ICONS[v]||'star'} className="w-3.5 h-3.5"/>{v}</span>)}</div><div className="text-[11px] opacity-45 mb-1">Фоновые ценности:</div><div className="flex flex-wrap gap-1.5">{ALL_VALUES.filter(v=>!data.values.includes(v)).map(v=><Chip key={v}>{v}</Chip>)}</div></ProfileSection>
           <ProfileSection id="socioCode" n={5} icon="globe" title="Социокультурный код · звезда кода" accent={data.accent}><CodeStar accent={data.accent}/></ProfileSection>
           <ProfileSection id="proCapital" n={6} icon="star" title="Профессиональный капитал" accent={data.accent}><div className="flex flex-wrap gap-2">{data.proCapital.map(x=><span key={x} className="text-xs px-2.5 py-1.5 rounded-lg bg-violet-500/12 text-violet-200">{x}</span>)}</div></ProfileSection>
@@ -547,9 +614,10 @@
           <ProfileSection id="income" n={8} icon="money" title="Модель дохода" accent={data.accent}><p className="text-[12px] opacity-65 mb-2">Гипотезы монетизации опыта — без обещаний по сумме, проверяем малыми шагами.</p><div className="flex flex-wrap gap-2">{data.income.map(x=><Chip key={x}>{x}</Chip>)}</div></ProfileSection>
           <ProfileSection id="resources" n={9} icon="anchor" title="Ресурсы и сильные стороны" accent={data.accent}><ul className="space-y-1.5">{data.resources.map((x,i)=><li key={i} className="flex gap-2 text-[13px]"><Icon name="check" className="w-3.5 h-3.5 text-teal-400 mt-0.5 shrink-0"/>{x}</li>)}</ul></ProfileSection>
           <ProfileSection id="risks" n={10} icon="shield" title="Риски и сопротивление" accent={data.accent}><ul className="space-y-1.5">{data.risks.map((x,i)=><li key={i} className="flex gap-2 text-[13px]"><Icon name="horizon" className="w-3.5 h-3.5 text-orange-300 mt-0.5 shrink-0"/>{x}</li>)}</ul><p className="text-[11px] opacity-45 mt-2">{data.readiness<55?'Готовность умеренная — бережный темп предпочтителен.':'Готовность достаточная для активного движения.'}</p></ProfileSection>
-          <ProfileSection id="scenarios" n={11} icon="trending" title="Три сценария будущего" accent={data.accent}><div className="grid sm:grid-cols-3 gap-2">{sc.map(s=>(<button key={s.id} onClick={()=>{setSelected(s.id);setTab('map');}} className="text-left p-3 rounded-xl border transition hover:scale-[1.02]" style={{borderColor:`${s.accent}55`,background:`${s.accent}12`}}>{data.rec===s.id&&<div className="text-[8px] uppercase font-bold mb-1" style={{color:s.accent}}>Рекомендовано</div>}<div className="font-display font-bold text-sm" style={{color:s.accent}}>{s.title}</div><div className="text-[10px] opacity-65 leading-tight mb-1">{s.tagline}</div><div className="text-[11px] font-semibold" style={{color:s.accent}}>{data.match[s.id]}%</div></button>))}</div></ProfileSection>
+          <ProfileSection id="scenarios" n={11} icon="trending" title="Три сценария будущего" accent={data.accent}><div className="grid sm:grid-cols-3 gap-2">{sc.map(s=>(<button key={s.id} onClick={()=>{setSelected(s.id);setTab('map');}} className="text-left p-3 rounded-xl border transition hover:scale-[1.02]" style={{borderColor:`${s.accent}55`,background:`${s.accent}12`}}>{data.rec===s.id&&<div className="text-[8px] uppercase font-bold mb-1" style={{color:s.accent}}>Рекомендовано</div>}<div className="font-display font-bold text-sm" style={{color:s.accent}}>{s.title}</div><div className="text-[10px] opacity-65 leading-tight mb-1">{s.tagline}</div><div className="text-[11px] font-semibold" style={{color:s.accent}}>{data.match[s.id]}%</div></button>))}</div><div className="grid sm:grid-cols-2 gap-3 mt-3"><SustainMatrix match={data.match} sustainBy={data.sustainBy} rec={data.rec}/><BodyCompass accent={data.accent}/></div></ProfileSection>
           <ProfileSection id="skills" n={12} icon="sparkle" title="Skill-карта" accent={data.accent}><div className="grid sm:grid-cols-2 gap-2">{data.skills.map((sk,i)=>(<div key={i} className="flex gap-2 p-2 rounded-lg bg-white/5"><span className="text-[10px] opacity-50 w-4 shrink-0">{i+1}</span><div><div className="text-[12px] font-medium">{sk[0]}</div><div className="text-[11px] opacity-60 leading-tight">{sk[1]}</div></div></div>))}</div></ProfileSection>
           <ProfileSection id="environment" n={13} icon="globe" title="Карта среды · гравитация окружения" accent={data.accent}><EnvironmentMap/></ProfileSection>
+          <ProfileSection id="valuechain" n={14} icon="zap" title="Цепочка: смысл → роль → доход → действие" accent={data.accent}><ValueChain data={data}/></ProfileSection>
           <Disclaimer>Отчёт — это гипотезы и опоры, а не диагноз и не прогноз. Данные хранятся локально в вашем браузере.</Disclaimer>
         </div>
       </div>);
