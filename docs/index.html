@@ -44,7 +44,7 @@
     .lift:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,0.35)}
     .stagger>*{animation:introUp .55s cubic-bezier(.16,1,.3,1) both}
     .stagger>*:nth-child(1){animation-delay:.04s}.stagger>*:nth-child(2){animation-delay:.10s}.stagger>*:nth-child(3){animation-delay:.16s}.stagger>*:nth-child(4){animation-delay:.22s}.stagger>*:nth-child(5){animation-delay:.28s}.stagger>*:nth-child(6){animation-delay:.34s}.stagger>*:nth-child(7){animation-delay:.40s}.stagger>*:nth-child(8){animation-delay:.46s}.stagger>*:nth-child(n+9){animation-delay:.5s}
-    @keyframes popIn{from{opacity:0;transform:translateY(10px) scale(.985);filter:blur(6px)}to{opacity:1;transform:none;filter:blur(0)}}.pop{animation:popIn .5s cubic-bezier(.16,1,.3,1) both}
+    @keyframes popIn{from{opacity:0;transform:scale(1.035);filter:blur(10px)}to{opacity:1;transform:none;filter:blur(0)}}.pop{animation:popIn .55s cubic-bezier(.16,1,.3,1) both}
     button,a{-webkit-tap-highlight-color:transparent}
     @media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
   </style>
@@ -315,6 +315,26 @@
       const personalized = !!(a.incomeNow||a.incomeWant||inh.length||arr('codeResource').length);
       return { money, subj, personalized };
     };
+    // Персонализация радара: форма «Звезды кода» из ответов (Q9 темы, Q11 ресурс, Q12 зоны роста).
+    const SOCIO_RES_RX = [[/трудолюб|дисциплин|выносл|ответствен/i,'work'],[/образован/i,'values'],[/знани|мышлен/i,'symbolic'],[/учиться/i,'future'],[/забота|слово/i,'family'],[/достоинств/i,'status'],[/преодолен/i,'future'],[/помогать/i,'values'],[/самостоятельн/i,'freedom']];
+    const SOCIO_LIM_RX = [[/тянуть на себе|планку?|планка/i,'work'],[/откладыван|недовери/i,'future'],[/публичност/i,'status'],[/цене/i,'money'],[/терпеть/i,'family'],[/мнения близких/i,'family'],[/стабильност/i,'future'],[/правильно/i,'freedom']];
+    const SOCIO_THEME_RX = [[/долг|терпен|семья|за других/i,'family'],[/стабильн|безопасн/i,'future'],[/труд/i,'work'],[/образован/i,'values'],[/статус|скромн/i,'status'],[/деньг/i,'money'],[/свобод|самостоят|автором/i,'freedom'],[/служен/i,'values']];
+    const matchCode = (rx, t) => { for (const [re,code] of rx) if (re.test(t)) return code; return null; };
+    const personalizeSocio = (answers) => {
+      const a=answers||{}; const arr=(id)=>Array.isArray(a[id])?a[id]:[];
+      if (!arr('codeResource').length && !arr('codeLimit').length && !arr('codeThemes').length) return SOCIO_CODES;
+      const resTags={}, limTags={}, dRes={}, dLim={};
+      arr('codeResource').forEach(t=>{const c=matchCode(SOCIO_RES_RX,t); if(c){dRes[c]=(dRes[c]||0)+15;(resTags[c]=resTags[c]||[]).push(t.toLowerCase());}});
+      arr('codeLimit').forEach(t=>{const c=matchCode(SOCIO_LIM_RX,t); if(c){dLim[c]=(dLim[c]||0)+17;(limTags[c]=limTags[c]||[]).push(t.toLowerCase());}});
+      arr('codeThemes').forEach(t=>{const c=matchCode(SOCIO_THEME_RX,t); if(c){dRes[c]=(dRes[c]||0)+7;}});
+      const cl=(v)=>Math.min(95,Math.max(12,Math.round(v)));
+      return SOCIO_CODES.map(c=>({ ...c,
+        res: cl(c.res*0.55 + 28 + (dRes[c.id]||0)),
+        lim: cl(c.lim*0.55 + 22 + (dLim[c.id]||0)),
+        resTags: resTags[c.id] && resTags[c.id].length ? resTags[c.id] : c.resTags,
+        limTags: limTags[c.id] && limTags[c.id].length ? limTags[c.id] : c.limTags,
+      }));
+    };
     const CS_R = 36; // радиус радара в координатах viewBox 0..100
     const csAng = (i) => -Math.PI/2 + i*2*Math.PI/SOCIO_CODES.length;
     const csXY = (r,a) => `${(50+r*Math.cos(a)).toFixed(2)},${(50+r*Math.sin(a)).toFixed(2)}`;
@@ -338,7 +358,8 @@
       const answers = result ? result.answers : null;
       const transition = (answers&&answers.noMore) ? answers.noMore : PROFILE_DATA.transition;
       const proCapital = (answers&&Array.isArray(answers.proCapital)&&answers.proCapital.length) ? answers.proCapital : PROFILE_DATA.proCapital;
-      return { ...PROFILE_DATA, rec, accent, values, readiness, spaces, match, sustainBy, answers, transition, proCapital };
+      const identity = (answers&&Array.isArray(answers.tightRole)&&answers.tightRole.length) ? {...PROFILE_DATA.identity, was:answers.tightRole[0]} : PROFILE_DATA.identity;
+      return { ...PROFILE_DATA, rec, accent, values, readiness, spaces, match, sustainBy, answers, transition, proCapital, identity };
     }
 
     // Ресурсы — форматы, что вы получите, пакет, прототипы, отличие, этика
@@ -611,7 +632,9 @@
       </div>);
     const CodeStar = ({ accent, answers }) => {
       const pz = personalize(answers);
-      const [sel,setSel]=useState(3); const c=SOCIO_CODES[sel];
+      const codes = personalizeSocio(answers);
+      const poly = (key)=>codes.map((cc,i)=>csXY((cc[key]/100)*CS_R,csAng(i))).join(' ');
+      const [sel,setSel]=useState(3); const c=codes[sel];
       return (<div>
         <p className="text-[11px] opacity-55 mb-3">10 кодов личности. У каждого двойная природа: <span className="text-teal-300">ресурс</span> тянет вперёд, <span className="text-amber-300">зона роста</span> — где есть куда расширяться. Нажмите на код — его не ломают, а переводят в новую траекторию.</p>
         <div className="grid lg:grid-cols-2 gap-4 items-center">
@@ -622,11 +645,11 @@
                 <filter id="cs-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
               </defs>
               {[0.25,0.5,0.75,1].map(f=><circle key={f} cx="50" cy="50" r={CS_R*f} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="0.3"/>)}
-              {SOCIO_CODES.map((_,i)=>{const p=csXY(CS_R,csAng(i)).split(',');return <line key={i} x1="50" y1="50" x2={p[0]} y2={p[1]} stroke="rgba(255,255,255,0.05)" strokeWidth="0.3"/>;})}
-              <polygon points={csPoly('lim')} fill="rgba(251,146,60,0.13)" stroke="#FB923C" strokeWidth="0.5" strokeOpacity="0.65" style={{transition:'all .4s'}}/>
-              <polygon points={csPoly('res')} fill="url(#cs-res)" stroke="#2DD4BF" strokeWidth="0.7" filter="url(#cs-glow)" style={{transition:'all .4s'}}/>
+              {codes.map((_,i)=>{const p=csXY(CS_R,csAng(i)).split(',');return <line key={i} x1="50" y1="50" x2={p[0]} y2={p[1]} stroke="rgba(255,255,255,0.05)" strokeWidth="0.3"/>;})}
+              <polygon points={poly('lim')} fill="rgba(251,191,36,0.13)" stroke="#FBBF24" strokeWidth="0.5" strokeOpacity="0.65" style={{transition:'all .4s'}}/>
+              <polygon points={poly('res')} fill="url(#cs-res)" stroke="#2DD4BF" strokeWidth="0.7" filter="url(#cs-glow)" style={{transition:'all .4s'}}/>
               {(()=>{const a=csAng(sel);const ep=csXY(CS_R,a).split(',');const rp=csXY((c.res/100)*CS_R,a).split(',');return (<g><line x1="50" y1="50" x2={ep[0]} y2={ep[1]} stroke={accent} strokeWidth="0.5" strokeOpacity="0.55"/><circle cx={rp[0]} cy={rp[1]} r="1.7" fill={accent}/></g>);})()}
-              {SOCIO_CODES.map((cc,i)=>{const a=csAng(i);const lx=50+43*Math.cos(a);const ly=50+43*Math.sin(a);const anchor=Math.cos(a)>0.25?'start':Math.cos(a)<-0.25?'end':'middle';return (<g key={i} onClick={()=>setSel(i)} style={{cursor:'pointer'}}><circle cx={lx} cy={ly} r="6" fill="transparent"/><text x={lx} y={ly} dy="1.1" textAnchor={anchor} fontSize="3.5" fontWeight={sel===i?'700':'500'} fill={sel===i?accent:'rgba(255,255,255,0.62)'} style={{transition:'fill .2s'}}>{cc.short}</text></g>);})}
+              {codes.map((cc,i)=>{const a=csAng(i);const lx=50+43*Math.cos(a);const ly=50+43*Math.sin(a);const anchor=Math.cos(a)>0.25?'start':Math.cos(a)<-0.25?'end':'middle';return (<g key={i} onClick={()=>setSel(i)} style={{cursor:'pointer'}}><circle cx={lx} cy={ly} r="6" fill="transparent"/><text x={lx} y={ly} dy="1.1" textAnchor={anchor} fontSize="3.5" fontWeight={sel===i?'700':'500'} fill={sel===i?accent:'rgba(255,255,255,0.62)'} style={{transition:'fill .2s'}}>{cc.short}</text></g>);})}
             </svg>
           </div>
           <div className="rounded-2xl p-4 bg-white/5 border border-white/10">
